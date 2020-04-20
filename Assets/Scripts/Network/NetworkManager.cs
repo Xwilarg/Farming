@@ -1,5 +1,4 @@
-﻿using System.Net.Sockets;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -8,20 +7,16 @@ public class NetworkManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void OnDestroy()
+    public void Host(int port)
     {
-        if (_client != null)
-            _client.Close();
-    }
-
-    public void Host()
-    {
+        _server = new NetworkServer(port);
     }
 
     public void Connect(string ip, int port)
     {
-        _client.Connect(ip, port);
+        _client = new NetworkClient(ip, port);
     }
 
-    private TcpClient _client = null;
+    NetworkClient _client = null;
+    NetworkServer _server = null;
 }
