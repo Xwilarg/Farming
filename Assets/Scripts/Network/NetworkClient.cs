@@ -47,6 +47,7 @@ public class NetworkClient
             case NetworkRequest.PlayerInstantiate:
                 writer.Write(Vector2.zero);
                 writer.Write(Vector2.zero);
+                _tcp.SendRequest(NetworkRequest.PlayerInstantiate, stream.ToArray());
                 break;
         }
     }

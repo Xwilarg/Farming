@@ -440,3 +440,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerPrefab: {fileID: 1325534618813131029, guid: c05c69b0f150def45ac4f13763c7af77,
     type: 3}
+  _green: {fileID: 2100000, guid: cbc0878ad6c6d6e4c9973c0c04397dbf, type: 2}
+  _blue: {fileID: 2100000, guid: 13a2cb88617172f44a485e20a07de617, type: 2}
