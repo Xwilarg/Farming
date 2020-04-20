@@ -35,9 +35,9 @@ public class NetworkManager : MonoBehaviour
     }
 
     // First thing called when the client is connected or the server start
-    public void SpawnPlayer(bool isMe, Vector3 pos, Vector3 vel)
+    public void SpawnPlayer(bool isMe, Vector2 pos, Vector2 vel)
     {
-        _toCall.Add(() => { _gm.InstantiatePlayer(isMe, pos, vel); });
+        _toCall.Add(() => { _gm.InstantiatePlayer(isMe, new Vector3(pos.x, 1f, pos.y), new Vector3(vel.x, 0f, vel.y)); });
     }
 
     private void Update()

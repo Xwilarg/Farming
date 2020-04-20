@@ -23,7 +23,12 @@ public class NetworkClient
 
             case NetworkRequest.AuthentificationSuccess:
                 _tcp.SetId(reader.ReadByte());
+                SendRequest(NetworkRequest.PlayerInstantiate);
                 _manager.SpawnPlayer(true, Vector3.up, Vector3.zero);
+                break;
+
+            case NetworkRequest.PlayerInstantiate:
+                _manager.SpawnPlayer(false, reader.ReadVector2(), reader.ReadVector2());
                 break;
         }
     }
@@ -37,6 +42,11 @@ public class NetworkClient
             case NetworkRequest.Authentification:
                 writer.Write(NetworkConstants._authKey);
                 _tcp.SendRequest(NetworkRequest.Authentification, stream.ToArray());
+                break;
+
+            case NetworkRequest.PlayerInstantiate:
+                writer.Write(Vector2.zero);
+                writer.Write(Vector2.zero);
                 break;
         }
     }

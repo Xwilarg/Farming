@@ -36,6 +36,7 @@ public class NetworkServer
                 if (reader.ReadString() == NetworkConstants._authKey)
                 {
                     SendRequest(tcp, NetworkRequest.AuthentificationSuccess);
+                    // Send all player positions
                 }
                 else
                 {
@@ -44,6 +45,11 @@ public class NetworkServer
                     writer.Write((byte)NetworkRequest.CriticalError);
                     writer.Write("Wrong authentification key");
                 }
+                break;
+
+            case NetworkRequest.PlayerInstantiate:
+                _manager.SpawnPlayer(false, reader.ReadVector2(), reader.ReadVector2());
+                SendToEveryone(NetworkRequest.PlayerInstantiate, payload, tcp.GetId());
                 break;
         }
     }
