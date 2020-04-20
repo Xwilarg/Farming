@@ -12,6 +12,7 @@ public class NetworkServer
         _listener = new TcpListener(IPAddress.Any, port);
         _listener.Start();
         _clients = new List<Client>();
+        CreateNewClientThread();
     }
 
     ~NetworkServer()
@@ -37,7 +38,6 @@ public class NetworkServer
             switch ((NetworkRequest)type)
             {
                 case NetworkRequest.Authentification:
-                    Debug.Log("Auth received");
                     if (reader.ReadString() == NetworkConstants._authKey)
                         writer.Write((byte)NetworkRequest.PlayerList);
                     else
