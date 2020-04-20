@@ -15,8 +15,6 @@ public class NetworkServer
         _listener.Start();
         _clients = new List<TCPWrapper>();
         CreateNewClientThread();
-
-        manager.SpawnPlayer(true, Vector3.up, Vector3.zero);
     }
 
     public void CreateNewClientThread()
@@ -76,6 +74,8 @@ public class NetworkServer
     private List<TCPWrapper> _clients;
 
     private NetworkManager _manager;
+    public void SpawnPlayer()
+        => _manager.SpawnPlayer(true, Vector3.up, Vector3.zero);
 
     private byte _idCount;
 }

@@ -9,6 +9,7 @@ public class NetworkClient
         _manager = manager;
 
         _tcp = new TCPWrapper(new TcpClient(ip, port), GetRequest, 0);
+        _tcp.SendRequest(NetworkRequest.Authentification, new byte[0]);
     }
 
     private void GetRequest(TCPWrapper _, NetworkRequest type, byte[] payload)

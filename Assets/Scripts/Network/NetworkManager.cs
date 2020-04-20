@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -9,7 +10,13 @@ public class NetworkManager : MonoBehaviour
 
     public void Host(int port)
     {
+        // We launch the server and spawn our player right when the main scene is done loading
         _server = new NetworkServer(this, port);
+        SceneManager.sceneLoaded += (scene, mode) =>
+        {
+            if (scene.name == "Main")
+                _server.SpawnPlayer();
+        };
     }
 
     public void Connect(string ip, int port)
