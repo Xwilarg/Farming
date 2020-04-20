@@ -2,5 +2,6 @@
 {
     Authentification,
     CriticalError,
-    PlayerList
+    AuthentificationSuccess,
+    PlayerInstantiate
 }

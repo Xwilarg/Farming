@@ -5,6 +5,9 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody _rb;
     private const float _speed = 10f;
+    private bool _isMe = true;
+
+    public void SetIsMe(bool value) => _isMe = value;
 
     private void Start()
     {
@@ -13,6 +16,9 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rb.velocity = new Vector3(Input.GetAxis("Horizontal") * _speed, _rb.velocity.y, Input.GetAxis("Vertical") * _speed);
+        if (_isMe) // Is local player
+        {
+            _rb.velocity = new Vector3(Input.GetAxis("Horizontal") * _speed, _rb.velocity.y, Input.GetAxis("Vertical") * _speed);
+        }
     }
 }

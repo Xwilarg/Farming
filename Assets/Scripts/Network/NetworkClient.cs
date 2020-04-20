@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class NetworkClient
 {
-    public NetworkClient(string ip, int port)
+    public NetworkClient(NetworkManager manager, string ip, int port)
     {
+        _manager = manager;
+
         _client = new TcpClient(ip, port);
         _ns = _client.GetStream();
         _writer = new BinaryWriter(_ns);
@@ -34,12 +36,15 @@ public class NetworkClient
                 case NetworkRequest.CriticalError:
                     throw new System.Exception(_reader.ReadString());
 
-                case NetworkRequest.PlayerList:
-                    Debug.Log("Nya");
+                case NetworkRequest.AuthentificationSuccess:
+                    _id = _reader.ReadByte();
+                    _manager.SpawnPlayer(true, Vector3.up, Vector3.zero);
                     break;
             }
         }
     }
+
+    private NetworkManager _manager;
 
     private TcpClient _client;
     private NetworkStream _ns;
@@ -47,4 +52,6 @@ public class NetworkClient
     private BinaryReader _reader;
 
     private Thread _listenThread;
+
+    private byte _id;
 }
