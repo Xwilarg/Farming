@@ -9,7 +9,7 @@ public class NetworkClient
         _manager = manager;
 
         _tcp = new TCPWrapper(new TcpClient(ip, port), GetRequest, 0);
-        _tcp.SendRequest(NetworkRequest.Authentification, new byte[0]);
+        SendRequest(NetworkRequest.Authentification);
     }
 
     private void GetRequest(TCPWrapper _, NetworkRequest type, byte[] payload)
@@ -24,6 +24,19 @@ public class NetworkClient
             case NetworkRequest.AuthentificationSuccess:
                 _tcp.SetId(reader.ReadByte());
                 _manager.SpawnPlayer(true, Vector3.up, Vector3.zero);
+                break;
+        }
+    }
+
+    private void SendRequest(NetworkRequest type)
+    {
+        MemoryStream stream = new MemoryStream();
+        BinaryWriter writer = new BinaryWriter(stream);
+        switch (type)
+        {
+            case NetworkRequest.Authentification:
+                writer.Write(NetworkConstants._authKey);
+                _tcp.SendRequest(NetworkRequest.Authentification, stream.ToArray());
                 break;
         }
     }

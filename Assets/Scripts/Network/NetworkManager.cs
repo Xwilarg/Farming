@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour
@@ -6,6 +8,14 @@ public class NetworkManager : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+        _toCall = new List<Action>();
+        SceneManager.sceneLoaded += (scene, mode) =>
+        {
+            if (scene.name == "Main")
+            {
+                _gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+            }
+        };
     }
 
     public void Host(int port)
@@ -27,12 +37,24 @@ public class NetworkManager : MonoBehaviour
     // First thing called when the client is connected or the server start
     public void SpawnPlayer(bool isMe, Vector3 pos, Vector3 vel)
     {
-        _gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>(); // We need to wait to be on the Main scene to do that
-        _gm.InstantiatePlayer(isMe, pos, vel);
+        _toCall.Add(() => { _gm.InstantiatePlayer(isMe, pos, vel); });
+    }
+
+    private void Update()
+    {
+        // We can only do some stuffs from the main thread so we store them in "_toCall"
+        if (_toCall.Count > 0 && _gm != null)
+        {
+            foreach (var fct in _toCall)
+                fct();
+            _toCall = new List<Action>();
+        }
     }
 
     private NetworkClient _client = null;
     private NetworkServer _server = null;
 
     private GameManager _gm;
+
+    private List<Action> _toCall;
 }

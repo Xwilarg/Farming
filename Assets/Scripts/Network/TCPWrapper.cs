@@ -47,8 +47,14 @@ public class TCPWrapper
         {
             byte type = _reader.ReadByte();
             byte length = _reader.ReadByte();
-            byte[] payload = new byte[length];
-            _reader.Read(payload, 0, length);
+            byte[] payload;
+            if (length == 0)
+                payload = new byte[0];
+            else
+            {
+                payload = new byte[length];
+                _reader.Read(payload, 0, length);
+            }
             _callback(this, (NetworkRequest)type, payload);
         }
     }
