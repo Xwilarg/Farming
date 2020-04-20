@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class NetworkServer
@@ -14,80 +13,69 @@ public class NetworkServer
         _manager = manager;
         _listener = new TcpListener(IPAddress.Any, port);
         _listener.Start();
-        _clients = new List<Client>();
+        _clients = new List<TCPWrapper>();
         CreateNewClientThread();
 
         manager.SpawnPlayer(true, Vector3.up, Vector3.zero);
     }
 
-    ~NetworkServer()
-    { }
-
     public void CreateNewClientThread()
     {
-        _clients.Add(new Client(this, _idCount));
-        _idCount++;
+        Task.Run(() =>
+        {
+            _clients.Add(new TCPWrapper(_listener.AcceptTcpClient(), GetRequest, _idCount++));
+            CreateNewClientThread();
+        });
     }
 
-    public void Listen(Client c)
+    private void GetRequest(TCPWrapper tcp, NetworkRequest type, byte[] payload)
     {
-        c._client = _listener.AcceptTcpClient();
-        NetworkStream ns = c._client.GetStream();
-        BinaryReader reader = new BinaryReader(ns);
-        BinaryWriter writer = new BinaryWriter(ns);
-
-        CreateNewClientThread(); // Once we accepted a client we create a new one to wait for the potentially next player
-
-        while (Thread.CurrentThread.IsAlive && c._client.Connected)
+        MemoryStream s = new MemoryStream(payload);
+        BinaryReader reader = new BinaryReader(s);
+        switch (type)
         {
-            byte type = reader.ReadByte();
-            switch ((NetworkRequest)type)
-            {
-                case NetworkRequest.Authentification:
-                    if (reader.ReadString() == NetworkConstants._authKey)
-                    {
-                        writer.Write((byte)NetworkRequest.AuthentificationSuccess);
-                        writer.Write(c._id);
-                    }
-                    else
-                    {
-                        writer.Write((byte)NetworkRequest.CriticalError);
-                        writer.Write("Wrong authentification key");
-                    }
-                    writer.Flush();
-                    break;
-            }
+            case NetworkRequest.Authentification:
+                if (reader.ReadString() == NetworkConstants._authKey)
+                {
+                    SendRequest(tcp, NetworkRequest.AuthentificationSuccess);
+                }
+                else
+                {
+                    MemoryStream stream = new MemoryStream();
+                    BinaryWriter writer = new BinaryWriter(stream);
+                    writer.Write((byte)NetworkRequest.CriticalError);
+                    writer.Write("Wrong authentification key");
+                }
+                break;
         }
-
-        _clients.Remove(c);
     }
 
-    public void SendToEveryone(NetworkRequest request, int except)
+    private void SendRequest(TCPWrapper c, NetworkRequest type)
     {
-        foreach (Client c in _clients.Take(_clients.Count - 1))
+        MemoryStream stream = new MemoryStream();
+        BinaryWriter writer = new BinaryWriter(stream);
+        switch (type)
         {
+            case NetworkRequest.AuthentificationSuccess:
+                writer.Write(c.GetId());
+                c.SendRequest(NetworkRequest.AuthentificationSuccess, stream.ToArray());
+                break;
+        }
+    }
 
+    public void SendToEveryone(NetworkRequest type, byte[] payload, int except)
+    {
+        foreach (TCPWrapper c in _clients)
+        {
+            if (c.GetId() != except)
+                c.SendRequest(type, payload);
         }
     }
 
     private TcpListener _listener;
-    private List<Client> _clients;
+    private List<TCPWrapper> _clients;
 
     private NetworkManager _manager;
 
     private byte _idCount;
-
-    public class Client
-    {
-        public Client(NetworkServer s, byte id)
-        {
-            _id = id;
-            _thread = new Thread(new ThreadStart(() => { s.Listen(this); }));
-            _thread.Start();
-        }
-
-        public byte _id;
-        public TcpClient _client;
-        public Thread _thread;
-    }
 }
