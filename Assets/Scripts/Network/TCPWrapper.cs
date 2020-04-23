@@ -5,7 +5,7 @@ using System.Threading;
 
 public class TCPWrapper
 {
-    public TCPWrapper(TcpClient client, Action<TCPWrapper, NetworkRequest, byte[]> callback, byte id)
+    public TCPWrapper(TcpClient client, Action<Player, NetworkRequest, byte[]> callback)
     {
         _client = client;
         _callback = callback;
@@ -14,31 +14,11 @@ public class TCPWrapper
         _writer = new BinaryWriter(_ns);
         _thread = new Thread(new ThreadStart(Listen));
         _thread.Start();
-        _id = id;
     }
 
     ~TCPWrapper()
     {
         _client.Close();
-    }
-
-    public static bool operator==(TCPWrapper w1, TCPWrapper w2)
-        => w1._id == w2._id;
-
-    public static bool operator !=(TCPWrapper w1, TCPWrapper w2)
-        => w1._id != w2._id;
-
-    public override bool Equals(object obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((TCPWrapper)obj);
-    }
-
-    public override int GetHashCode()
-    {
-        int hash = 13;
-        return (hash * 7) + _id.GetHashCode();
     }
 
     private void Listen()
@@ -55,7 +35,7 @@ public class TCPWrapper
                 payload = new byte[length];
                 _reader.Read(payload, 0, length);
             }
-            _callback(this, (NetworkRequest)type, payload);
+            _callback(_parent, (NetworkRequest)type, payload);
         }
     }
 
@@ -70,11 +50,14 @@ public class TCPWrapper
         _writer.Flush();
     }
 
+    public void SetParent(Player parent)
+        => _parent = parent;
+
     private TcpClient _client;
-    private Action<TCPWrapper, NetworkRequest, byte[]> _callback;
+    private Action<Player, NetworkRequest, byte[]> _callback;
     private NetworkStream _ns;
     private BinaryReader _reader;
     private BinaryWriter _writer;
     private Thread _thread;
-    private byte _id; public int GetId() => _id; public void SetId(byte value) => _id = value;
+    private Player _parent;
 }

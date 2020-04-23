@@ -20,6 +20,7 @@ public class NetworkManager : MonoBehaviour
 
     public void Host(int port)
     {
+        _isHostLocalPlayer = true;
         // We launch the server and spawn our player right when the main scene is done loading
         _server = new NetworkServer(this, port);
         SceneManager.sceneLoaded += (scene, mode) =>
@@ -31,13 +32,14 @@ public class NetworkManager : MonoBehaviour
 
     public void Connect(string ip, int port)
     {
+        _isHostLocalPlayer = false;
         _client = new NetworkClient(this, ip, port);
     }
 
     // First thing called when the client is connected or the server start
     public void SpawnPlayer(bool isMe, Vector2 pos, Vector2 vel)
     {
-        _toCall.Add(() => { _gm.InstantiatePlayer(isMe, new Vector3(pos.x, 1f, pos.y), new Vector3(vel.x, 0f, vel.y)); });
+        _toCall.Add(() => { _gm.InstantiatePlayer(this, isMe, new Vector3(pos.x, 1f, pos.y), new Vector3(vel.x, 0f, vel.y)); });
     }
 
     private void Update()
@@ -51,8 +53,22 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// If server: send to everyone
+    /// If client: send to server
+    /// </summary>
+    public void SendRequest(NetworkRequest request, byte[] data)
+    {
+        if (_isHostLocalPlayer)
+            _server.SendToEveryone(request, data, -1);
+        else
+            _client.SendRequest(request, data);
+    }
+
     private NetworkClient _client = null;
     private NetworkServer _server = null;
+
+    private bool _isHostLocalPlayer;
 
     private GameManager _gm;
 

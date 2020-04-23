@@ -3,5 +3,6 @@
     Authentification,
     CriticalError,
     AuthentificationSuccess,
-    PlayerInstantiate
+    PlayerInstantiate,
+    PlayerPosition
 }

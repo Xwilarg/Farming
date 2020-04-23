@@ -13,7 +13,7 @@ public class NetworkServer
         _manager = manager;
         _listener = new TcpListener(IPAddress.Any, port);
         _listener.Start();
-        _clients = new List<TCPWrapper>();
+        _clients = new List<Player>();
         CreateNewClientThread();
     }
 
@@ -21,12 +21,12 @@ public class NetworkServer
     {
         Task.Run(() =>
         {
-            _clients.Add(new TCPWrapper(_listener.AcceptTcpClient(), GetRequest, _idCount++));
+            _clients.Add(new Player(new TCPWrapper(_listener.AcceptTcpClient(), GetRequest), _idCount++));
             CreateNewClientThread();
         });
     }
 
-    private void GetRequest(TCPWrapper tcp, NetworkRequest type, byte[] payload)
+    private void GetRequest(Player player, NetworkRequest type, byte[] payload)
     {
         MemoryStream s = new MemoryStream(payload);
         BinaryReader reader = new BinaryReader(s);
@@ -35,7 +35,7 @@ public class NetworkServer
             case NetworkRequest.Authentification:
                 if (reader.ReadString() == NetworkConstants._authKey)
                 {
-                    SendRequest(tcp, NetworkRequest.AuthentificationSuccess);
+                    SendRequest(player, NetworkRequest.AuthentificationSuccess);
                     // Send all player positions
                 }
                 else
@@ -49,35 +49,35 @@ public class NetworkServer
 
             case NetworkRequest.PlayerInstantiate:
                 _manager.SpawnPlayer(false, reader.ReadVector2(), reader.ReadVector2());
-                SendToEveryone(NetworkRequest.PlayerInstantiate, payload, tcp.GetId());
+                SendToEveryone(NetworkRequest.PlayerInstantiate, payload, player.Id);
                 break;
         }
     }
 
-    private void SendRequest(TCPWrapper c, NetworkRequest type)
+    private void SendRequest(Player p, NetworkRequest type)
     {
         MemoryStream stream = new MemoryStream();
         BinaryWriter writer = new BinaryWriter(stream);
         switch (type)
         {
             case NetworkRequest.AuthentificationSuccess:
-                writer.Write(c.GetId());
-                c.SendRequest(NetworkRequest.AuthentificationSuccess, stream.ToArray());
+                writer.Write(p.Id);
+                p.Tcp.SendRequest(NetworkRequest.AuthentificationSuccess, stream.ToArray());
                 break;
         }
     }
 
     public void SendToEveryone(NetworkRequest type, byte[] payload, int except)
     {
-        foreach (TCPWrapper c in _clients)
+        foreach (Player c in _clients)
         {
-            if (c.GetId() != except)
-                c.SendRequest(type, payload);
+            if (c.Id != except)
+                c.Tcp.SendRequest(type, payload);
         }
     }
 
     private TcpListener _listener;
-    private List<TCPWrapper> _clients;
+    private List<Player> _clients;
 
     private NetworkManager _manager;
     public void SpawnPlayer()

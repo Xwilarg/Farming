@@ -8,11 +8,11 @@ public class NetworkClient
     {
         _manager = manager;
 
-        _tcp = new TCPWrapper(new TcpClient(ip, port), GetRequest, 0);
+        _player = new Player(new TCPWrapper(new TcpClient(ip, port), GetRequest), 255);
         SendRequest(NetworkRequest.Authentification);
     }
 
-    private void GetRequest(TCPWrapper _, NetworkRequest type, byte[] payload)
+    private void GetRequest(Player _, NetworkRequest type, byte[] payload)
     {
         MemoryStream stream = new MemoryStream(payload);
         BinaryReader reader = new BinaryReader(stream);
@@ -22,7 +22,7 @@ public class NetworkClient
                 throw new System.Exception(reader.ReadString());
 
             case NetworkRequest.AuthentificationSuccess:
-                _tcp.SetId(reader.ReadByte());
+                _player.Id = reader.ReadByte();
                 SendRequest(NetworkRequest.PlayerInstantiate);
                 _manager.SpawnPlayer(true, Vector3.up, Vector3.zero);
                 break;
@@ -41,18 +41,21 @@ public class NetworkClient
         {
             case NetworkRequest.Authentification:
                 writer.Write(NetworkConstants._authKey);
-                _tcp.SendRequest(NetworkRequest.Authentification, stream.ToArray());
+                _player.Tcp.SendRequest(NetworkRequest.Authentification, stream.ToArray());
                 break;
 
             case NetworkRequest.PlayerInstantiate:
                 writer.Write(Vector2.zero);
                 writer.Write(Vector2.zero);
-                _tcp.SendRequest(NetworkRequest.PlayerInstantiate, stream.ToArray());
+                _player.Tcp.SendRequest(NetworkRequest.PlayerInstantiate, stream.ToArray());
                 break;
         }
     }
 
+    public void SendRequest(NetworkRequest type, byte[] payload)
+        => _player.Tcp.SendRequest(type, payload);
+
     private NetworkManager _manager;
 
-    private TCPWrapper _tcp;
+    private Player _player;
 }
