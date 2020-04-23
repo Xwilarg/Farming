@@ -5,6 +5,7 @@
         Tcp = tcp;
         Tcp.SetParent(this);
         Id = id;
+        Pc = null;
     }
 
     public static bool operator ==(Player w1, Player w2)
@@ -28,4 +29,5 @@
 
     public byte Id;
     public TCPWrapper Tcp;
+    public PlayerController Pc;
 }

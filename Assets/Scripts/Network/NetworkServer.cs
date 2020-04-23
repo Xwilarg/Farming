@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -9,11 +8,10 @@ public class NetworkServer
 {
     public NetworkServer(NetworkManager manager, int port)
     {
-        _idCount = 0;
+        _idCount = 1;
         _manager = manager;
         _listener = new TcpListener(IPAddress.Any, port);
         _listener.Start();
-        _clients = new List<Player>();
         CreateNewClientThread();
     }
 
@@ -21,7 +19,7 @@ public class NetworkServer
     {
         Task.Run(() =>
         {
-            _clients.Add(new Player(new TCPWrapper(_listener.AcceptTcpClient(), GetRequest), _idCount++));
+            _manager.AddPlayer(new Player(new TCPWrapper(_listener.AcceptTcpClient(), GetRequest), _idCount++));
             CreateNewClientThread();
         });
     }
@@ -48,7 +46,7 @@ public class NetworkServer
                 break;
 
             case NetworkRequest.PlayerInstantiate:
-                _manager.SpawnPlayer(false, reader.ReadVector2(), reader.ReadVector2());
+                _manager.SpawnPlayer(player, false, reader.ReadVector2(), reader.ReadVector2());
                 SendToEveryone(NetworkRequest.PlayerInstantiate, payload, player.Id);
                 break;
         }
@@ -69,7 +67,7 @@ public class NetworkServer
 
     public void SendToEveryone(NetworkRequest type, byte[] payload, int except)
     {
-        foreach (Player c in _clients)
+        foreach (Player c in _manager.GetPlayers())
         {
             if (c.Id != except)
                 c.Tcp.SendRequest(type, payload);
@@ -77,11 +75,10 @@ public class NetworkServer
     }
 
     private TcpListener _listener;
-    private List<Player> _clients;
 
     private NetworkManager _manager;
-    public void SpawnPlayer()
-        => _manager.SpawnPlayer(true, Vector3.up, Vector3.zero);
+    public void SpawnPlayer(Player p)
+        => _manager.SpawnPlayer(p, true, Vector3.up, Vector3.zero);
 
     private byte _idCount;
 }

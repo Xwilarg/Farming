@@ -8,6 +8,7 @@ public class NetworkManager : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+        _players = new List<Player>();
         _toCall = new List<Action>();
         SceneManager.sceneLoaded += (scene, mode) =>
         {
@@ -26,7 +27,10 @@ public class NetworkManager : MonoBehaviour
         SceneManager.sceneLoaded += (scene, mode) =>
         {
             if (scene.name == "Main")
-                _server.SpawnPlayer();
+            {
+                _me = new Player(null, 0);
+                _server.SpawnPlayer(_me);
+            }
         };
     }
 
@@ -37,9 +41,9 @@ public class NetworkManager : MonoBehaviour
     }
 
     // First thing called when the client is connected or the server start
-    public void SpawnPlayer(bool isMe, Vector2 pos, Vector2 vel)
+    public void SpawnPlayer(Player p, bool isMe, Vector2 pos, Vector2 vel)
     {
-        _toCall.Add(() => { _gm.InstantiatePlayer(this, isMe, new Vector3(pos.x, 1f, pos.y), new Vector3(vel.x, 0f, vel.y)); });
+        _toCall.Add(() => { p.Pc = _gm.InstantiatePlayer(this, isMe, new Vector3(pos.x, 1f, pos.y), new Vector3(vel.x, 0f, vel.y)); });
     }
 
     private void Update()
@@ -64,6 +68,17 @@ public class NetworkManager : MonoBehaviour
         else
             _client.SendRequest(request, data);
     }
+
+    private List<Player> _players;
+    private Player _me;
+    public void AddPlayer(Player p)
+        => _players.Add(p);
+    public List<Player> GetPlayers()
+        => _players;
+    public void SetMe(Player me)
+        => _me = me;
+    public Player GetMe()
+        => _me;
 
     private NetworkClient _client = null;
     private NetworkServer _server = null;
