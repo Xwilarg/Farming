@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
         PlayerController pc = go.GetComponent<PlayerController>();
         pc.InitNetwork(p, net, isMe);
         pc.UpdatePosition(position, velocity);
+        p.Pc = pc;
         go.GetComponent<Renderer>().material = isMe ? _green : _blue;
     }
 }

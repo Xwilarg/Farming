@@ -37,9 +37,6 @@ public class NetworkServer
                     SendRequest(player, NetworkRequest.AuthentificationSuccess);
                     foreach (Player p in _manager.GetPlayers())
                     {
-                        Debug.Log("AA");
-                        Debug.Log(player == null);
-                        Debug.Log("BB");
                         if (p != player)
                             player.Tcp.SendRequest(NetworkRequest.PlayerInstantiate, p.Pc.GetPositionData());
                     }
