@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
     public void UpdatePosition(Vector2 pos, Vector2Int vel)
     {
-        transform.position = pos;
+        transform.position = new Vector3(pos.x, 0f, pos.y);
         _axis2D = vel;
         _oldAxis2D = vel;
     }
