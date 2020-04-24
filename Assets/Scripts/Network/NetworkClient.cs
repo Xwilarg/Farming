@@ -26,13 +26,13 @@ public class NetworkClient
             case NetworkRequest.AuthentificationSuccess:
                 me.Id = reader.ReadByte();
                 SendRequest(me, NetworkRequest.PlayerInstantiate);
-                _manager.SpawnPlayer(me, true, Vector3.up, Vector3.zero);
+                _manager.SpawnPlayer(me, true, Vector2.zero, Vector2Int.zero);
                 break;
 
             case NetworkRequest.PlayerInstantiate:
                 Player player = new Player(null, reader.ReadByte());
                 _manager.AddPlayer(player);
-                _manager.SpawnPlayer(player, false, reader.ReadVector2(), reader.ReadVector2());
+                _manager.SpawnPlayer(player, false, reader.ReadVector2(), reader.ReadVector2Int());
                 break;
         }
     }

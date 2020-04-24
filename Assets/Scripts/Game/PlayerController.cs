@@ -9,11 +9,14 @@ public class PlayerController : MonoBehaviour
     private bool _isMe = true;
     private Vector2Int _oldAxis2D;
     private Vector2Int _axis2D; // Controls pressed on X/Z axis
+    private Vector3 _pos;
 
+    private Player _player;
     private NetworkManager _net;
 
-    public void InitNetwork(NetworkManager net, bool isMe)
+    public void InitNetwork(Player player, NetworkManager net, bool isMe)
     {
+        _player = player;
         _net = net;
         _isMe = isMe;
     }
@@ -27,6 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_isMe) // Is local player
         {
+            _pos = transform.position;
             int x = 0, y = 0;
             if (Input.GetKey(KeyCode.W)) y = 1;
             else if (Input.GetKey(KeyCode.S)) y = -1;
@@ -35,22 +39,23 @@ public class PlayerController : MonoBehaviour
             _axis2D = new Vector2Int(x, y);
             if (_axis2D != _oldAxis2D)
             {
-                SendPosition();
+                _net.SendRequest(NetworkRequest.PlayerPosition, GetPositionData());
                 _oldAxis2D = _axis2D;
             }
         }
         _rb.velocity = new Vector3(_axis2D.x * _speed, _rb.velocity.y, _axis2D.y * _speed);
     }
 
-    private void SendPosition()
+    public byte[] GetPositionData()
     {
         MemoryStream ms = new MemoryStream();
         BinaryWriter w = new BinaryWriter(ms);
-        w.Write(transform.position.x);
-        w.Write(transform.position.y);
+        w.Write(_player.Id);
+        w.Write(_pos.x);
+        w.Write(_pos.z);
         w.Write(_axis2D.x);
         w.Write(_axis2D.y);
-        _net.SendRequest(NetworkRequest.PlayerPosition, ms.ToArray());
+        return ms.ToArray();
     }
 
     public void UpdatePosition(Vector2 pos, Vector2Int vel)

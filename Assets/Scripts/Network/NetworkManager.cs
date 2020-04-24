@@ -29,6 +29,7 @@ public class NetworkManager : MonoBehaviour
             if (scene.name == "Main")
             {
                 _me = new Player(null, 0);
+                _players.Add(_me);
                 _server.SpawnPlayer(_me);
             }
         };
@@ -41,9 +42,9 @@ public class NetworkManager : MonoBehaviour
     }
 
     // First thing called when the client is connected or the server start
-    public void SpawnPlayer(Player p, bool isMe, Vector2 pos, Vector2 vel)
+    public void SpawnPlayer(Player p, bool isMe, Vector2 pos, Vector2Int vel)
     {
-        _toCall.Add(() => { p.Pc = _gm.InstantiatePlayer(this, isMe, new Vector3(pos.x, 1f, pos.y), new Vector3(vel.x, 0f, vel.y)); });
+        _toCall.Add(() => { _gm.InstantiatePlayer(p, this, isMe, pos, vel); });
     }
 
     private void Update()

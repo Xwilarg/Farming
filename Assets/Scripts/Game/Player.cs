@@ -3,7 +3,7 @@
     public Player(TCPWrapper tcp, byte id)
     {
         Tcp = tcp;
-        Tcp.SetParent(this);
+        Tcp?.SetParent(this);
         Id = id;
         Pc = null;
     }

@@ -8,12 +8,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Material _green, _blue;
 
-    public PlayerController InstantiatePlayer(NetworkManager net, bool isMe, Vector3 position, Vector3 velocity)
+    public void InstantiatePlayer(Player p, NetworkManager net, bool isMe, Vector2 position, Vector2Int velocity)
     {
-        GameObject go = Instantiate(_playerPrefab, position, Quaternion.identity);
+        GameObject go = Instantiate(_playerPrefab, new Vector3(position.x, 1f, position.y), Quaternion.identity);
         PlayerController pc = go.GetComponent<PlayerController>();
-        pc.InitNetwork(net, isMe);
+        pc.InitNetwork(p, net, isMe);
+        pc.UpdatePosition(position, velocity);
         go.GetComponent<Renderer>().material = isMe ? _green : _blue;
-        return pc;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -34,7 +35,14 @@ public class NetworkServer
                 if (reader.ReadString() == NetworkConstants._authKey)
                 {
                     SendRequest(player, NetworkRequest.AuthentificationSuccess);
-                    // Send all player positions
+                    foreach (Player p in _manager.GetPlayers())
+                    {
+                        Debug.Log("AA");
+                        Debug.Log(player == null);
+                        Debug.Log("BB");
+                        if (p != player)
+                            player.Tcp.SendRequest(NetworkRequest.PlayerInstantiate, p.Pc.GetPositionData());
+                    }
                 }
                 else
                 {
@@ -46,7 +54,7 @@ public class NetworkServer
                 break;
 
             case NetworkRequest.PlayerInstantiate:
-                _manager.SpawnPlayer(player, false, reader.ReadVector2(), reader.ReadVector2());
+                _manager.SpawnPlayer(player, false, reader.ReadVector2(), reader.ReadVector2Int());
                 SendToEveryone(NetworkRequest.PlayerInstantiate, payload, player.Id);
                 break;
         }
@@ -67,7 +75,7 @@ public class NetworkServer
 
     public void SendToEveryone(NetworkRequest type, byte[] payload, int except)
     {
-        foreach (Player c in _manager.GetPlayers())
+        foreach (Player c in _manager.GetPlayers().Skip(1))
         {
             if (c.Id != except)
                 c.Tcp.SendRequest(type, payload);
@@ -78,7 +86,7 @@ public class NetworkServer
 
     private NetworkManager _manager;
     public void SpawnPlayer(Player p)
-        => _manager.SpawnPlayer(p, true, Vector3.up, Vector3.zero);
+        => _manager.SpawnPlayer(p, true, Vector2.zero, Vector2Int.zero);
 
     private byte _idCount;
 }
