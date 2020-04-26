@@ -35,11 +35,6 @@ public class NetworkServer
                 if (reader.ReadString() == NetworkConstants._authKey)
                 {
                     SendRequest(player, NetworkRequest.AuthentificationSuccess);
-                    foreach (Player p in _manager.GetPlayers())
-                    {
-                        if (p != player)
-                            player.Tcp.SendRequest(NetworkRequest.PlayerInstantiate, p.Pc.GetPositionData());
-                    }
                 }
                 else
                 {
@@ -53,6 +48,13 @@ public class NetworkServer
             case NetworkRequest.PlayerInstantiate:
                 _manager.SpawnPlayer(player, false, reader.ReadVector2(), reader.ReadVector2Int());
                 SendToEveryone(NetworkRequest.PlayerInstantiate, payload, player.Id);
+                /// So we have S the server, C1 a client and C2 the new client
+                /// We send all players positions (S and C1) to C2
+                foreach (Player p in _manager.GetPlayers())
+                {
+                    if (p != player)
+                        player.Tcp.SendRequest(NetworkRequest.PlayerInstantiate, p.Pc.GetPositionData());
+                }
                 break;
 
             case NetworkRequest.PlayerPosition:

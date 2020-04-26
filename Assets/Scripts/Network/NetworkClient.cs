@@ -53,6 +53,7 @@ public class NetworkClient
                 break;
 
             case NetworkRequest.PlayerInstantiate:
+                writer.Write(_manager.GetMe().Id);
                 writer.Write(Vector2.zero);
                 writer.Write(Vector2.zero);
                 player.Tcp.SendRequest(NetworkRequest.PlayerInstantiate, stream.ToArray());
