@@ -34,6 +34,10 @@ public class NetworkClient
                 _manager.AddPlayer(player);
                 _manager.SpawnPlayer(player, false, reader.ReadVector2(), reader.ReadVector2Int());
                 break;
+
+            case NetworkRequest.PlayerPosition:
+                _manager.GetPlayer(reader.ReadByte()).Pc.UpdatePosition(reader.ReadVector2(), reader.ReadVector2Int());
+                break;
         }
     }
 

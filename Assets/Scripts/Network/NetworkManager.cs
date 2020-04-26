@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -76,6 +77,8 @@ public class NetworkManager : MonoBehaviour
         => _players.Add(p);
     public List<Player> GetPlayers()
         => _players;
+    public Player GetPlayer(int id)
+        => _players.Where(x => x.Id == id).First();
     public void SetMe(Player me)
         => _me = me;
     public Player GetMe()

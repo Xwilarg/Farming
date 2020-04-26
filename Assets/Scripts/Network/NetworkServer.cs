@@ -54,6 +54,11 @@ public class NetworkServer
                 _manager.SpawnPlayer(player, false, reader.ReadVector2(), reader.ReadVector2Int());
                 SendToEveryone(NetworkRequest.PlayerInstantiate, payload, player.Id);
                 break;
+
+            case NetworkRequest.PlayerPosition:
+                _manager.GetPlayer(reader.ReadByte()).Pc.UpdatePosition(reader.ReadVector2(), reader.ReadVector2Int());
+                SendToEveryone(NetworkRequest.PlayerPosition, payload, player.Id);
+                break;
         }
     }
 

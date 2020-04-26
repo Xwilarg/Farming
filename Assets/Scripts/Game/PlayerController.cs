@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private Vector2Int _oldAxis2D;
     private Vector2Int _axis2D; // Controls pressed on X/Z axis
     private Vector3 _pos;
+    private Vector2? _newPos = null;
 
     private Player _player;
     private NetworkManager _net;
@@ -28,6 +29,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_newPos != null)
+        {
+            transform.position = new Vector3(_newPos.Value.x, transform.position.y, _newPos.Value.y);
+            _newPos = null;
+        }
         if (_isMe) // Is local player
         {
             _pos = transform.position;
@@ -60,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     public void UpdatePosition(Vector2 pos, Vector2Int vel)
     {
-        transform.position = new Vector3(pos.x, 0f, pos.y);
+        _newPos = pos;
         _axis2D = vel;
         _oldAxis2D = vel;
     }
