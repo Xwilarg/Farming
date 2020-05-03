@@ -11,8 +11,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Material _green, _blue;
 
+    private Vector3 _cameraBaseOffset;
+
     private void Start()
     {
+        _cameraBaseOffset = Camera.main.transform.position;
         if (GameObject.FindGameObjectWithTag("DebugManager") == null) // For debug
             Instantiate(_debugManager);
     }
@@ -25,5 +28,10 @@ public class GameManager : MonoBehaviour
         pc.UpdatePosition(position, velocity);
         p.Pc = pc;
         go.GetComponent<Renderer>().material = isMe ? _green : _blue;
+        if (isMe) // Is this is the current player, we set the camera as a child so it follow the player
+        {
+            Camera.main.transform.position = _cameraBaseOffset;
+            Camera.main.transform.parent = go.transform;
+        }
     }
 }

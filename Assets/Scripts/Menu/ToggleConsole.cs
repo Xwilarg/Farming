@@ -47,7 +47,10 @@ public class ToggleConsole : MonoBehaviour
         if (text.StartsWith("respawn"))
         {
             if (_player.Pc != null)
+            {
+                Camera.main.transform.parent = null; // We make sure to not delete the main camera
                 Destroy(_player.Pc.gameObject);
+            }
             GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().InstantiatePlayer(_player, null, true, Vector2.zero, Vector2Int.zero);
             _output.text += "Player respawed at (0;0)";
         }
