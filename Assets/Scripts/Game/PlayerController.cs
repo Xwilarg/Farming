@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.A)) x = -1;
             else if (Input.GetKey(KeyCode.D)) x = 1;
             _axis2D = new Vector2Int(x, y);
-            if (_axis2D != _oldAxis2D)
+            if (_axis2D != _oldAxis2D && _net != null) // If the player changed his movement we update it on the server
             {
                 _net.SendRequest(NetworkRequest.PlayerPosition, GetPositionData());
                 _oldAxis2D = _axis2D;
