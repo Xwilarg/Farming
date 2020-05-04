@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
         _player = player;
         _net = net;
         _isMe = isMe;
+        GetComponent<GridSelection>().SetMe(_isMe);
     }
 
     private void Start()
