@@ -15,6 +15,9 @@ public class DrawGrid : MonoBehaviour
         else _displaySize = 0;
     }
 
+    /// <summary>
+    /// If the option is enabled we draw a grid where the pkayer is (gizmos must be enabled in Unity Editor)
+    /// </summary>
     private void OnDrawGizmos()
     {
         if (_displaySize > 0)

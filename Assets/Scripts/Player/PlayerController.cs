@@ -4,8 +4,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    [Header("Player stats")]
+    [Tooltip("The player's speed")]
+    private float _speed = 10f;
+
     private Rigidbody _rb;
-    private const float _speed = 10f;
     private bool _isMe = true;
     private Vector2Int _oldAxis2D;
     private Vector2Int _axis2D; // Controls pressed on X/Z axis
