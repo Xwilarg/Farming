@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(DrawGrid))]
 public class ToggleConsole : MonoBehaviour
 {
     [SerializeField]
@@ -9,10 +10,13 @@ public class ToggleConsole : MonoBehaviour
     [SerializeField]
     private InputField _input, _output;
 
+    private DrawGrid _grid;
+
     private Player _player;
 
     private void Start()
     {
+        _grid = GetComponent<DrawGrid>();
         _player = new Player(null, 255);
     }
 
@@ -44,7 +48,7 @@ public class ToggleConsole : MonoBehaviour
         if (string.IsNullOrWhiteSpace(text))
             return;
         _output.text = "> " + text + "\n\n";
-        if (text.StartsWith("respawn"))
+        if (text == "respawn")
         {
             if (_player.Pc != null)
             {
@@ -53,6 +57,17 @@ public class ToggleConsole : MonoBehaviour
             }
             GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().InstantiatePlayer(_player, null, true, Vector2.zero, Vector2Int.zero);
             _output.text += "Player respawed at (0;0)";
+        }
+        else if (text == "grid")
+        {
+            _grid.ToggleGrid();
+            _output.text += "Grid display status changed (using gizmos)";
+        }
+        else if (text == "hide")
+        {
+            var mesh = GameObject.FindGameObjectWithTag("Player").GetComponent<MeshRenderer>();
+            mesh.enabled = !mesh.enabled;
+            _output.text += "Player rendering is now set to " + mesh.enabled;
         }
         else
         {

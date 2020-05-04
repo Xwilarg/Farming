@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
         {
             Camera.main.transform.position = _cameraBaseOffset;
             Camera.main.transform.parent = go.transform;
+            go.tag = "Player"; // We set the "Player" tag only on the local player
         }
     }
 }

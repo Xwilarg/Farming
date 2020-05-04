@@ -996,6 +996,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4143400287185176084}
   - component: {fileID: 1380671730062567746}
+  - component: {fileID: 5891736559066145711}
   m_Layer: 0
   m_Name: DebugManager
   m_TagString: DebugManager
@@ -1033,3 +1034,15 @@ MonoBehaviour:
   _consoleGo: {fileID: 4143400286136359866}
   _input: {fileID: 2010801289}
   _output: {fileID: 771246391}
+--- !u!114 &5891736559066145711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4143400287185176085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 690ce244fd07b8c44aaaf10296d21a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
