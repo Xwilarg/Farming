@@ -38,14 +38,17 @@ public class GridSelection : MonoBehaviour
     /// </summary>
     private void UpdateSelectionPosition()
     {
-        var mousePos = Input.mousePosition;
-        mousePos.z = Camera.main.transform.position.z;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        int x = (int)transform.position.x, z = (int)transform.position.z;
-        if (mousePos.x < x - .5f) x++;
-        else if (mousePos.x > x + .5f) x--;
-        if (mousePos.z < z) z++;
-        else if (mousePos.z > z + 1) z--;
-        _selectionGo.transform.position = new Vector3(x, 0.001f, z);
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, float.MaxValue, LayerMask.GetMask("Floor")))
+        {
+            var pos = hit.point;
+            int x = (int)transform.position.x, z = (int)transform.position.z;
+            if (pos.x < x - .5f) x--;
+            else if (pos.x > x + .5f) x++;
+            if (pos.z < z) z--;
+            else if (pos.z > z + 1) z++;
+            _selectionGo.transform.position = new Vector3(x, 0.001f, z);
+        }
     }
 }
