@@ -43,7 +43,7 @@ public class GridSelection : MonoBehaviour
         if (Physics.Raycast(ray, out hit, float.MaxValue, LayerMask.GetMask("Floor")))
         {
             var pos = hit.point;
-            int x = (int)transform.position.x, z = (int)transform.position.z;
+            int x = Mathf.RoundToInt(transform.position.x), z = Mathf.RoundToInt(transform.position.z);
             if (pos.x < x - .5f) x--;
             else if (pos.x > x + .5f) x++;
             if (pos.z < z) z--;
