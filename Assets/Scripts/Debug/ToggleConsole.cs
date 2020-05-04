@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(DrawGrid))]
-public class ToggleConsole : MonoBehaviour
+public class Console : MonoBehaviour
 {
     [SerializeField]
     private GameObject _consoleGo;
@@ -14,8 +16,17 @@ public class ToggleConsole : MonoBehaviour
 
     private Player _player;
 
+    private Dictionary<string, ConsoleCommand> _commands;
+
     private void Start()
     {
+        _commands = new Dictionary<string, ConsoleCommand>()
+        {
+            { "respawn", new ConsoleCommand{ argumentCount = 0, callback = Respawn } },
+            { "grid", new ConsoleCommand{ argumentCount = 0, callback = Grid } },
+            { "hide", new ConsoleCommand{ argumentCount = 0, callback = Hide } }
+        };
+
         _grid = GetComponent<DrawGrid>();
         _player = new Player(null, 255);
     }
@@ -43,36 +54,39 @@ public class ToggleConsole : MonoBehaviour
 
     public void Send()
     {
-        string text = _input.text;
+        string[] text = _input.text.Trim().ToLower().Split(new[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
         CleanInput();
-        if (string.IsNullOrWhiteSpace(text))
+        if (text.Length == 0)
             return;
-        _output.text = "> " + text + "\n\n";
-        if (text == "respawn")
-        {
-            if (_player.Pc != null)
-            {
-                Camera.main.transform.parent = null; // We make sure to not delete the main camera
-                Destroy(_player.Pc.gameObject);
-            }
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().InstantiatePlayer(_player, null, true, Vector2.zero, Vector2Int.zero);
-            _output.text += "Player respawed at (0;0)";
-        }
-        else if (text == "grid")
-        {
-            _grid.ToggleGrid();
-            _output.text += "Grid display status changed (using gizmos)";
-        }
-        else if (text == "hide")
-        {
-            var mesh = GameObject.FindGameObjectWithTag("Player").GetComponent<MeshRenderer>();
-            mesh.enabled = !mesh.enabled;
-            _output.text += "Player rendering is now set to " + mesh.enabled;
-        }
+        _output.text = "> " + string.Join(" ", text) + "\n\n";
+        if (_commands.ContainsKey(text[0]))
+            _commands[text[0]].callback(text.Skip(1).ToArray());
         else
-        {
             _output.text += "Command not found";
-        }
         _input.Select();
+    }
+
+    private void Respawn(string[] _)
+    {
+        if (_player.Pc != null)
+        {
+            Camera.main.transform.parent = null; // We make sure to not delete the main camera
+            Destroy(_player.Pc.gameObject);
+        }
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().InstantiatePlayer(_player, null, true, Vector2.zero, Vector2Int.zero);
+        _output.text += "Player respawed at (0;0)";
+    }
+
+    private void Grid(string[] _)
+    {
+        _grid.ToggleGrid();
+        _output.text += "Grid display status changed (using gizmos)";
+    }
+
+    private void Hide(string[] _)
+    {
+        var mesh = GameObject.FindGameObjectWithTag("Player").GetComponent<MeshRenderer>();
+        mesh.enabled = !mesh.enabled;
+        _output.text += "Player rendering is now set to " + mesh.enabled;
     }
 }
