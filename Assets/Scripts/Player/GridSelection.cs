@@ -13,23 +13,26 @@ public class GridSelection : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q)) // Press Q to enable/disable selection mode
+        if (_isMe)
         {
+            if (Input.GetKeyDown(KeyCode.Q)) // Press Q to enable/disable selection mode
+            {
+                if (_isPlacementEnabled)
+                {
+                    Destroy(_selectionGo);
+                    _isPlacementEnabled = false;
+                }
+                else
+                {
+                    _selectionGo = Instantiate(_prefabSelection, transform);
+                    _isPlacementEnabled = true;
+                    UpdateSelectionPosition();
+                }
+            }
             if (_isPlacementEnabled)
             {
-                Destroy(_selectionGo);
-                _isPlacementEnabled = false;
-            }
-            else
-            {
-                _selectionGo = Instantiate(_prefabSelection, transform);
-                _isPlacementEnabled = true;
                 UpdateSelectionPosition();
             }
-        }
-        if (_isPlacementEnabled)
-        {
-            UpdateSelectionPosition();
         }
     }
 
