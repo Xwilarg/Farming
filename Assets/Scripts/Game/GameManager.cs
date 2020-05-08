@@ -13,11 +13,15 @@ public class GameManager : MonoBehaviour
 
     private Vector3 _cameraBaseOffset;
 
+    private Console _console;
+
     private void Start()
     {
         _cameraBaseOffset = Camera.main.transform.position;
         if (GameObject.FindGameObjectWithTag("DebugManager") == null) // For debug
             Instantiate(_debugManager);
+        // We create a new player without TCP link in case we started the game skipping the connection phase
+        GameObject.FindGameObjectWithTag("DebugManager").GetComponent<Console>().EnablePlayerSpawn(new Player(null, 255));
     }
 
     public void InstantiatePlayer(Player p, NetworkManager net, bool isMe, Vector2 position, Vector2Int velocity)
@@ -33,6 +37,7 @@ public class GameManager : MonoBehaviour
             Camera.main.transform.position = _cameraBaseOffset;
             Camera.main.transform.parent = go.transform;
             go.tag = "Player"; // We set the "Player" tag only on the local player
+            GameObject.FindGameObjectWithTag("DebugManager").GetComponent<Console>().EnablePlayerSpawn(p);
         }
     }
 }
