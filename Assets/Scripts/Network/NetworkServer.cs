@@ -20,7 +20,7 @@ public class NetworkServer
     {
         Task.Run(() =>
         {
-            _manager.AddPlayer(new Player(new TCPWrapper(_listener.AcceptTcpClient(), GetRequest), _idCount++));
+            _manager.AddPlayer(new Player(new TCPWrapper(_listener.AcceptTcpClient(), GetRequest), _idCount++, false));
             CreateNewClientThread();
         });
     }

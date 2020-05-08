@@ -29,7 +29,7 @@ public class NetworkManager : MonoBehaviour
         {
             if (scene.name == "Main")
             {
-                _me = new Player(null, 0);
+                _me = new Player(null, 0, true);
                 _players.Add(_me);
                 _server.SpawnPlayer(_me);
             }

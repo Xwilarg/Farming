@@ -6,6 +6,7 @@ TagManager:
   tags:
   - NetworkManager
   - DebugManager
+  - UIManager
   layers:
   - Default
   - TransparentFX

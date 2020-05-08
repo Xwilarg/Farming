@@ -8,7 +8,7 @@ public class NetworkClient
     {
         _manager = manager;
 
-        var me = new Player(new TCPWrapper(new TcpClient(ip, port), GetRequest), 255);
+        var me = new Player(new TCPWrapper(new TcpClient(ip, port), GetRequest), 255, true);
         _manager.SetMe(me);
         _manager.AddPlayer(me);
         SendRequest(me, NetworkRequest.Authentification);
@@ -30,7 +30,7 @@ public class NetworkClient
                 break;
 
             case NetworkRequest.PlayerInstantiate:
-                Player player = new Player(null, reader.ReadByte());
+                Player player = new Player(null, reader.ReadByte(), false);
                 _manager.AddPlayer(player);
                 _manager.SpawnPlayer(player, false, reader.ReadVector2(), reader.ReadVector2Int());
                 break;
