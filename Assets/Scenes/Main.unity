@@ -899,6 +899,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefabFloor: {fileID: 4355208008656830304, guid: 2f713e88791d5044c96b7188fa8a8152,
     type: 3}
+  _sand: {fileID: 2100000, guid: e7985f7acdc0c05428ffcc06eadbc71b, type: 2}
+  _grass: {fileID: 2100000, guid: 9222c802ab7458c4e9f589546e95ed3e, type: 2}
 --- !u!224 &2038530900 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3139851108182155004, guid: d32823b312fc27d44a606f99e190f52d,
