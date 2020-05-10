@@ -18,4 +18,9 @@ public class ActionBarSlot : MonoBehaviour
     {
         _background.color = Color.white;
     }
+
+    public void SetImage(Sprite s)
+    {
+        _image.sprite = s;
+    }
 }

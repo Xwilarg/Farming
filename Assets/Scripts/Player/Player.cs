@@ -1,4 +1,6 @@
-﻿public class Player
+﻿using UnityEngine;
+
+public class Player
 {
     public Player(TCPWrapper tcp, byte id, bool isLocalPlayer)
     {
@@ -6,8 +8,8 @@
         Tcp?.SetParent(this);
         Id = id;
         Pc = null;
-        Inventory = new Inventory();
         IsLocalPlayer = isLocalPlayer;
+        Inventory = new Inventory(isLocalPlayer);
     }
 
     public static bool operator ==(Player w1, Player w2)
