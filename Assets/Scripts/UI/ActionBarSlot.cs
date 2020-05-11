@@ -9,6 +9,8 @@ public class ActionBarSlot : MonoBehaviour
     [SerializeField]
     private Image _background;
 
+    private Item _item = null;
+
     public void Select()
     {
         _background.color = Color.yellow;
@@ -19,8 +21,12 @@ public class ActionBarSlot : MonoBehaviour
         _background.color = Color.white;
     }
 
-    public void SetImage(Sprite s)
+    public void SetItem(Item item)
     {
-        _image.sprite = s;
+        _image.sprite = item?.GetImage();
+        _item = item;
     }
+
+    public Item GetItem()
+        => _item;
 }

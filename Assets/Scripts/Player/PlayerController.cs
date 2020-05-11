@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     private Player _player;
     private NetworkManager _net;
 
+    public Player GetPlayer()
+        => _player;
+
     public void InitNetwork(Player player, NetworkManager net, bool isMe)
     {
         _player = player;

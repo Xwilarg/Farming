@@ -10,6 +10,7 @@ public class Item
         _description = description;
         _allowedTiles = allowedTiles;
         _img = img;
+        _go = go;
     }
 
     public bool IsTileCorrect(TileType tile)
@@ -18,7 +19,9 @@ public class Item
     public Sprite GetImage() => _img;
     public GameObject GetGameObject() => _go;
 
-    ItemID _id;
+    public ItemID GetId() => _id;
+
+    private ItemID _id;
     private string _name;
     private string _description;
     private TileType[] _allowedTiles; // Tiles where the object can be placed

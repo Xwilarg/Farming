@@ -36,7 +36,11 @@ public class NetworkManager : MonoBehaviour
         _toCall.Add(() => { _gm.InstantiatePlayer(p, this, isMe, pos, vel); });
     }
 
-    public void InstantiateObject(ItemID id, Vector2Int position)
+    /// <summary>
+    /// Instantiate an object over the network
+    /// </summary>
+    /// <returns>Returns true if the object can be instanted right now</returns>
+    public bool InstantiateObject(ItemID id, Vector2Int position)
     {
         // If we are a distant player we must at first send a request to the server
         using (MemoryStream ms = new MemoryStream())
@@ -47,15 +51,14 @@ public class NetworkManager : MonoBehaviour
                 writer.Write(position);
                 if (_isHostLocalPlayer)
                 {
-                    if (Generation.GENERATION.SpawnObject(id, position))
-                        _server.SendToEveryone(NetworkRequest.ObjectInstantiateSuccess, ms.ToArray(), -1);
-                    else
-                        throw new Exception("Error while trying to spawn object " + id + " at " + position);
+                    _server.SendToEveryone(NetworkRequest.ObjectInstantiateSuccess, ms.ToArray(), -1);
+                    return true;
                 }
                 else
                     _client.SendRequest(NetworkRequest.ObjectInstantiateRequest, ms.ToArray());
             }
         }
+        return false;
     }
 
     private NetworkClient _client = null;
@@ -110,9 +113,10 @@ public class NetworkManager : MonoBehaviour
         else
             _client.SendRequest(request, data);
     }
+    #endregion NetworkConnection
 
-    private List<Player> _players;
     private Player _me;
+    private List<Player> _players;
     public void AddPlayer(Player p)
         => _players.Add(p);
     public List<Player> GetPlayers()
@@ -125,5 +129,4 @@ public class NetworkManager : MonoBehaviour
         => _me;
 
     private GameManager _gm;
-    #endregion NetworkConnection
 }

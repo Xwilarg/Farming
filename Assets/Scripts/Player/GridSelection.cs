@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(PlayerController))]
 public class GridSelection : MonoBehaviour
 {
     [SerializeField]
@@ -9,7 +10,14 @@ public class GridSelection : MonoBehaviour
     private bool _isPlacementEnabled = false;
     private GameObject _selectionGo = null;
 
+    private PlayerController pc;
+
     public void SetMe(bool value) => _isMe = value;
+
+    private void Start()
+    {
+        pc = GetComponent<PlayerController>();
+    }
 
     private void Update()
     {
@@ -32,6 +40,20 @@ public class GridSelection : MonoBehaviour
             if (_isPlacementEnabled)
             {
                 UpdateSelectionPosition();
+                if (Input.GetMouseButtonDown(0))
+                {
+                    var item = UIManager.uiManager.GetActionBar().GetCurrentlySelectedItem();
+                    var pos = _selectionGo.transform.position.ToVector2Int();
+                    if (item != null && Generation.GENERATION.CanSpawnObject(item.GetId(), pos))
+                    {
+                        // If we are in debug mode (then there is no NetworkManager) or if we are the server
+                        if (NetworkManager.NETWORK_MANAGER == null || NetworkManager.NETWORK_MANAGER.InstantiateObject(item.GetId(), pos))
+                        {
+                            Generation.GENERATION.SpawnObject(item.GetId(), pos);
+                            pc.GetPlayer().Inventory.RemoveItem(item.GetId());
+                        }
+                    }
+                }
             }
         }
     }

@@ -31,9 +31,14 @@ public class ActionBar : MonoBehaviour
     {
         var items = _inventory.GetInventory();
         int maxItems = _actions.Length < items.Count ? _actions.Length : items.Count;
-        for (int i = 0; i < maxItems; i++)
+        int i;
+        for (i = 0; i < maxItems; i++)
         {
-            _actions[i].slot.SetImage(items[i].Item1.GetImage());
+            _actions[i].slot.SetItem(items[i].Item1);
+        }
+        for (; i < _actions.Length; i++)
+        {
+            _actions[i].slot.SetItem(null);
         }
     }
 
@@ -44,4 +49,7 @@ public class ActionBar : MonoBehaviour
         _selected = slot;
         _selected.Select();
     }
+
+    public Item GetCurrentlySelectedItem()
+        => _selected.GetItem();
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 public class Inventory
 {
@@ -13,6 +14,16 @@ public class Inventory
             _uiActionBar = UIManager.uiManager.GetActionBar();
             _uiActionBar.InitInventory(this);
         }
+    }
+
+    public void RemoveItem(ItemID id)
+    {
+        var elem = _slots.Where(x => x.Item1.GetId() == id).First();
+        if (elem.Item2 > 1)
+            elem.Item2--;
+        else
+            _slots.Remove((elem.Item1, 1));
+        _uiActionBar?.UpdateSlots();
     }
 
     public ReadOnlyCollection<(Item, int)> GetInventory()

@@ -44,15 +44,23 @@ public class Generation : MonoBehaviour
         }
     }
 
-    public bool SpawnObject(ItemID id, Vector2Int pos)
+    public bool CanSpawnObject(ItemID id, Vector2Int pos)
+    {
+        var tile = GetTile(id, pos);
+        return tile.CanAddItem(ItemsList.Items.AllItems[id]);
+    }
+
+    public void SpawnObject(ItemID id, Vector2Int pos)
+    {
+        var tile = GetTile(id, pos);
+        var item = ItemsList.Items.AllItems[id];
+        tile.AddItem(item, Instantiate(item.GetGameObject(), new Vector3(pos.x, .5f, pos.y), Quaternion.identity));
+    }
+
+    private TileInfo GetTile(ItemID id, Vector2Int pos)
     {
         var chunkPos = pos / 10;
-        InstantiateChunk(pos); // We make sure that the chunk that contains the object is instantiated
-        var tile = _instantiated[pos][pos.Modulo(10)];
-        var item = ItemsList.Items.AllItems[id];
-        if (!tile.CanAddItem(item))
-            return false;
-        tile.AddItem(item, Instantiate(item.GetGameObject(), new Vector3(pos.x, .5f, pos.y), Quaternion.identity));
-        return true;
+        InstantiateChunk(chunkPos); // We make sure that the chunk that contains the object is instantiated
+        return _instantiated[chunkPos][pos.Modulo(10).Abs()];
     }
 }
