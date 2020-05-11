@@ -6,7 +6,7 @@ public class Inventory
     public Inventory(bool isLocalPlayer)
     {
         _slots = new List<(Item, int)>();
-        _slots.Add((ItemsList.Items.Generator, 1)); // The player begin the game with a generator
+        _slots.Add((ItemsList.Items.AllItems[ItemID.Generator], 1)); // The player begin the game with a generator
 
         if (isLocalPlayer)
         {

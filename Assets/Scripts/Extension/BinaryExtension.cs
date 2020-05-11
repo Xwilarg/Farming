@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using UnityEngine;
 
-public static class Utils
+public static class BinaryExtension
 {
     public static void Write(this BinaryWriter w, Vector2 pos)
     {

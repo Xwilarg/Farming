@@ -4,5 +4,8 @@
     CriticalError,
     AuthentificationSuccess,
     PlayerInstantiate,
-    PlayerPosition
+    PlayerPosition,
+    ObjectInstantiateRequest,
+    ObjectInstantiateSuccess,
+    WorldItemsUpdate
 }

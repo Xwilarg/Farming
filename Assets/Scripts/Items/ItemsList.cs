@@ -1,17 +1,26 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class ItemsList : MonoBehaviour
+[CreateAssetMenu(menuName = "ScriptableObject/ItemsList", fileName = "ItemsList")]
+public class ItemsList : ScriptableObject
 {
-    public static ItemsList Items { private set; get; }
-
-    private void Start()
-    {
-        Items = this;
-        Generator = new Item("Generator", "Generate a livable space around you", new[] { TileType.Grass, TileType.Sand }, GeneratorImg);
-    }
-
+    [Header("Sprites image for UI")]
     [SerializeField]
     private Sprite GeneratorImg;
 
-    public Item Generator;
+    [Header("Prefab GameObject to be put ingame")]
+    [SerializeField]
+    private GameObject GeneratorGo;
+
+    public static ItemsList Items;
+
+    private ItemsList()
+    {
+        Items = this; AllItems = new Dictionary<ItemID, Item>
+        {
+            { ItemID.Generator, new Item(ItemID.Generator, "Generator", "Generate a livable space around you", new[] { TileType.Grass, TileType.Sand }, GeneratorImg, GeneratorGo) }
+        };
+    }
+
+    public Dictionary<ItemID, Item> AllItems;
 }

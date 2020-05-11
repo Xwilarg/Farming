@@ -41,6 +41,7 @@ public class NetworkServer
                     MemoryStream stream = new MemoryStream();
                     BinaryWriter writer = new BinaryWriter(stream);
                     writer.Write((byte)NetworkRequest.CriticalError);
+                    writer.Write("Wrong authentification key".Length);
                     writer.Write("Wrong authentification key");
                 }
                 break;

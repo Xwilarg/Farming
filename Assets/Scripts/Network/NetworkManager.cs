@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour
 {
+    public static NetworkManager NETWORK_MANAGER { private set; get; } // Static reference to this object
+
+    private void Awake()
+    {
+        NETWORK_MANAGER = this;
+    }
+
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -20,6 +28,44 @@ public class NetworkManager : MonoBehaviour
         };
     }
 
+    /// <summary>
+    /// First thing called when the client is connected or the server start
+    /// </summary>
+    public void SpawnPlayer(Player p, bool isMe, Vector2 pos, Vector2Int vel)
+    {
+        _toCall.Add(() => { _gm.InstantiatePlayer(p, this, isMe, pos, vel); });
+    }
+
+    public void InstantiateObject(ItemID id, Vector2Int position)
+    {
+        // If we are a distant player we must at first send a request to the server
+        using (MemoryStream ms = new MemoryStream())
+        {
+            using (BinaryWriter writer = new BinaryWriter(ms))
+            {
+                writer.Write((byte)id);
+                writer.Write(position);
+                if (_isHostLocalPlayer)
+                {
+                    if (Generation.GENERATION.SpawnObject(id, position))
+                        _server.SendToEveryone(NetworkRequest.ObjectInstantiateSuccess, ms.ToArray(), -1);
+                    else
+                        throw new Exception("Error while trying to spawn object " + id + " at " + position);
+                }
+                else
+                    _client.SendRequest(NetworkRequest.ObjectInstantiateRequest, ms.ToArray());
+            }
+        }
+    }
+
+    private NetworkClient _client = null;
+    private NetworkServer _server = null;
+
+    private bool _isHostLocalPlayer;
+    private List<Action> _toCall;
+
+    // Everything related to when the client and server must first connect
+    #region NetworkConnection
     public void Host(int port)
     {
         _isHostLocalPlayer = true;
@@ -40,12 +86,6 @@ public class NetworkManager : MonoBehaviour
     {
         _isHostLocalPlayer = false;
         _client = new NetworkClient(this, ip, port);
-    }
-
-    // First thing called when the client is connected or the server start
-    public void SpawnPlayer(Player p, bool isMe, Vector2 pos, Vector2Int vel)
-    {
-        _toCall.Add(() => { _gm.InstantiatePlayer(p, this, isMe, pos, vel); });
     }
 
     private void Update()
@@ -84,12 +124,6 @@ public class NetworkManager : MonoBehaviour
     public Player GetMe()
         => _me;
 
-    private NetworkClient _client = null;
-    private NetworkServer _server = null;
-
-    private bool _isHostLocalPlayer;
-
     private GameManager _gm;
-
-    private List<Action> _toCall;
+    #endregion NetworkConnection
 }

@@ -846,7 +846,6 @@ GameObject:
   - component: {fileID: 1755971522}
   - component: {fileID: 1755971523}
   - component: {fileID: 1755971524}
-  - component: {fileID: 1755971525}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -902,19 +901,6 @@ MonoBehaviour:
     type: 3}
   _sand: {fileID: 2100000, guid: e7985f7acdc0c05428ffcc06eadbc71b, type: 2}
   _grass: {fileID: 2100000, guid: 9222c802ab7458c4e9f589546e95ed3e, type: 2}
---- !u!114 &1755971525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755971521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1a00f2f6f2f7894ab493025531e2691, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GeneratorImg: {fileID: 21300000, guid: 57277f30890b1954c97edbbb943b6a09, type: 3}
 --- !u!224 &2038530900 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3139851108182155004, guid: d32823b312fc27d44a606f99e190f52d,
