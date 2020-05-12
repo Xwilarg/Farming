@@ -4,7 +4,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager uiManager { private set; get; }
 
-    private void Start()
+    private void Awake()
     {
         uiManager = this;
     }

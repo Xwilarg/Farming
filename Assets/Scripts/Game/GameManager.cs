@@ -15,6 +15,13 @@ public class GameManager : MonoBehaviour
 
     private Console _console;
 
+    public static GameManager MANAGER;
+
+    private void Awake()
+    {
+        MANAGER = this;
+    }
+
     private void Start()
     {
         _cameraBaseOffset = Camera.main.transform.position;
@@ -38,6 +45,14 @@ public class GameManager : MonoBehaviour
             Camera.main.transform.parent = go.transform;
             go.tag = "Player"; // We set the "Player" tag only on the local player
             GameObject.FindGameObjectWithTag("DebugManager").GetComponent<Console>().EnablePlayerSpawn(p);
+            p.Inventory.InitInventoryContent();
         }
+    }
+
+    public void InstantiateItem(Item item, Vector2Int pos, Player p)
+    {
+        Generation.GENERATION.SpawnObject(item.GetId(), pos);
+        item.Place(pos);
+        p.Inventory.RemoveItem(item.GetId());
     }
 }

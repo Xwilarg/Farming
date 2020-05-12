@@ -4,16 +4,21 @@ using System.Linq;
 
 public class Inventory
 {
-    public Inventory(bool isLocalPlayer)
+    public Inventory()
     {
         _slots = new List<(Item, int)>();
+    }
+
+    /// <summary>
+    /// We don't do that in the ctor cause in case of the remote connection the Player is init before the ItemsList is available
+    /// Must only be called by local player
+    /// </summary>
+    public void InitInventoryContent()
+    {
         _slots.Add((ItemsList.Items.AllItems[ItemID.Generator], 1)); // The player begin the game with a generator
 
-        if (isLocalPlayer)
-        {
-            _uiActionBar = UIManager.uiManager.GetActionBar();
-            _uiActionBar.InitInventory(this);
-        }
+        _uiActionBar = UIManager.uiManager.GetActionBar();
+        _uiActionBar?.InitInventory(this);
     }
 
     public void RemoveItem(ItemID id)

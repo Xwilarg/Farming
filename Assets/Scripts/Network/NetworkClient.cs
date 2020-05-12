@@ -38,6 +38,10 @@ public class NetworkClient
             case NetworkRequest.PlayerPosition:
                 _manager.GetPlayer(reader.ReadByte()).Pc.UpdatePosition(reader.ReadVector2(), reader.ReadVector2Int());
                 break;
+
+            case NetworkRequest.ObjectInstantiate:
+                GameManager.MANAGER.InstantiateItem(ItemsList.Items.AllItems[(ItemID)reader.ReadByte()], reader.ReadVector2Int(), me);
+                break;
         }
     }
 

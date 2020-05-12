@@ -901,6 +901,7 @@ MonoBehaviour:
   _prefabFloor: {fileID: 4355208008656830304, guid: 2f713e88791d5044c96b7188fa8a8152,
     type: 3}
   _materials: {fileID: 11400000, guid: 0b31d826c3031fe45a9f6f11f0719ce9, type: 2}
+  _gen: {fileID: 11400000, guid: 41de72f5bd4957c49a77e32f1707fe9a, type: 2}
 --- !u!114 &1755971525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -913,6 +914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ec1f53358d1d34e9ddb1af3edeba2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  items: {fileID: 11400000, guid: d3c939419bf3e0041be2ab0ccd601ee9, type: 2}
 --- !u!224 &2038530900 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3139851108182155004, guid: d32823b312fc27d44a606f99e190f52d,

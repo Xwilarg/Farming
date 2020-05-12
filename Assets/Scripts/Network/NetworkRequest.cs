@@ -5,7 +5,6 @@
     AuthentificationSuccess,
     PlayerInstantiate,
     PlayerPosition,
-    ObjectInstantiateRequest,
-    ObjectInstantiateSuccess,
+    ObjectInstantiate,
     WorldItemsUpdate
 }

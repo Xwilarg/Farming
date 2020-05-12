@@ -2,8 +2,11 @@
 
 public class ItemsInit : MonoBehaviour
 {
+    [SerializeField]
+    private ItemsList items;
+
     private void Awake()
     {
-        ItemsList.Items.Init();
+        items.Init();
     }
 }

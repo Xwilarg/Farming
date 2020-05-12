@@ -58,6 +58,11 @@ public class NetworkServer
                 }
                 break;
 
+            case NetworkRequest.ObjectInstantiate:
+                GameManager.MANAGER.InstantiateItem(ItemsList.Items.AllItems[(ItemID)reader.ReadByte()], reader.ReadVector2Int(), player);
+                SendToEveryone(NetworkRequest.ObjectInstantiate, payload, player.Id);
+                break;
+
             case NetworkRequest.PlayerPosition:
                 _manager.GetPlayer(reader.ReadByte()).Pc.UpdatePosition(reader.ReadVector2(), reader.ReadVector2Int());
                 SendToEveryone(NetworkRequest.PlayerPosition, payload, player.Id);

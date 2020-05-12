@@ -40,7 +40,7 @@ public class NetworkManager : MonoBehaviour
     /// Instantiate an object over the network
     /// </summary>
     /// <returns>Returns true if the object can be instanted right now</returns>
-    public bool InstantiateObject(ItemID id, Vector2Int position)
+    public bool RequestItemSpawn(ItemID id, Vector2Int position)
     {
         // If we are a distant player we must at first send a request to the server
         using (MemoryStream ms = new MemoryStream())
@@ -50,15 +50,12 @@ public class NetworkManager : MonoBehaviour
                 writer.Write((byte)id);
                 writer.Write(position);
                 if (_isHostLocalPlayer)
-                {
-                    _server.SendToEveryone(NetworkRequest.ObjectInstantiateSuccess, ms.ToArray(), -1);
-                    return true;
-                }
+                    _server.SendToEveryone(NetworkRequest.ObjectInstantiate, ms.ToArray(), -1);
                 else
-                    _client.SendRequest(NetworkRequest.ObjectInstantiateRequest, ms.ToArray());
+                    _client.SendRequest(NetworkRequest.ObjectInstantiate, ms.ToArray());
             }
         }
-        return false;
+        return _isHostLocalPlayer; // The host can start instantiating the object right away
     }
 
     private NetworkClient _client = null;

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f715e1b7c254244a273a19c60e7520, type: 3}
   m_Name: WorldGeneration
   m_EditorClassIdentifier: 
-  ChunkSize: 0
+  ChunkSize: 11

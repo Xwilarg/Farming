@@ -10,13 +10,13 @@ public class GridSelection : MonoBehaviour
     private bool _isPlacementEnabled = false;
     private GameObject _selectionGo = null;
 
-    private PlayerController pc;
+    private PlayerController _pc;
 
     public void SetMe(bool value) => _isMe = value;
 
     private void Start()
     {
-        pc = GetComponent<PlayerController>();
+        _pc = GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -47,11 +47,9 @@ public class GridSelection : MonoBehaviour
                     if (item != null && Generation.GENERATION.CanSpawnObject(item.GetId(), pos))
                     {
                         // If we are in debug mode (then there is no NetworkManager) or if we are the server
-                        if (NetworkManager.NETWORK_MANAGER == null || NetworkManager.NETWORK_MANAGER.InstantiateObject(item.GetId(), pos))
+                        if (NetworkManager.NETWORK_MANAGER == null || NetworkManager.NETWORK_MANAGER.RequestItemSpawn(item.GetId(), pos))
                         {
-                            Generation.GENERATION.SpawnObject(item.GetId(), pos);
-                            item.Place(pos);
-                            pc.GetPlayer().Inventory.RemoveItem(item.GetId());
+                            GameManager.MANAGER.InstantiateItem(item, pos, _pc.GetPlayer());
                         }
                     }
                 }
