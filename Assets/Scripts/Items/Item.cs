@@ -3,7 +3,17 @@ using UnityEngine;
 
 public class Item
 {
-    public Item(ItemID id, string name, string description, TileType[] allowedTiles, Sprite img, GameObject go)
+    /// <summary>
+    /// An ingame item
+    /// </summary>
+    /// <param name="id">ID of the item</param>
+    /// <param name="name">Name of the item</param>
+    /// <param name="description">Description of the item</param>
+    /// <param name="allowedTiles">Tiles where the item can be placed</param>
+    /// <param name="img">Sprite to be displayed in the UI</param>
+    /// <param name="go">Prefab of the object</param>
+    /// <param name="power">Special properties of the item</param>
+    public Item(ItemID id, string name, string description, TileType[] allowedTiles, Sprite img, GameObject go, IItemPower power)
     {
         _id = id;
         _name = name;
@@ -11,10 +21,19 @@ public class Item
         _allowedTiles = allowedTiles;
         _img = img;
         _go = go;
+        _power = power;
     }
 
     public bool IsTileCorrect(TileType tile)
         => _allowedTiles.Contains(tile);
+
+    /// <summary>
+    /// Must be called when the item is put on the floor in the game
+    /// </summary>
+    public void Place(Vector2Int pos)
+    {
+        _power?.OnItemPlaced(this, pos);
+    }
 
     public Sprite GetImage() => _img;
     public GameObject GetGameObject() => _go;
@@ -27,4 +46,5 @@ public class Item
     private TileType[] _allowedTiles; // Tiles where the object can be placed
     private Sprite _img;
     private GameObject _go;
+    private IItemPower _power;
 }

@@ -50,6 +50,7 @@ public class GridSelection : MonoBehaviour
                         if (NetworkManager.NETWORK_MANAGER == null || NetworkManager.NETWORK_MANAGER.InstantiateObject(item.GetId(), pos))
                         {
                             Generation.GENERATION.SpawnObject(item.GetId(), pos);
+                            item.Place(pos);
                             pc.GetPlayer().Inventory.RemoveItem(item.GetId());
                         }
                     }

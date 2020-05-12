@@ -26,7 +26,7 @@ public class ItemsList : ScriptableObject
     {
         AllItems = new Dictionary<ItemID, Item>
         {
-            { ItemID.Generator, new Item(ItemID.Generator, "Generator", "Generate a livable space around you", new[] { TileType.Grass, TileType.Sand }, GeneratorImg, GeneratorGo) }
+            { ItemID.Generator, new Item(ItemID.Generator, "Generator", "Generate a livable space around you", new[] { TileType.Grass, TileType.Sand }, GeneratorImg, GeneratorGo, new GeneratorPower()) }
         };
     }
 

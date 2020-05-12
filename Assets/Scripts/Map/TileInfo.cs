@@ -7,6 +7,7 @@ public class TileInfo
         _gameObject = gameObject;
         _type = TileType.Sand;
         _itemContained = null;
+        _renderer = gameObject.GetComponent<MeshRenderer>();
     }
 
     public void AddItem(Item item, GameObject go)
@@ -22,8 +23,15 @@ public class TileInfo
         return item.IsTileCorrect(_type);
     }
 
+    public void SetTileType(TileType value, Material m)
+    {
+        _type = value;
+        _renderer.material = m;
+    }
+
     private GameObject _gameObject;
     private TileType _type;
     private Item _itemContained;
     private GameObject _itemContainedGo;
+    private MeshRenderer _renderer;
 }
