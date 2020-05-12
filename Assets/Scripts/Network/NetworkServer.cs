@@ -59,7 +59,9 @@ public class NetworkServer
                 break;
 
             case NetworkRequest.ObjectInstantiate:
-                GameManager.MANAGER.InstantiateItem(ItemsList.Items.AllItems[(ItemID)reader.ReadByte()], reader.ReadVector2Int(), player);
+                _manager.AddDelegateAction(() => {
+                    GameManager.MANAGER.InstantiateItem(ItemsList.Items.AllItems[(ItemID)reader.ReadByte()], reader.ReadVector2Int(), player);
+                });
                 SendToEveryone(NetworkRequest.ObjectInstantiate, payload, player.Id);
                 break;
 

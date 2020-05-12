@@ -64,6 +64,9 @@ public class NetworkManager : MonoBehaviour
     private bool _isHostLocalPlayer;
     private List<Action> _toCall;
 
+    public void AddDelegateAction(Action a)
+        => _toCall.Add(a);
+
     // Everything related to when the client and server must first connect
     #region NetworkConnection
     public void Host(int port)

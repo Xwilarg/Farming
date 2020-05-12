@@ -65,8 +65,12 @@ public class Generation : MonoBehaviour
     public void ChangeFloorType(Vector2Int pos, TileType newType)
     {
         // TODO: Remove any object that can't be on the new floor type
-        var tile = GetTile(pos);
-        tile.SetTileType(newType, _tileTypes[newType]);
+        try
+        {
+            var tile = GetTile(pos);
+            tile.SetTileType(newType, _tileTypes[newType]);
+        } catch (System.Exception e)
+        { Debug.LogError(e); } // TODO: Need to be fixed
     }
 
     public bool CanSpawnObject(ItemID id, Vector2Int pos)
