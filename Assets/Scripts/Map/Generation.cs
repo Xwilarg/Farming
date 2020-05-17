@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// Enable generation debug messages
+// #define DEBUG_GENERATION
+
+using System.Collections.Generic;
 using UnityEngine;
 
 using Chunk = System.Collections.Generic.Dictionary<UnityEngine.Vector2Int, TileInfo>;
@@ -64,13 +67,16 @@ public class Generation : MonoBehaviour
 
     public void ChangeFloorType(Vector2Int pos, TileType newType)
     {
-        // TODO: Remove any object that can't be on the new floor type
+#if DEBUG_GENERATION
         try
         {
+#endif
             var tile = GetTile(pos);
             tile.SetTileType(newType, _tileTypes[newType]);
-        } catch (System.Exception e)
+#if DEBUG_GENERATION
+    } catch (System.Exception e)
         { Debug.LogError(e); } // TODO: Need to be fixed
+#endif
     }
 
     public bool CanSpawnObject(ItemID id, Vector2Int pos)
@@ -88,10 +94,16 @@ public class Generation : MonoBehaviour
 
     private TileInfo GetTile(Vector2Int pos)
     {
-        var chunkPos = ((Vector2)pos / (_gen.ChunkSize / 2f + 0.001f)).ToVector2Int();
+        var chunkPosTmp = ((Vector2)pos).Add(_gen.ChunkSize / 2f) / _gen.ChunkSize;
+        var chunkPos = new Vector2Int(GetChunkInt(chunkPosTmp.x), GetChunkInt(chunkPosTmp.y));
         var tilePos = (chunkPos.Multiply(_gen.ChunkSize) - pos.Add(_gen.ChunkSize / 2)).Abs();
         InstantiateChunk(chunkPos); // We make sure that the chunk that contains the object is instantiated
+#if DEBUG_GENERATION
         Debug.Log("Requesting position " + pos + ", getting chunk " + chunkPos + " with position " + tilePos);
+#endif
         return _instantiated[chunkPos][tilePos];
     }
+
+    private int GetChunkInt(float value)
+        => (int)value + (value < 0 ? -1 : 0);
 }

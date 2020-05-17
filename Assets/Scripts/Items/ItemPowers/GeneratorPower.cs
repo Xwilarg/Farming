@@ -4,7 +4,7 @@ public class GeneratorPower : IItemPower
 {
     public void OnItemPlaced(Item item, Vector2Int pos)
     {
-        int power = GeneratorInfo.Info.Power;
+        int power = ItemsInit.S.mainGeneratorInfo.Power;
         for (int x = -power; x <= power; x++)
         {
             for (int y = -power; y <= power; y++)
