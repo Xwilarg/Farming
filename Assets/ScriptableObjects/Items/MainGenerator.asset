@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 728fdc56792a9044d922e20061a5796b, type: 3}
   m_Name: MainGenerator
   m_EditorClassIdentifier: 
-  Power: 5
+  Power: 10

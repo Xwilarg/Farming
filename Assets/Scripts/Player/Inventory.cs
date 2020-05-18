@@ -6,7 +6,7 @@ public class Inventory
 {
     public Inventory()
     {
-        _slots = new List<(Item, int)>();
+        _slots = new List<Slot>();
     }
 
     /// <summary>
@@ -15,7 +15,8 @@ public class Inventory
     /// </summary>
     public void InitInventoryContent()
     {
-        _slots.Add((ItemsList.Items.AllItems[ItemID.Generator], 1)); // The player begin the game with a generator
+        _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Generator], 1)); // The player begin the game with a generator
+        _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.BasicPlant], 5)); // The player begin the game with a generator
 
         _uiActionBar = UIManager.uiManager.GetActionBar();
         _uiActionBar?.InitInventory(this);
@@ -23,27 +24,39 @@ public class Inventory
 
     public void RemoveItem(ItemID id)
     {
-        var elem = _slots.Where(x => x.Item1.GetId() == id).First();
-        if (elem.Item2 > 1)
-            elem.Item2--;
+        var elem = _slots.Where(x => x.item.GetId() == id).First();
+        if (elem.amount > 1)
+            elem.amount--;
         else
-            _slots.Remove((elem.Item1, 1));
+            _slots.Remove(elem);
         _uiActionBar?.UpdateSlots();
     }
 
     public void AddItem(ItemID id)
     {
-        var elem = _slots.Where(x => x.Item1.GetId() == id).FirstOrDefault();
-        if (elem.Item1 != null)
-            elem.Item2++;
+        var elem = _slots.Where(x => x.item.GetId() == id).FirstOrDefault();
+        if (elem.item != null)
+            elem.amount++;
         else
-            _slots.Add((ItemsList.Items.AllItems[id], 1));
+            _slots.Add(new Slot(ItemsList.Items.AllItems[id], 1));
         _uiActionBar?.UpdateSlots();
     }
 
-    public ReadOnlyCollection<(Item, int)> GetInventory()
+    public ReadOnlyCollection<Slot> GetInventory()
         => _slots.AsReadOnly();
 
-    private List<(Item, int)> _slots; // Items and how many you have
+    private List<Slot> _slots; // Items and how many you have
     private ActionBar _uiActionBar; // A reference to the UI action bar if it's the local player so we can update it
+
+    public class Slot
+    {
+        public Slot(Item item, int amount)
+        {
+            this.item = item;
+            this.amount = amount;
+        }
+
+        public Item item;
+        public int amount;
+    }
 }

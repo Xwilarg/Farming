@@ -34,11 +34,11 @@ public class ActionBar : MonoBehaviour
         int i;
         for (i = 0; i < maxItems; i++)
         {
-            _actions[i].slot.SetItem(items[i].Item1);
+            _actions[i].slot.SetItem(items[i].item, items[i].amount);
         }
         for (; i < _actions.Length; i++)
         {
-            _actions[i].slot.SetItem(null);
+            _actions[i].slot.SetItem(null, 0);
         }
     }
 
