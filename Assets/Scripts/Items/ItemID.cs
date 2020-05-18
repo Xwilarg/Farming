@@ -1,5 +1,6 @@
 ﻿public enum ItemID
 {
     Generator,
-    BasicPlant
+    BasicPlant,
+    Scythe
 }

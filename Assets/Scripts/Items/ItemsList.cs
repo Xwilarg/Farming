@@ -9,12 +9,16 @@ public class ItemsList : ScriptableObject
     private Sprite GeneratorImg;
     [SerializeField]
     private Sprite BasicPlantImg;
+    [SerializeField]
+    private Sprite ScytheImg;
 
     [Header("Prefab GameObject to be put ingame")]
     [SerializeField]
     private GameObject GeneratorGo;
     [SerializeField]
     private GameObject BasicPlantGo;
+    [SerializeField]
+    private GameObject ScytheGo;
 
     public static ItemsList Items;
 
@@ -31,7 +35,8 @@ public class ItemsList : ScriptableObject
         AllItems = new Dictionary<ItemID, Item>
         {
             { ItemID.Generator, new Item(ItemID.Generator, "Generator", "Generate a livable space around you", new[] { TileType.Grass, TileType.Sand }, GeneratorImg, GeneratorGo, new GeneratorPower()) },
-            { ItemID.BasicPlant, new Item(ItemID.BasicPlant, "Basic Plant", "Maybe a flower will grow?", new[] { TileType.Grass }, BasicPlantImg, BasicPlantGo, null) }
+            { ItemID.BasicPlant, new Item(ItemID.BasicPlant, "Basic Plant", "Maybe a cute flower will grow?", new[] { TileType.Grass }, BasicPlantImg, BasicPlantGo, null) },
+            { ItemID.Scythe, new Item(ItemID.Scythe, "Scythe", "To cut down plants and annoying salesman", new TileType[0], ScytheImg, ScytheGo, null) }
         };
     }
 
