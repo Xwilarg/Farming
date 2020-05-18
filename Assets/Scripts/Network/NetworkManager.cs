@@ -49,6 +49,7 @@ public class NetworkManager : MonoBehaviour
             {
                 writer.Write((byte)id);
                 writer.Write(position);
+                writer.Write(false);
                 if (_isHostLocalPlayer)
                     _server.SendToEveryone(NetworkRequest.ObjectInstantiate, ms.ToArray(), -1);
                 else

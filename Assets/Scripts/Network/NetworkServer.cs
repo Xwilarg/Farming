@@ -62,7 +62,18 @@ public class NetworkServer
                 _manager.AddDelegateAction(() => {
                     GameManager.MANAGER.InstantiateItem(ItemsList.Items.AllItems[(ItemID)reader.ReadByte()], reader.ReadVector2Int(), player, false);
                 });
-                SendToEveryone(NetworkRequest.ObjectInstantiate, payload, player.Id);
+                { // To all players except object owner
+                    MemoryStream stream = new MemoryStream(payload);
+                    BinaryWriter writer = new BinaryWriter(stream);
+                    writer.Write(false);
+                    SendToEveryone(NetworkRequest.ObjectInstantiate, stream.ToArray(), player.Id);
+                }
+                { // To object owner
+                    MemoryStream stream = new MemoryStream(payload);
+                    BinaryWriter writer = new BinaryWriter(stream);
+                    writer.Write(true);
+                    player.Tcp.SendRequest(NetworkRequest.ObjectInstantiate, stream.ToArray());
+                }
                 break;
 
             case NetworkRequest.PlayerPosition:

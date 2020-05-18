@@ -42,7 +42,7 @@ public class NetworkClient
             case NetworkRequest.ObjectInstantiate:
                 _manager.AddDelegateAction(() =>
                 {
-                    GameManager.MANAGER.InstantiateItem(ItemsList.Items.AllItems[(ItemID)reader.ReadByte()], reader.ReadVector2Int(), me, true);
+                    GameManager.MANAGER.InstantiateItem(ItemsList.Items.AllItems[(ItemID)reader.ReadByte()], reader.ReadVector2Int(), me, reader.ReadBoolean());
                 });
                 break;
         }
