@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     private Player _player;
     private NetworkManager _net;
 
+    public static PlayerController LOCAL; // Static reference to local player
+
     public Player GetPlayer()
         => _player;
 
@@ -26,6 +28,8 @@ public class PlayerController : MonoBehaviour
         _player = player;
         _net = net;
         _isMe = isMe;
+        if (_isMe)
+            LOCAL = this;
         GetComponent<GridSelection>().SetMe(_isMe);
     }
 

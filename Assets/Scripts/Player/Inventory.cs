@@ -31,6 +31,16 @@ public class Inventory
         _uiActionBar?.UpdateSlots();
     }
 
+    public void AddItem(ItemID id)
+    {
+        var elem = _slots.Where(x => x.Item1.GetId() == id).FirstOrDefault();
+        if (elem.Item1 != null)
+            elem.Item2++;
+        else
+            _slots.Add((ItemsList.Items.AllItems[id], 1));
+        _uiActionBar?.UpdateSlots();
+    }
+
     public ReadOnlyCollection<(Item, int)> GetInventory()
         => _slots.AsReadOnly();
 

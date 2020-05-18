@@ -31,7 +31,8 @@ public class Console : MonoBehaviour
         {
             { "respawn", new ConsoleCommand{ argumentCount = 0, callback = Respawn } },
             { "grid", new ConsoleCommand{ argumentCount = 0, callback = Grid } },
-            { "hide", new ConsoleCommand{ argumentCount = 0, callback = Hide } }
+            { "hide", new ConsoleCommand{ argumentCount = 0, callback = Hide } },
+            { "item", new ConsoleCommand{ argumentCount = 1, callback = GetItem } }
         };
 
         _grid = GetComponent<DrawGrid>();
@@ -99,5 +100,17 @@ public class Console : MonoBehaviour
         var mesh = GameObject.FindGameObjectWithTag("Player").GetComponent<MeshRenderer>();
         mesh.enabled = !mesh.enabled;
         _output.text += "Player rendering is now set to " + mesh.enabled;
+    }
+
+    private void GetItem(string[] args)
+    {
+        int itemId;
+        if (!int.TryParse(args[0], out itemId) || !ItemsList.Items.AllItems.ContainsKey((ItemID)itemId))
+        {
+            _output.text += "Invalid item id";
+            return;
+        }
+        PlayerController.LOCAL.GetPlayer().Inventory.AddItem((ItemID)itemId);
+        _output.text += ((ItemID)itemId).ToString() + " added to your inventory";
     }
 }
