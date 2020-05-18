@@ -59,8 +59,10 @@ public class NetworkServer
                 break;
 
             case NetworkRequest.ObjectInstantiate:
+                var itemId = (ItemID)reader.ReadByte();
+                var pos = reader.ReadVector2Int();
                 _manager.AddDelegateAction(() => {
-                    GameManager.MANAGER.InstantiateItem(ItemsList.Items.AllItems[(ItemID)reader.ReadByte()], reader.ReadVector2Int(), player, false);
+                    GameManager.MANAGER.InstantiateItem(ItemsList.Items.AllItems[itemId], pos, player, false);
                 });
                 { // To all players except object owner
                     MemoryStream stream = new MemoryStream(payload);

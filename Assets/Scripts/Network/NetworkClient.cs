@@ -40,9 +40,12 @@ public class NetworkClient
                 break;
 
             case NetworkRequest.ObjectInstantiate:
+                var itemId = (ItemID)reader.ReadByte();
+                var pos = reader.ReadVector2Int();
+                var isItemOwner = reader.ReadBoolean();
                 _manager.AddDelegateAction(() =>
                 {
-                    GameManager.MANAGER.InstantiateItem(ItemsList.Items.AllItems[(ItemID)reader.ReadByte()], reader.ReadVector2Int(), me, reader.ReadBoolean());
+                    GameManager.MANAGER.InstantiateItem(ItemsList.Items.AllItems[itemId], pos, me, isItemOwner);
                 });
                 break;
         }
