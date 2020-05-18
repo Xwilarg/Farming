@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -23,6 +24,7 @@ public class Inventory
         _uiActionBar?.InitInventory(this);
     }
 
+    /// THE FOLLOWING FUNCTIONS MUST ONLY BE CALLED ON THE LOCAL PLAYER
     public void RemoveItem(ItemID id)
     {
         var elem = _slots.Where(x => x.item.GetId() == id).First();
@@ -30,7 +32,8 @@ public class Inventory
             elem.amount--;
         else
             _slots.Remove(elem);
-        _uiActionBar?.UpdateSlots();
+        _uiActionBar.UpdateSlots();
+        PlayerController.LOCAL.UpdateSelectionColor();
     }
 
     public void AddItem(ItemID id)
@@ -40,7 +43,8 @@ public class Inventory
             elem.amount++;
         else
             _slots.Add(new Slot(ItemsList.Items.AllItems[id], 1));
-        _uiActionBar?.UpdateSlots();
+        _uiActionBar.UpdateSlots();
+        PlayerController.LOCAL.UpdateSelectionColor();
     }
 
     public ReadOnlyCollection<Slot> GetInventory()

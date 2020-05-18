@@ -6,11 +6,16 @@ public class GridSelection : MonoBehaviour
     [SerializeField]
     private GameObject _prefabSelection;
 
+    [SerializeField]
+    private Material _validPositionMaterial, _invalidPositionMaterial;
+
     private bool _isMe = true;
     private bool _isPlacementEnabled = false;
     private GameObject _selectionGo = null;
+    private MeshRenderer _selectionRenderer;
 
     private PlayerController _pc;
+    private Vector2Int? _oldPlacementPos;
 
     public void SetMe(bool value) => _isMe = value;
 
@@ -33,8 +38,10 @@ public class GridSelection : MonoBehaviour
                 else
                 {
                     _selectionGo = Instantiate(_prefabSelection, transform);
+                    _selectionRenderer = _selectionGo.GetComponent<MeshRenderer>();
                     _isPlacementEnabled = true;
                     UpdateSelectionPosition();
+                    UpdateSelectionColor();
                 }
             }
             if (_isPlacementEnabled)
@@ -49,12 +56,25 @@ public class GridSelection : MonoBehaviour
                         // If we are in debug mode (then there is no NetworkManager) or if we are the server
                         if (NetworkManager.NETWORK_MANAGER == null || NetworkManager.NETWORK_MANAGER.RequestItemSpawn(item.GetId(), pos))
                         {
-                            GameManager.MANAGER.InstantiateItem(item, pos, _pc.GetPlayer());
+                            GameManager.MANAGER.InstantiateItem(item, pos, _pc.GetPlayer(), true);
                         }
                     }
                 }
+                if (_oldPlacementPos == null || _oldPlacementPos != _selectionGo.transform.position.ToVector2Int()) // TODO: Check need to be done again if a remote player put an object
+                    UpdateSelectionColor();
             }
         }
+    }
+
+    public void UpdateSelectionColor()
+    {
+        var pos = _selectionGo.transform.position.ToVector2Int();
+        var item = UIManager.uiManager.GetActionBar().GetCurrentlySelectedItem();
+        if (item == null || Generation.GENERATION.CanSpawnObject(item.GetId(), pos))
+            _selectionRenderer.material = _validPositionMaterial;
+        else
+            _selectionRenderer.material = _invalidPositionMaterial;
+        _oldPlacementPos = pos;
     }
 
     /// <summary>

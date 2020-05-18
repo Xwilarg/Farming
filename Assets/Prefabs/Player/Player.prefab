@@ -141,3 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefabSelection: {fileID: 136118780916979720, guid: e227732a5ce3b924c818200953e8c135,
     type: 3}
+  _validPositionMaterial: {fileID: 2100000, guid: eb16daf8b1117a64f8f3923fe8412bf1,
+    type: 2}
+  _invalidPositionMaterial: {fileID: 2100000, guid: 1dc9fcffaaae77645af6cfb36b04bd0b,
+    type: 2}

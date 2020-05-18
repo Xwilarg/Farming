@@ -18,7 +18,10 @@ public class ActionBar : MonoBehaviour
     {
         foreach (var action in _actions) // We check if any key of the action bar is pressed
             if (Input.GetKeyDown(action.key))
+            {
                 SelectSlot(action.slot);
+                PlayerController.LOCAL.UpdateSelectionColor();
+            }
     }
 
     public void InitInventory(Inventory inventory)

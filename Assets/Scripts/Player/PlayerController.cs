@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     private Player _player;
     private NetworkManager _net;
+    private GridSelection _grid;
 
     public static PlayerController LOCAL; // Static reference to local player
 
@@ -30,7 +31,12 @@ public class PlayerController : MonoBehaviour
         _isMe = isMe;
         if (_isMe)
             LOCAL = this;
-        GetComponent<GridSelection>().SetMe(_isMe);
+        _grid.SetMe(_isMe);
+    }
+
+    private void Awake()
+    {
+        _grid = GetComponent<GridSelection>(); // Called in Awake so it can be ready for InitNetwork
     }
 
     private void Start()
@@ -61,6 +67,11 @@ public class PlayerController : MonoBehaviour
             }
         }
         _rb.velocity = new Vector3(_axis2D.x * _speed, _rb.velocity.y, _axis2D.y * _speed);
+    }
+
+    public void UpdateSelectionColor()
+    {
+        _grid.UpdateSelectionColor();
     }
 
     public byte[] GetPositionData()

@@ -60,7 +60,7 @@ public class NetworkServer
 
             case NetworkRequest.ObjectInstantiate:
                 _manager.AddDelegateAction(() => {
-                    GameManager.MANAGER.InstantiateItem(ItemsList.Items.AllItems[(ItemID)reader.ReadByte()], reader.ReadVector2Int(), player);
+                    GameManager.MANAGER.InstantiateItem(ItemsList.Items.AllItems[(ItemID)reader.ReadByte()], reader.ReadVector2Int(), player, false);
                 });
                 SendToEveryone(NetworkRequest.ObjectInstantiate, payload, player.Id);
                 break;
