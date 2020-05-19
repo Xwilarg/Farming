@@ -25,6 +25,14 @@ public class Console : MonoBehaviour
 
     private Dictionary<string, ConsoleCommand> _commands;
 
+    public static Console S;
+    public bool IsConsoleOpened;
+
+    private void Awake()
+    {
+        S = this;
+    }
+
     private void Start()
     {
         _commands = new Dictionary<string, ConsoleCommand>()
@@ -34,6 +42,7 @@ public class Console : MonoBehaviour
             { "hide", new ConsoleCommand{ argumentCount = 0, callback = Hide } },
             { "item", new ConsoleCommand{ argumentCount = 1, callback = GetItem } }
         };
+        IsConsoleOpened = false;
 
         _grid = GetComponent<DrawGrid>();
     }
@@ -49,6 +58,7 @@ public class Console : MonoBehaviour
                 _consoleGo.SetActive(true);
                 _input.Select();
             }
+            IsConsoleOpened = _consoleGo.activeInHierarchy;
         }
         if (Input.GetKeyUp(KeyCode.Return) && _consoleGo.activeInHierarchy)
             Send();

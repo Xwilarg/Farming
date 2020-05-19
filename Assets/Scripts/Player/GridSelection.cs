@@ -26,7 +26,7 @@ public class GridSelection : MonoBehaviour
 
     private void Update()
     {
-        if (_isMe)
+        if (_isMe && !Console.S.IsConsoleOpened)
         {
             if (Input.GetKeyDown(KeyCode.Q)) // Press Q to enable/disable selection mode
             {
