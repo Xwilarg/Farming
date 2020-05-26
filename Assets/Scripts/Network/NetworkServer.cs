@@ -65,14 +65,18 @@ public class NetworkServer
                     GameManager.MANAGER.InstantiateItem(ItemsList.Items.AllItems[itemId], pos, player, false);
                 });
                 { // To all players except object owner
-                    MemoryStream stream = new MemoryStream(payload);
+                    MemoryStream stream = new MemoryStream();
                     BinaryWriter writer = new BinaryWriter(stream);
+                    writer.Write((byte)itemId);
+                    writer.Write(pos);
                     writer.Write(false);
                     SendToEveryone(NetworkRequest.ObjectInstantiate, stream.ToArray(), player.Id);
                 }
                 { // To object owner
-                    MemoryStream stream = new MemoryStream(payload);
+                    MemoryStream stream = new MemoryStream();
                     BinaryWriter writer = new BinaryWriter(stream);
+                    writer.Write((byte)itemId);
+                    writer.Write(pos);
                     writer.Write(true);
                     player.Tcp.SendRequest(NetworkRequest.ObjectInstantiate, stream.ToArray());
                 }
