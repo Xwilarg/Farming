@@ -2,5 +2,7 @@
 {
     Generator,
     BasicPlant,
-    Scythe
+    Scythe,
+    Spade,
+    Water
 }

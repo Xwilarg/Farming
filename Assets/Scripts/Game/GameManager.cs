@@ -51,9 +51,12 @@ public class GameManager : MonoBehaviour
 
     public void InstantiateItem(Item item, Vector2Int pos, Player p, bool doesUpdateInventory)
     {
-        Generation.GENERATION.SpawnObject(item.GetId(), pos);
+        if (item.HaveGameObject())
+        {
+            Generation.GENERATION.SpawnObject(item.GetId(), pos);
+            if (doesUpdateInventory)
+                p.Inventory.RemoveItem(item.GetId());
+        }
         item.Place(pos);
-        if (doesUpdateInventory)
-            p.Inventory.RemoveItem(item.GetId());
     }
 }

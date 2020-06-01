@@ -37,6 +37,7 @@ public class Item
 
     public Sprite GetImage() => _img;
     public GameObject GetGameObject() => _go;
+    public bool HaveGameObject() => _go != null;
 
     public ItemID GetId() => _id;
 
