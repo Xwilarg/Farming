@@ -18,7 +18,7 @@ public class TileInfo
 
     public bool CanAddItem(Item item)
     {
-        if (_itemContained != null)
+        if (_itemContained != null && item.HaveGameObject()) // If there is always something on the tile and that the current item will add an object
             return false;
         return item.IsTileCorrect(_type);
     }
