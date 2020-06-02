@@ -34,7 +34,9 @@ public class Generation : MonoBehaviour
         _tileTypes = new Dictionary<TileType, Material>
         {
             { TileType.Sand, _materials.Sand },
-            { TileType.Grass, _materials.Grass }
+            { TileType.Grass, _materials.Grass },
+            { TileType.Dirt, _materials.Dirt },
+            { TileType.WetDirt, _materials.WebDirt }
         };
         _instantiated = new Dictionary<Vector2Int, Chunk>();
 

@@ -1,5 +1,7 @@
 ﻿public enum TileType
 {
     Sand,
-    Grass
+    Grass,
+    Dirt,
+    WetDirt
 }

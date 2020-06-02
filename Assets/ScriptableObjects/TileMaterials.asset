@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sand: {fileID: 2100000, guid: e7985f7acdc0c05428ffcc06eadbc71b, type: 2}
   Grass: {fileID: 2100000, guid: 9222c802ab7458c4e9f589546e95ed3e, type: 2}
+  Dirt: {fileID: 2100000, guid: e04492cbed5da7d4d85d4e00ad941794, type: 2}
+  WebDirt: {fileID: 2100000, guid: db4863d674d09e54dad114c1996b5056, type: 2}

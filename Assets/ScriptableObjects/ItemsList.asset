@@ -15,9 +15,9 @@ MonoBehaviour:
   GeneratorImg: {fileID: 21300000, guid: 57277f30890b1954c97edbbb943b6a09, type: 3}
   BasicPlantImg: {fileID: 21300000, guid: b1a78f3bd0560d94dbe6c6deae3ea9e1, type: 3}
   ScytheImg: {fileID: 21300000, guid: 1c26a6afccb277c40bcfb4cea757139d, type: 3}
+  SpadeImg: {fileID: 21300000, guid: 90b318a5b7678f4448c826f95eb65cb8, type: 3}
+  WaterImg: {fileID: 21300000, guid: 798423f91ec6f354781912b06dd19510, type: 3}
   GeneratorGo: {fileID: 3701887738033010239, guid: e982a2201f4ce904bb157515b11eb5fb,
     type: 3}
   BasicPlantGo: {fileID: 7101236562621066150, guid: 245472cb659e32248afa9adc0689ac56,
-    type: 3}
-  ScytheGo: {fileID: 4373582933784011014, guid: 0756aeae155e02e43ba77095781b7601,
     type: 3}
