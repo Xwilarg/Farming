@@ -244,6 +244,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &705507995
@@ -847,6 +848,7 @@ GameObject:
   - component: {fileID: 1755971523}
   - component: {fileID: 1755971524}
   - component: {fileID: 1755971525}
+  - component: {fileID: 1755971526}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -916,6 +918,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items: {fileID: 11400000, guid: d3c939419bf3e0041be2ab0ccd601ee9, type: 2}
   mainGeneratorInfo: {fileID: 11400000, guid: dab4f0a59dda0364baa91a112e258836, type: 2}
+--- !u!114 &1755971526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755971521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08a74adb2951e0d44891cc6cee2ea98d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  info: {fileID: 11400000, guid: 08e2b729fb1eb9e4491db4e1d6611f0d, type: 2}
 --- !u!224 &2038530900 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3139851108182155004, guid: d32823b312fc27d44a606f99e190f52d,
