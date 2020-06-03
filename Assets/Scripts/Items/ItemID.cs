@@ -4,5 +4,7 @@
     BasicPlant,
     Scythe,
     Spade,
-    Water
+    Water,
+    GunEnergy,
+    GunMechanic
 }
