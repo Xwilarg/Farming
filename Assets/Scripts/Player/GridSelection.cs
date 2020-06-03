@@ -33,6 +33,7 @@ public class GridSelection : MonoBehaviour
                 if (_isPlacementEnabled)
                 {
                     Destroy(_selectionGo);
+                    _selectionGo = null;
                     _isPlacementEnabled = false;
                 }
                 else
@@ -82,6 +83,13 @@ public class GridSelection : MonoBehaviour
     /// </summary>
     private void UpdateSelectionPosition()
     {
+        // We don't want to display the selection tile when holding a special item (ex: gun)
+        if (UIManager.uiManager.GetActionBar().GetCurrentlySelectedItem().IsTileCorrect(TileType.Special)) // TODO: There is probably a better way to do that than every Update loop
+        {
+            _selectionGo.SetActive(false);
+            return;
+        }
+        _selectionGo.SetActive(true);
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, float.MaxValue, LayerMask.GetMask("Floor")))
