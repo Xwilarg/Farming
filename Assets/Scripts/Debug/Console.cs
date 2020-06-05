@@ -17,6 +17,8 @@ public class Console : MonoBehaviour
     private Player _player; // Reference to the Player
     private bool _canSpawnPlayer = false;
 
+    private GameObject _worldView;
+
     public void EnablePlayerSpawn(Player p)
     {
         _player = p;
@@ -39,12 +41,16 @@ public class Console : MonoBehaviour
         {
             { "respawn", new ConsoleCommand{ argumentCount = 0, callback = Respawn } },
             { "grid", new ConsoleCommand{ argumentCount = 0, callback = Grid } },
-            { "hide", new ConsoleCommand{ argumentCount = 0, callback = Hide } },
-            { "item", new ConsoleCommand{ argumentCount = 1, callback = GetItem } }
+            { "hide_player", new ConsoleCommand{ argumentCount = 0, callback = Hide } },
+            { "item", new ConsoleCommand{ argumentCount = 1, callback = GetItem } },
+            { "world_view", new ConsoleCommand{ argumentCount = 0, callback = WorldView } }
         };
         IsConsoleOpened = false;
 
         _grid = GetComponent<DrawGrid>();
+
+        _worldView = GameObject.FindGameObjectWithTag("WorldView");
+        _worldView.SetActive(false);
     }
 
     private void Update()
@@ -122,5 +128,11 @@ public class Console : MonoBehaviour
         }
         PlayerController.LOCAL.GetPlayer().Inventory.AddItem((ItemID)itemId);
         _output.text += ((ItemID)itemId).ToString() + " added to your inventory";
+    }
+
+    private void WorldView(string[] _)
+    {
+        _worldView.SetActive(!_worldView.activeInHierarchy);
+        _output.text += "World view rendering is now set to " + _worldView.activeInHierarchy;
     }
 }

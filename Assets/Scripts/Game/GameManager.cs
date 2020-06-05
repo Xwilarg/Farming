@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private Material _green, _blue;
 
     private Vector3 _cameraBaseOffset;
+    private Camera _worldCamera;
 
     private Console _console;
 
@@ -24,7 +25,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _cameraBaseOffset = Camera.main.transform.position;
+        _worldCamera = GameObject.FindGameObjectWithTag("WorldCamera").GetComponent<Camera>();
+        _cameraBaseOffset = _worldCamera.transform.position;
         if (GameObject.FindGameObjectWithTag("DebugManager") == null) // For debug
             Instantiate(_debugManager);
         // We create a new player without TCP link in case we started the game skipping the connection phase
@@ -41,12 +43,14 @@ public class GameManager : MonoBehaviour
         go.GetComponent<Renderer>().material = isMe ? _green : _blue;
         if (isMe) // Is this is the current player, we set the camera as a child so it follow the player
         {
-            Camera.main.transform.position = _cameraBaseOffset;
-            Camera.main.transform.parent = go.transform;
+            _worldCamera.transform.position = _cameraBaseOffset;
+            _worldCamera.transform.parent = go.transform;
             go.tag = "Player"; // We set the "Player" tag only on the local player
             GameObject.FindGameObjectWithTag("DebugManager").GetComponent<Console>().EnablePlayerSpawn(p);
             p.Inventory.InitInventoryContent();
         }
+        else
+            go.GetComponentInChildren<Camera>().gameObject.SetActive(false); // Disable FPS camera
     }
 
     public void InstantiateItem(Item item, Vector2Int pos, Player p, bool doesUpdateInventory)
