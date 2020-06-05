@@ -44,7 +44,8 @@ public class Console : MonoBehaviour
             { "grid", new ConsoleCommand{ argumentCount = 0, callback = Grid } },
             { "hide_player", new ConsoleCommand{ argumentCount = 0, callback = Hide } },
             { "item", new ConsoleCommand{ argumentCount = 1, callback = GetItem } },
-            { "world_view", new ConsoleCommand{ argumentCount = 0, callback = WorldView } }
+            { "world_view", new ConsoleCommand{ argumentCount = 0, callback = WorldView } },
+            { "help", new ConsoleCommand{ argumentCount = 0, callback = Help } }
         };
         IsConsoleOpened = false;
 
@@ -142,5 +143,10 @@ public class Console : MonoBehaviour
     {
         _worldView.SetActive(!_worldView.activeInHierarchy);
         _output.text += "World view rendering is now set to " + _worldView.activeInHierarchy;
+    }
+
+    private void Help(string[] _)
+    {
+        _output.text += string.Join(", ", _commands.Select(x => x.Key));
     }
 }

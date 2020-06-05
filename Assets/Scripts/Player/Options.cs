@@ -26,7 +26,7 @@ public class Options : MonoBehaviour
             if (_optionPanel.gameObject.activeInHierarchy)
             {
                 _optionPanel.gameObject.SetActive(false);
-                _console.Open();
+                _console?.Close();
                 if (SceneManager.GetActiveScene().name == "Main")
                 {
                     Cursor.lockState = CursorLockMode.Locked;
@@ -38,7 +38,6 @@ public class Options : MonoBehaviour
                 _optionPanel.gameObject.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                _console.Close();
             }
         };
     }
