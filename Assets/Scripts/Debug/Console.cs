@@ -61,28 +61,21 @@ public class Console : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            if (_consoleGo.activeInHierarchy)
-            {
-                _consoleGo.SetActive(false);
-                if (SceneManager.GetActiveScene().name == "Main")
-                {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                }
-            }
-            else
-            {
-                _consoleGo.SetActive(true);
-                _input.Select();
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            IsConsoleOpened = _consoleGo.activeInHierarchy;
-        }
         if (Input.GetKeyUp(KeyCode.Return) && _consoleGo.activeInHierarchy)
             Send();
+    }
+
+    public void Open()
+    {
+        _consoleGo.SetActive(true);
+        _input.Select();
+        IsConsoleOpened = true;
+    }
+
+    public void Close()
+    {
+        _consoleGo.SetActive(false);
+        IsConsoleOpened = false;
     }
 
     private void CleanInput()
