@@ -17,6 +17,12 @@ public class GridSelection : MonoBehaviour
     private PlayerController _pc;
     private Vector2Int? _oldPlacementPos;
 
+    private PlayerInfo _info;
+
+    public void Init(PlayerInfo info)
+    {
+        _info = info;
+    }
     public void SetMe(bool value) => _isMe = value;
 
     private void Start()
@@ -28,7 +34,7 @@ public class GridSelection : MonoBehaviour
     {
         if (_isMe && !Console.S.IsConsoleOpened)
         {
-            if (Input.GetKeyDown(KeyCode.Q)) // Press Q to enable/disable selection mode
+            if (Input.GetKeyDown(_info.placementKey)) // Press Q (by default) to enable/disable selection mode
             {
                 if (_isPlacementEnabled)
                 {
@@ -90,9 +96,9 @@ public class GridSelection : MonoBehaviour
             return;
         }
         _selectionGo.SetActive(true);
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, float.MaxValue, LayerMask.GetMask("Floor")))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward, out hit, float.MaxValue, LayerMask.GetMask("Floor"))
+            && Vector3.Distance(transform.position, hit.transform.position) <= _info.placementDist)
         {
             var pos = hit.point;
             int x = Mathf.RoundToInt(transform.position.x), z = Mathf.RoundToInt(transform.position.z);

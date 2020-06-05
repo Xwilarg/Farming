@@ -32,7 +32,7 @@ public class DrawGrid : MonoBehaviour
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(new Vector3(xPos, 0f, zPos), .5f);
             Gizmos.color = Color.blue;
-            Gizmos.DrawLine(_player.transform.position, _player.transform.position + _player.transform.forward * _displaySize);
+            Gizmos.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward * _displaySize);
         }
     }
 }

@@ -4,8 +4,11 @@
 public class PlayerInfo : ScriptableObject
 {
     [Header("Player info")]
-    [Tooltip("Player's speed")]
+    [Tooltip("Player speed")]
     public float speed;
+
+    [Tooltip("Max distance where the player can place objects")]
+    public int placementDist;
 
     [Header("Controls")]
     [Tooltip("Mouse default sensibivity on the X axis")]
@@ -31,6 +34,9 @@ public class PlayerInfo : ScriptableObject
 
     [Tooltip("Default key to go right")]
     public KeyCode rightKey;
+
+    [Tooltip("Default key to enable/disable object placement")]
+    public KeyCode placementKey;
 
     [Header("Graphisms")]
     [Tooltip("The intensity of the sunlight")]

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerInfo
   m_EditorClassIdentifier: 
   speed: 10
+  placementDist: 3
   xSensibivity: 1
   ySensibility: 0.5
   invertXAxis: 0
@@ -21,4 +22,5 @@ MonoBehaviour:
   backwardKey: 115
   leftKey: 97
   rightKey: 100
+  placementKey: 97
   sunIntensity: 0.5

@@ -29,7 +29,10 @@ public class PlayerController : MonoBehaviour
         _net = net;
         _isMe = isMe;
         if (_isMe)
+        {
             LOCAL = this;
+            _grid.Init(_info);
+        }
         _grid.SetMe(_isMe);
     }
 
