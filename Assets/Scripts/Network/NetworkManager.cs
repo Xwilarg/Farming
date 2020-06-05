@@ -31,7 +31,7 @@ public class NetworkManager : MonoBehaviour
     /// <summary>
     /// First thing called when the client is connected or the server start
     /// </summary>
-    public void SpawnPlayer(Player p, bool isMe, Vector2 pos, Vector2Int vel)
+    public void SpawnPlayer(Player p, bool isMe, Vector2 pos, Vector2 vel)
     {
         _toCall.Add(() => { _gm.InstantiatePlayer(p, this, isMe, pos, vel); });
     }

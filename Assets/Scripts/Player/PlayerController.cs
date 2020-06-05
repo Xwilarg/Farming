@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody _rb;
     private bool _isMe = true;
-    private Vector2Int _oldAxis2D;
-    private Vector2Int _axis2D; // Controls pressed on X/Z axis
+    private Vector2 _oldAxis2D;
+    private Vector2 _axis2D; // Controls pressed on X/Z axis
     private Vector3 _pos;
     private Vector2? _newPos = null;
 
@@ -59,12 +59,17 @@ public class PlayerController : MonoBehaviour
             else if (Input.GetKey(KeyCode.S)) y = -1;
             if (Input.GetKey(KeyCode.A)) x = -1;
             else if (Input.GetKey(KeyCode.D)) x = 1;
-            _axis2D = new Vector2Int(x, y);
+            _axis2D = (new Vector2(transform.forward.x, transform.forward.z) * y) + (new Vector2(transform.right.x, transform.right.z) * x);
+            _axis2D.Normalize();
             if (_axis2D != _oldAxis2D && _net != null) // If the player changed his movement we update it on the server
             {
                 _net.SendRequest(NetworkRequest.PlayerPosition, GetPositionData());
                 _oldAxis2D = _axis2D;
             }
+            float rotX = Input.GetAxis("Mouse X");
+            float rotY = Input.GetAxis("Mouse Y");
+            transform.Rotate(rotX * Vector3.up);
+            Camera.main.transform.Rotate(rotY * Vector3.left);
         }
         _rb.velocity = new Vector3(_axis2D.x * _speed, _rb.velocity.y, _axis2D.y * _speed);
     }
@@ -86,7 +91,7 @@ public class PlayerController : MonoBehaviour
         return ms.ToArray();
     }
 
-    public void UpdatePosition(Vector2 pos, Vector2Int vel)
+    public void UpdatePosition(Vector2 pos, Vector2 vel)
     {
         _newPos = pos;
         _axis2D = vel;

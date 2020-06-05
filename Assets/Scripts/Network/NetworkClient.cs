@@ -32,11 +32,11 @@ public class NetworkClient
             case NetworkRequest.PlayerInstantiate:
                 Player player = new Player(null, reader.ReadByte(), false);
                 _manager.AddPlayer(player);
-                _manager.SpawnPlayer(player, false, reader.ReadVector2(), reader.ReadVector2Int());
+                _manager.SpawnPlayer(player, false, reader.ReadVector2(), reader.ReadVector2());
                 break;
 
             case NetworkRequest.PlayerPosition:
-                _manager.GetPlayer(reader.ReadByte()).Pc.UpdatePosition(reader.ReadVector2(), reader.ReadVector2Int());
+                _manager.GetPlayer(reader.ReadByte()).Pc.UpdatePosition(reader.ReadVector2(), reader.ReadVector2());
                 break;
 
             case NetworkRequest.ObjectInstantiate:

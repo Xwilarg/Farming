@@ -31,9 +31,11 @@ public class GameManager : MonoBehaviour
             Instantiate(_debugManager);
         // We create a new player without TCP link in case we started the game skipping the connection phase
         GameObject.FindGameObjectWithTag("DebugManager").GetComponent<Console>().EnablePlayerSpawn(new Player(null, 255, true));
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-    public void InstantiatePlayer(Player p, NetworkManager net, bool isMe, Vector2 position, Vector2Int velocity)
+    public void InstantiatePlayer(Player p, NetworkManager net, bool isMe, Vector2 position, Vector2 velocity)
     {
         GameObject go = Instantiate(_playerPrefab);
         PlayerController pc = go.GetComponent<PlayerController>();

@@ -83,7 +83,7 @@ public class NetworkServer
                 break;
 
             case NetworkRequest.PlayerPosition:
-                _manager.GetPlayer(reader.ReadByte()).Pc.UpdatePosition(reader.ReadVector2(), reader.ReadVector2Int());
+                _manager.GetPlayer(reader.ReadByte()).Pc.UpdatePosition(reader.ReadVector2(), reader.ReadVector2());
                 SendToEveryone(NetworkRequest.PlayerPosition, payload, player.Id);
                 break;
         }

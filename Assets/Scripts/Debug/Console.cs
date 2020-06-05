@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(DrawGrid))]
 public class Console : MonoBehaviour
@@ -50,7 +51,12 @@ public class Console : MonoBehaviour
         _grid = GetComponent<DrawGrid>();
 
         _worldView = GameObject.FindGameObjectWithTag("WorldView");
-        _worldView.SetActive(false);
+        _worldView?.SetActive(false);
+        SceneManager.activeSceneChanged += (oldScene, newScene) =>
+        {
+            _worldView = GameObject.FindGameObjectWithTag("WorldView");
+            _worldView?.SetActive(false);
+        };
     }
 
     private void Update()
@@ -58,11 +64,20 @@ public class Console : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             if (_consoleGo.activeInHierarchy)
+            {
                 _consoleGo.SetActive(false);
+                if (SceneManager.GetActiveScene().name == "Main")
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
+            }
             else
             {
                 _consoleGo.SetActive(true);
                 _input.Select();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
             IsConsoleOpened = _consoleGo.activeInHierarchy;
         }
