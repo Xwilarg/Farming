@@ -9,6 +9,7 @@ TagManager:
   - UIManager
   - WorldCamera
   - WorldView
+  - Sun
   layers:
   - Default
   - TransparentFX

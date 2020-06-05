@@ -4,9 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Player stats")]
-    [Tooltip("The player's speed")]
-    private float _speed = 10f;
+    [SerializeField]
+    private PlayerInfo _info;
 
     private Rigidbody _rb;
     private bool _isMe = true;
@@ -42,6 +41,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        GameObject.FindGameObjectWithTag("Sun").GetComponent<Light>().intensity = _info.sunIntensity;
     }
 
     private void FixedUpdate()
@@ -55,10 +55,10 @@ public class PlayerController : MonoBehaviour
         {
             _pos = transform.position;
             int x = 0, y = 0;
-            if (Input.GetKey(KeyCode.W)) y = 1;
-            else if (Input.GetKey(KeyCode.S)) y = -1;
-            if (Input.GetKey(KeyCode.A)) x = -1;
-            else if (Input.GetKey(KeyCode.D)) x = 1;
+            if (Input.GetKey(_info.forwardKey)) y = 1;
+            else if (Input.GetKey(_info.backwardKey)) y = -1;
+            if (Input.GetKey(_info.leftKey)) x = -1;
+            else if (Input.GetKey(_info.rightKey)) x = 1;
             _axis2D = (new Vector2(transform.forward.x, transform.forward.z) * y) + (new Vector2(transform.right.x, transform.right.z) * x);
             _axis2D.Normalize();
             if (_axis2D != _oldAxis2D && _net != null) // If the player changed his movement we update it on the server
@@ -68,10 +68,10 @@ public class PlayerController : MonoBehaviour
             }
             float rotX = Input.GetAxis("Mouse X");
             float rotY = Input.GetAxis("Mouse Y");
-            transform.Rotate(rotX * Vector3.up);
-            Camera.main.transform.Rotate(rotY * Vector3.left);
+            transform.Rotate(rotX * Vector3.up * _info.xSensibivity * (_info.invertXAxis ? -1 : 1));
+            Camera.main.transform.Rotate(rotY * Vector3.left * _info.ySensibility * (_info.invertYAxis ? -1 : 1));
         }
-        _rb.velocity = new Vector3(_axis2D.x * _speed, _rb.velocity.y, _axis2D.y * _speed);
+        _rb.velocity = new Vector3(_axis2D.x * _info.speed, _rb.velocity.y, _axis2D.y * _info.speed);
     }
 
     public void UpdateSelectionColor()
