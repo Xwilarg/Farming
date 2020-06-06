@@ -8,6 +8,9 @@ public class Options : MonoBehaviour
 
     public static Options S;
 
+    [SerializeField]
+    private GameObject _gameUI;
+
     private void Awake()
     {
         S = this;
@@ -37,17 +40,17 @@ public class Options : MonoBehaviour
             {
                 _optionPanel.gameObject.SetActive(false);
                 _console?.Close();
-                if (SceneManager.GetActiveScene().name == "Main")
+                _gameUI.SetActive(true);
+                if (SceneManager.GetActiveScene().name == "Main") // If we are on the Main scene we lock the mouse because of FPS view
                 {
                     Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
                 }
             }
             else
             {
                 _optionPanel.gameObject.SetActive(true);
+                _gameUI.SetActive(false); // Hide game UI (crosshair, action bar, etc) on option menu
                 Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
             }
         };
     }

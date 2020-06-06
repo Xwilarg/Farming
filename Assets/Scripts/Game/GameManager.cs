@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
         // We create a new player without TCP link in case we started the game skipping the connection phase
         GameObject.FindGameObjectWithTag("DebugManager").GetComponent<Console>().EnablePlayerSpawn(new Player(null, 255, true));
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     public void InstantiatePlayer(Player p, NetworkManager net, bool isMe, Vector2 position, Vector2 velocity)
