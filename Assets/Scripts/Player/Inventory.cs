@@ -17,11 +17,11 @@ public class Inventory
     {
         _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.GunEnergy], 1));
         _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.GunMechanic], 1));
-        _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Shotgun], 1));
         _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Generator], 1)); // The player begin the game with a generator
         _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Spade], 1));
         _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Water], 1));
         _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.BasicPlant], 5));
+        _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Shotgun], 1));
         _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.DemonicCat], 2));
 
         UIManager.uiManager.InitInventory(this);

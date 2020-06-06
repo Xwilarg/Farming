@@ -7,7 +7,8 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(Instantiate(gunImpact, collision.contacts[0].point + (Vector3.up * 0.001f), Quaternion.identity), 3f);
+        if (collision.collider.CompareTag("Floor")) // We display impact on floor
+            Destroy(Instantiate(gunImpact, collision.contacts[0].point + (Vector3.up * 0.001f), Quaternion.identity), 3f);
         Destroy(gameObject);
     }
 }

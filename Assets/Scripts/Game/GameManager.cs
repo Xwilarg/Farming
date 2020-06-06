@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
             Generation.GENERATION.SpawnObject(item.GetId(), pos);
             if (doesUpdateInventory)
                 p.Inventory.RemoveItem(item.GetId());
-            item.Place(p.Pc, pos);
         }
+        item.Place(p.Pc, pos);
     }
 }

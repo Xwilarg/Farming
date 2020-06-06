@@ -61,9 +61,8 @@ public class GridSelection : MonoBehaviour
                 }
                 else if (_isPlacementEnabled)
                 {
-                    UpdateSelectionPosition();
                     var pos = _selectionGo.transform.position.ToVector2Int();
-                    if (item != null && Generation.GENERATION.CanSpawnObject(item.GetId(), pos))
+                    if (Generation.GENERATION.CanSpawnObject(item.GetId(), pos))
                     {
                         // If we are in debug mode (then there is no NetworkManager) or if we are the server
                         if (NetworkManager.NETWORK_MANAGER == null || NetworkManager.NETWORK_MANAGER.RequestItemSpawn(item.GetId(), pos))
@@ -71,9 +70,13 @@ public class GridSelection : MonoBehaviour
                             GameManager.MANAGER.InstantiateItem(item, pos, _pc.GetPlayer(), true);
                         }
                     }
-                    if (_oldPlacementPos == null || _oldPlacementPos != _selectionGo.transform.position.ToVector2Int()) // TODO: Check need to be done again if a remote player put an object
-                        UpdateSelectionColor();
                 }
+            }
+            if (_isPlacementEnabled)
+            {
+                UpdateSelectionPosition();
+                if (_oldPlacementPos != _selectionGo.transform.position.ToVector2Int()) // TODO: Check need to be done again if a remote player put an object
+                    UpdateSelectionColor();
             }
         }
     }
