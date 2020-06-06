@@ -30,9 +30,9 @@ public class Item
     /// <summary>
     /// Must be called when the item is put on the floor in the game
     /// </summary>
-    public void Place(Vector2Int pos)
+    public void Place(PlayerController player, Vector2Int pos)
     {
-        _power?.OnItemPlaced(this, pos);
+        _power?.OnItemPlaced(player, this, pos);
     }
 
     public Sprite GetImage() => _img;

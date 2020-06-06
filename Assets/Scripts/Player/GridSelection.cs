@@ -51,12 +51,16 @@ public class GridSelection : MonoBehaviour
                     UpdateSelectionColor();
                 }
             }
-            if (_isPlacementEnabled)
+            if (Input.GetMouseButtonDown(0))
             {
-                UpdateSelectionPosition();
-                if (Input.GetMouseButtonDown(0))
+                var item = UIManager.uiManager.GetActionBar().GetCurrentlySelectedItem();
+                if (item.IsTileCorrect(TileType.Special)) // For things items that can't be placed (like gun who can only be shoot)
                 {
-                    var item = UIManager.uiManager.GetActionBar().GetCurrentlySelectedItem();
+                    item.Place(_pc, Vector2Int.zero); // Position doesn't matter in this case
+                }
+                else if (_isPlacementEnabled)
+                {
+                    UpdateSelectionPosition();
                     var pos = _selectionGo.transform.position.ToVector2Int();
                     if (item != null && Generation.GENERATION.CanSpawnObject(item.GetId(), pos))
                     {
@@ -66,9 +70,9 @@ public class GridSelection : MonoBehaviour
                             GameManager.MANAGER.InstantiateItem(item, pos, _pc.GetPlayer(), true);
                         }
                     }
+                    if (_oldPlacementPos == null || _oldPlacementPos != _selectionGo.transform.position.ToVector2Int()) // TODO: Check need to be done again if a remote player put an object
+                        UpdateSelectionColor();
                 }
-                if (_oldPlacementPos == null || _oldPlacementPos != _selectionGo.transform.position.ToVector2Int()) // TODO: Check need to be done again if a remote player put an object
-                    UpdateSelectionColor();
             }
         }
     }

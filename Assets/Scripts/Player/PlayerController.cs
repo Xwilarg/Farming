@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody), typeof(GridSelection), typeof(WeaponController))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private Player _player;
     private NetworkManager _net;
     private GridSelection _grid;
+    private WeaponController _weaponControl;
 
     public static PlayerController LOCAL; // Static reference to local player
 
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _weaponControl = GetComponent<WeaponController>();
         GameObject.FindGameObjectWithTag("Sun").GetComponent<Light>().intensity = _info.sunIntensity;
     }
 
@@ -81,6 +83,9 @@ public class PlayerController : MonoBehaviour
     {
         _grid.UpdateSelectionColor();
     }
+
+    public void Shoot(WeaponInfo info)
+        => _weaponControl.Shoot(info);
 
     public byte[] GetPositionData()
     {

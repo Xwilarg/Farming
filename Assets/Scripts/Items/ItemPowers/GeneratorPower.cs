@@ -2,7 +2,7 @@
 
 public class GeneratorPower : IItemPower
 {
-    public void OnItemPlaced(Item item, Vector2Int pos)
+    public void OnItemPlaced(PlayerController player, Item item, Vector2Int pos)
     {
         int power = ItemsInit.S.mainGeneratorInfo.Power;
         for (int x = -power; x <= power; x++)

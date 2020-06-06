@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 271988657}
   - component: {fileID: 271988659}
   - component: {fileID: 271988658}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FPS Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -98,7 +98,8 @@ GameObject:
   - component: {fileID: 1325534618813131119}
   - component: {fileID: 1750089895033557533}
   - component: {fileID: -1374860405394050648}
-  m_Layer: 0
+  - component: {fileID: 419222080456050399}
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,3 +231,17 @@ MonoBehaviour:
     type: 2}
   _invalidPositionMaterial: {fileID: 2100000, guid: 1dc9fcffaaae77645af6cfb36b04bd0b,
     type: 2}
+--- !u!114 &419222080456050399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325534618813131029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2948e348878f542be04b86bf834a49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _laser: {fileID: 6671308220562599582, guid: 000e7f6c0ec9a804081de7717eb59ac7, type: 3}
+  _bullet: {fileID: 9122670720941078926, guid: a9b02906e7c92394fabe1c23a1af36a7, type: 3}
