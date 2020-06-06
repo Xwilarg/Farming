@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.ObjectModel;
+using UnityEngine;
 
 public class ActionBar : MonoBehaviour
 {
@@ -6,8 +7,6 @@ public class ActionBar : MonoBehaviour
     private ActionBarKey[] _actions;
 
     private ActionBarSlot _selected = null;
-
-    private Inventory _inventory;
 
     private void Start()
     {
@@ -24,15 +23,8 @@ public class ActionBar : MonoBehaviour
             }
     }
 
-    public void InitInventory(Inventory inventory)
+    public void UpdateSlots(ReadOnlyCollection<Inventory.Slot> items)
     {
-        _inventory = inventory;
-        UpdateSlots();
-    }
-
-    public void UpdateSlots()
-    {
-        var items = _inventory.GetInventory();
         int maxItems = _actions.Length < items.Count ? _actions.Length : items.Count;
         int i;
         for (i = 0; i < maxItems; i++)

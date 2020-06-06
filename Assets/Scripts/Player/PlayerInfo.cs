@@ -38,6 +38,9 @@ public class PlayerInfo : ScriptableObject
     [Tooltip("Default key to enable/disable object placement")]
     public KeyCode placementKey;
 
+    [Tooltip("Default key to toggle inventory")]
+    public KeyCode inventoryKey;
+
     [Header("Graphisms")]
     [Tooltip("The intensity of the sunlight")]
     public float sunIntensity;

@@ -54,6 +54,8 @@ public class GridSelection : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 var item = UIManager.uiManager.GetActionBar().GetCurrentlySelectedItem();
+                if (item == null)
+                    return;
                 if (item.IsTileCorrect(TileType.Special)) // For things items that can't be placed (like gun who can only be shoot)
                 {
                     item.Place(_pc, Vector2Int.zero); // Position doesn't matter in this case

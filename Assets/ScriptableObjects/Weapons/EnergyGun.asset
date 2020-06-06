@@ -16,3 +16,6 @@ MonoBehaviour:
   damage: 12
   shootType: 1
   intervalBetweenShoot: 1
+  lifetime: 0.2
+  projectileMass: 0
+  projectileSpeed: 0

@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _weaponControl = GetComponent<WeaponController>();
         GameObject.FindGameObjectWithTag("Sun").GetComponent<Light>().intensity = _info.sunIntensity;
+        GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>().SetPlayerInfo(_info);
     }
 
     private void FixedUpdate()

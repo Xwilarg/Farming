@@ -22,8 +22,7 @@ public class Inventory
         _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Water], 1));
         _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.BasicPlant], 5));
 
-        _uiActionBar = UIManager.uiManager.GetActionBar();
-        _uiActionBar?.InitInventory(this);
+        UIManager.uiManager.InitInventory(this);
     }
 
     /// THE FOLLOWING FUNCTIONS MUST ONLY BE CALLED ON THE LOCAL PLAYER
@@ -34,7 +33,7 @@ public class Inventory
             elem.amount--;
         else
             _slots.Remove(elem);
-        _uiActionBar.UpdateSlots();
+        UIManager.uiManager.UpdateInventory();
         PlayerController.LOCAL.UpdateSelectionColor();
     }
 
@@ -45,15 +44,16 @@ public class Inventory
             elem.amount++;
         else
             _slots.Add(new Slot(ItemsList.Items.AllItems[id], 1));
-        _uiActionBar.UpdateSlots();
+        UIManager.uiManager.UpdateInventory();
         PlayerController.LOCAL.UpdateSelectionColor();
     }
 
     public ReadOnlyCollection<Slot> GetInventory()
         => _slots.AsReadOnly();
 
+    // TODO: Need to check max size
     private List<Slot> _slots; // Items and how many you have
-    private ActionBar _uiActionBar; // A reference to the UI action bar if it's the local player so we can update it
+    private UIManager _uiActionBar; // A reference to the UI action bar if it's the local player so we can update it
 
     public class Slot
     {
