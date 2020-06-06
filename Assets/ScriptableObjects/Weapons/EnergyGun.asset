@@ -18,6 +18,6 @@ MonoBehaviour:
   intervalBetweenShoot: 1
   lifetime: 0.2
   nbShoot: 1
-  deviationAngle: 0.5
+  deviationAngle: 1
   projectileMass: 0
   projectileSpeed: 0

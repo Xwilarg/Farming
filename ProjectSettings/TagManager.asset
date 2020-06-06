@@ -10,6 +10,7 @@ TagManager:
   - WorldCamera
   - WorldView
   - Sun
+  - Enemy
   layers:
   - Default
   - TransparentFX

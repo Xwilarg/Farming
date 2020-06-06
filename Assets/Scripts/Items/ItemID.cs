@@ -7,5 +7,6 @@
     Water,
     GunEnergy,
     GunMechanic,
-    Shotgun
+    Shotgun,
+    DemonicCat
 }

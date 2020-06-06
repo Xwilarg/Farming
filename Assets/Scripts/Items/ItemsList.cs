@@ -21,12 +21,16 @@ public class ItemsList : ScriptableObject
     private Sprite GunMechanicImg;
     [SerializeField]
     private Sprite ShotgunImg;
+    [SerializeField]
+    private Sprite EnemyImg;
 
     [Header("Prefab GameObject to be put ingame")]
     [SerializeField]
     private GameObject GeneratorGo;
     [SerializeField]
     private GameObject BasicPlantGo;
+    [SerializeField]
+    private GameObject EnemyGo;
 
     public static ItemsList Items;
 
@@ -49,7 +53,8 @@ public class ItemsList : ScriptableObject
             { ItemID.Water, new Item(ItemID.Water, "Water", "The healthiest of all the drinks", new[] { TileType.Dirt, TileType.WetDirt }, WaterImg, null, new WaterPower()) },
             { ItemID.GunEnergy, new Item(ItemID.GunEnergy, "Gun (Energy)", "A basic handgun, especially strong against mechanic shields", new[] { TileType.Special }, GunEnergyImg, null, new EnergyGunPower()) },
             { ItemID.GunMechanic, new Item(ItemID.GunMechanic, "Gun (Mechanic)", "A basic handgun, especially strong against energy shields", new[] { TileType.Special }, GunMechanicImg, null, new MechanicalGunPower()) },
-            { ItemID.Shotgun, new Item(ItemID.Shotgun, "Shotgun", "An alternative way to open doors", new[] { TileType.Special }, ShotgunImg, null, new ShotgunPower()) }
+            { ItemID.Shotgun, new Item(ItemID.Shotgun, "Shotgun", "An alternative way to open doors", new[] { TileType.Special }, ShotgunImg, null, new ShotgunPower()) },
+            { ItemID.DemonicCat, new Item(ItemID.DemonicCat, "Demonic Cat", "Devilishly cute", new[] { TileType.Sand }, EnemyImg, EnemyGo, null) }
         };
     }
 
