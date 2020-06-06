@@ -32,7 +32,7 @@ public class GridSelection : MonoBehaviour
 
     private void Update()
     {
-        if (_isMe && !Console.S.IsConsoleOpened)
+        if (_isMe && !Options.S.IsPaused())
         {
             if (Input.GetKeyDown(_info.placementKey)) // Press Q (by default) to enable/disable selection mode
             {
@@ -44,7 +44,7 @@ public class GridSelection : MonoBehaviour
                 }
                 else
                 {
-                    _selectionGo = Instantiate(_prefabSelection, transform);
+                    _selectionGo = Instantiate(_prefabSelection);
                     _selectionRenderer = _selectionGo.GetComponent<MeshRenderer>();
                     _isPlacementEnabled = true;
                     UpdateSelectionPosition();
@@ -75,6 +75,8 @@ public class GridSelection : MonoBehaviour
 
     public void UpdateSelectionColor()
     {
+        if (_selectionGo == null)
+            return;
         var pos = _selectionGo.transform.position.ToVector2Int();
         var item = UIManager.uiManager.GetActionBar().GetCurrentlySelectedItem();
         if (item == null || Generation.GENERATION.CanSpawnObject(item.GetId(), pos))
@@ -89,24 +91,23 @@ public class GridSelection : MonoBehaviour
     /// </summary>
     private void UpdateSelectionPosition()
     {
-        // We don't want to display the selection tile when holding a special item (ex: gun)
-        if (UIManager.uiManager.GetActionBar().GetCurrentlySelectedItem().IsTileCorrect(TileType.Special)) // TODO: There is probably a better way to do that than every Update loop
-        {
-            _selectionGo.SetActive(false);
-            return;
-        }
-        _selectionGo.SetActive(true);
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward, out hit, float.MaxValue, LayerMask.GetMask("Floor"))
-            && Vector3.Distance(transform.position, hit.transform.position) <= _info.placementDist)
+        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, float.MaxValue, LayerMask.GetMask("Floor"));
+        Vector3 pos;
+        if (hit.collider != null && Vector3.Distance(transform.position, hit.collider.transform.position) <= _info.placementDist)
+            pos = hit.collider.transform.position;
+        else
         {
-            var pos = hit.point;
-            int x = Mathf.RoundToInt(transform.position.x), z = Mathf.RoundToInt(transform.position.z);
-            if (pos.x < x - .5f) x--;
-            else if (pos.x > x + .5f) x++;
-            if (pos.z < z) z--;
-            else if (pos.z > z + 1) z++;
-            _selectionGo.transform.position = new Vector3(x, 0.001f, z);
+            var tmp = transform.InverseTransformPoint(transform.position + transform.forward);
+            tmp.y = 0f;
+            pos = transform.TransformPoint(tmp.normalized * _info.placementDist);
         }
+        int x = Mathf.RoundToInt(pos.x), z = Mathf.RoundToInt(pos.z);
+        if (pos.x < x - .5f) x--;
+        else if (pos.x > x + .5f) x++;
+        if (pos.z < z) z--;
+        else if (pos.z > z + 1) z++;
+        _selectionGo.transform.position = new Vector3(x, 0.001f, z);
+        _selectionGo.transform.rotation = Quaternion.identity;
     }
 }

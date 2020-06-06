@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(_newPos.Value.x, transform.position.y, _newPos.Value.y);
             _newPos = null;
         }
-        if (_isMe && !Console.S.IsConsoleOpened) // Is local player and console is closed
+        if (_isMe && !Options.S.IsPaused()) // Is local player and console is closed
         {
             _pos = transform.position;
             int x = 0, y = 0;

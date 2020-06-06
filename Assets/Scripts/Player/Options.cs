@@ -5,12 +5,22 @@ public class Options : MonoBehaviour
 {
     private Transform _optionPanel;
     private Console _console;
-    
+
+    public static Options S;
+
+    private void Awake()
+    {
+        S = this;
+    }
+
     private void Start()
     {
         _optionPanel = transform.GetChild(0);
         _console = null;
     }
+
+    public bool IsPaused()
+        => _optionPanel.gameObject.activeInHierarchy;
 
     public void RespawnConsole()
     {
