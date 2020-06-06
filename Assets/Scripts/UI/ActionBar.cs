@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using UnityEngine;
 
 public class ActionBar : MonoBehaviour
@@ -47,4 +49,7 @@ public class ActionBar : MonoBehaviour
 
     public Item GetCurrentlySelectedItem()
         => _selected.GetItem();
+
+    public IEnumerable<ActionBarSlot> GetActionBarSlots()
+        => _actions.Select(x => x.slot);
 }
