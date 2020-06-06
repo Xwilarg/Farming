@@ -3342,6 +3342,7 @@ MonoBehaviour:
   mainGeneratorInfo: {fileID: 11400000, guid: dab4f0a59dda0364baa91a112e258836, type: 2}
   energyGun: {fileID: 11400000, guid: c942a906c6fa94c44936a54439eb4b29, type: 2}
   mechanicalGun: {fileID: 11400000, guid: b68f06cc4bd8ef84f8ba88920a8922d2, type: 2}
+  shotgun: {fileID: 11400000, guid: 080e11273a243fb4a869cac177510107, type: 2}
 --- !u!114 &1755971526
 MonoBehaviour:
   m_ObjectHideFlags: 0

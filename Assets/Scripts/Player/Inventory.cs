@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 
 public class Inventory
@@ -18,6 +17,7 @@ public class Inventory
     {
         _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.GunEnergy], 1));
         _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.GunMechanic], 1));
+        _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Shotgun], 1));
         _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Generator], 1)); // The player begin the game with a generator
         _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Spade], 1));
         _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Water], 1));

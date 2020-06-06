@@ -8,7 +8,7 @@ public class ItemsInit : MonoBehaviour
 
     [Header("All Individial Scriptable Object")]
     public GeneratorInfo mainGeneratorInfo;
-    public WeaponInfo energyGun, mechanicalGun;
+    public WeaponInfo energyGun, mechanicalGun, shotgun;
 
     public static ItemsInit S;
 

@@ -19,6 +19,12 @@ public class WeaponInfo : ScriptableObject
     [Tooltip("Time before the projectile/laser disappear.")]
     public float lifetime;
 
+    [Tooltip("Number of projectiles/lasers shoot")]
+    public int nbShoot;
+
+    [Tooltip("Deviation angle of the shoot")]
+    public float deviationAngle;
+
     [Header("Projectile info")]
     [Header("ONLY FOR MECHANICAL WEAPONS")]
     [Tooltip("Mass of the projectile (The heavier, the faster it'll drop to the ground)")]

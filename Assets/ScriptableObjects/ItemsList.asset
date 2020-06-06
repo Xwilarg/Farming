@@ -19,6 +19,7 @@ MonoBehaviour:
   WaterImg: {fileID: 21300000, guid: 798423f91ec6f354781912b06dd19510, type: 3}
   GunEnergyImg: {fileID: 21300000, guid: d4bca14b9edf39f4c81e604616d6c822, type: 3}
   GunMechanicImg: {fileID: 21300000, guid: fa25307230a19e045907698d8c210e90, type: 3}
+  ShotgunImg: {fileID: 21300000, guid: eabb2fd3d46e21045aac28a7f63759c0, type: 3}
   GeneratorGo: {fileID: 3701887738033010239, guid: e982a2201f4ce904bb157515b11eb5fb,
     type: 3}
   BasicPlantGo: {fileID: 7101236562621066150, guid: 245472cb659e32248afa9adc0689ac56,

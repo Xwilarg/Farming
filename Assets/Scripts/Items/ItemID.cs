@@ -6,5 +6,6 @@
     Spade,
     Water,
     GunEnergy,
-    GunMechanic
+    GunMechanic,
+    Shotgun
 }

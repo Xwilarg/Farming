@@ -17,5 +17,7 @@ MonoBehaviour:
   shootType: 0
   intervalBetweenShoot: 0.5
   lifetime: 2
+  nbShoot: 1
+  deviationAngle: 1
   projectileMass: 0.001
   projectileSpeed: 50
