@@ -22,8 +22,11 @@ public class WeaponInfo : ScriptableObject
     [Tooltip("Number of projectiles/lasers shoot")]
     public int nbShoot;
 
-    [Tooltip("Deviation angle of the shoot")]
+    [Tooltip("Deviation angle of the shoot (doesn't work for lasers yet)")]
     public float deviationAngle;
+
+    [Tooltip("Crosshair to display when shooting")]
+    public Sprite crosshair;
 
     [Header("Projectile info")]
     [Header("ONLY FOR MECHANICAL WEAPONS")]
