@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +22,8 @@ public class Options : MonoBehaviour
         S = this;
     }
 
+    [DllImport("user32.dll")] public static extern IntPtr GetKeyboardLayout(int idThread);
+
     private void Start()
     {
         _optionPanel = transform.GetChild(0);
@@ -28,6 +31,25 @@ public class Options : MonoBehaviour
 
         // Make sure that option panel is closed on game start
         _optionPanel.gameObject.SetActive(false);
+
+        // Detect if user have AZERTY keyboard
+        var hkl = GetKeyboardLayout(0);
+        int id = (int)((uint)hkl.ToInt32() & 0x0000FFFF);
+        bool haveAzertyKeyboard = id == 2060 || id == 1036; // https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-language-pack-default-values
+        if (haveAzertyKeyboard)
+        {
+            foreach (var info in typeof(OptionsInfo).GetFields())
+            {
+                if (info.FieldType == typeof(KeyCode))
+                {
+                    var value = (KeyCode)info.GetValue(_info);
+                    if (value == KeyCode.A) info.SetValue(_info, KeyCode.Q);
+                    else if (value == KeyCode.Q) info.SetValue(_info, KeyCode.A);
+                    else if (value == KeyCode.W) info.SetValue(_info, KeyCode.Z);
+                    else if (value == KeyCode.Z) info.SetValue(_info, KeyCode.W);
+                }
+            }
+        }
     }
 
     public bool IsPaused()
@@ -45,7 +67,7 @@ public class Options : MonoBehaviour
     /// </summary>
     public void OpenSaveFolder()
     {
-        Process.Start(Application.persistentDataPath); // Not sure if this is cross-plateform
+        System.Diagnostics.Process.Start(Application.persistentDataPath); // Not sure if this is cross-plateform
     }
 
     private void Update()
