@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,6 +12,13 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private GameObject _inventoryPanel;
+
+    [SerializeField]
+    private Image _crosshair;
+
+    [SerializeField]
+    private Sprite _emptyCrosshair;
+
     private void Awake()
     {
         uiManager = this;
@@ -74,6 +82,7 @@ public class UIManager : MonoBehaviour
                 _actionBar.SelectSlot(action.slot);
                 PlayerController.LOCAL.WEAPON_CONTROLLER.ResetZoom();
                 PlayerController.LOCAL.UpdateSelectionColor();
+                _crosshair.sprite = _actionBar.GetCurrentlySelectedItem().GetCrosshair() ?? _emptyCrosshair;
             }
     }
     

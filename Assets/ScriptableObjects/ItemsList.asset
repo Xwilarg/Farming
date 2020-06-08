@@ -26,3 +26,4 @@ MonoBehaviour:
   BasicPlantGo: {fileID: 7101236562621066150, guid: 245472cb659e32248afa9adc0689ac56,
     type: 3}
   EnemyGo: {fileID: 4048461252146628350, guid: c8d73256b6d8bca4bb93b1a0ea3f7a8a, type: 3}
+  GunEnergyInfo: {fileID: 11400000, guid: c942a906c6fa94c44936a54439eb4b29, type: 2}

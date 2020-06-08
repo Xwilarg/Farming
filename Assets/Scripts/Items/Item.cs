@@ -40,6 +40,12 @@ public class Item
     public bool HaveGameObject() => _go != null;
 
     public ItemID GetId() => _id;
+    public Sprite GetCrosshair()
+    {
+        if (_power == null)
+            return null;
+        return (_power as GunPower)?.GetCrosshair();
+    }
 
     private ItemID _id;
     private string _name;

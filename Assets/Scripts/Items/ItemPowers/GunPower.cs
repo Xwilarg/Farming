@@ -13,5 +13,8 @@ public class GunPower : IItemPower
         player.Shoot(_info);
     }
 
+    public Sprite GetCrosshair()
+        => _info.crosshair;
+
     private WeaponInfo _info;
 }
