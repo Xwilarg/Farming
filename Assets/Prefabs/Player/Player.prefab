@@ -245,3 +245,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laser: {fileID: 6671308220562599582, guid: 000e7f6c0ec9a804081de7717eb59ac7, type: 3}
   _bullet: {fileID: 9122670720941078926, guid: a9b02906e7c92394fabe1c23a1af36a7, type: 3}
+  _damagePrefab: {fileID: 8994803020686669953, guid: f92a2b223f6adcd4e947b383020e98b7,
+    type: 3}

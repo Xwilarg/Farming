@@ -35,7 +35,7 @@ public class Console : MonoBehaviour
             { "respawn", new ConsoleCommand{ argumentCount = 0, callback = Respawn } },
             { "grid", new ConsoleCommand{ argumentCount = 0, callback = Grid } },
             { "hide_player", new ConsoleCommand{ argumentCount = 0, callback = Hide } },
-            { "item", new ConsoleCommand{ argumentCount = 1, callback = GetItem } },
+            { "get_item", new ConsoleCommand{ argumentCount = 1, callback = GetItem } },
             { "world_view", new ConsoleCommand{ argumentCount = 0, callback = WorldView } },
             { "help", new ConsoleCommand{ argumentCount = 0, callback = Help } }
         };

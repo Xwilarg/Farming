@@ -22,6 +22,9 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         uiManager = this;
+
+        // Make sure inventory panel is not active at game start
+        _inventoryPanel.SetActive(false);
     }
 
     private PlayerInfo _info = null; // Keep track of keys to press to toggle different UI parts
