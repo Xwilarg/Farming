@@ -46,6 +46,15 @@ public class Item
             return null;
         return (_power as GunPower)?.GetCrosshair();
     }
+    public float GetZoomMultiplicator()
+    {
+        if (_power == null)
+            return 1;
+        var gunPower = _power as GunPower;
+        if (gunPower == null)
+            return 1;
+        return gunPower.GetZoomMultiplicator();
+    }
 
     private ItemID _id;
     private string _name;

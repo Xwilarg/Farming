@@ -23,10 +23,14 @@ public class WeaponInfo : ScriptableObject
     public int nbShoot;
 
     [Tooltip("Deviation angle of the shoot (doesn't work for lasers yet)")]
+    [Range(0, 360)]
     public float deviationAngle;
 
     [Tooltip("Crosshair to display when shooting")]
     public Sprite crosshair;
+
+    [Tooltip("Zoom multiplicator when aiming\nNo zoom is 1")]
+    public float zoomMultiplicator;
 
     [Header("Projectile info")]
     [Header("ONLY FOR MECHANICAL WEAPONS")]
@@ -35,4 +39,7 @@ public class WeaponInfo : ScriptableObject
 
     [Tooltip("Speed of the projectile")]
     public int projectileSpeed;
+
+    [Tooltip("Does the bullet disappear when it hits a surface")]
+    public bool doesDisappearOnCollision;
 }

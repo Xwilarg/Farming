@@ -23,6 +23,10 @@ public class ItemsList : ScriptableObject
     private Sprite ShotgunImg;
     [SerializeField]
     private Sprite EnemyImg;
+    [SerializeField]
+    private Sprite SniperImg;
+    [SerializeField]
+    private Sprite GunBounceImg;
 
     [Header("Prefab GameObject to be put ingame")]
     [SerializeField]
@@ -35,8 +39,14 @@ public class ItemsList : ScriptableObject
     [Header("Weapon scriptable objects")]
     [SerializeField]
     private WeaponInfo GunEnergyInfo;
+    [SerializeField]
     private WeaponInfo GunMechanicalInfo;
+    [SerializeField]
     private WeaponInfo ShotgunInfo;
+    [SerializeField]
+    private WeaponInfo SniperInfo;
+    [SerializeField]
+    private WeaponInfo GunBounceInfo;
 
     public static ItemsList Items;
 
@@ -60,7 +70,9 @@ public class ItemsList : ScriptableObject
             { ItemID.GunEnergy, new Item(ItemID.GunEnergy, "Gun (Energy)", "A basic handgun, especially strong against mechanic shields", new[] { TileType.Special }, GunEnergyImg, null, new GunPower(GunEnergyInfo)) },
             { ItemID.GunMechanic, new Item(ItemID.GunMechanic, "Gun (Mechanic)", "A basic handgun, especially strong against energy shields", new[] { TileType.Special }, GunMechanicImg, null, new GunPower(GunMechanicalInfo)) },
             { ItemID.Shotgun, new Item(ItemID.Shotgun, "Shotgun", "An alternative way to open doors", new[] { TileType.Special }, ShotgunImg, null, new GunPower(ShotgunInfo)) },
-            { ItemID.DemonicCat, new Item(ItemID.DemonicCat, "Demonic Cat", "Devilishly cute", new[] { TileType.Sand }, EnemyImg, EnemyGo, null) }
+            { ItemID.DemonicCat, new Item(ItemID.DemonicCat, "Demonic Cat", "Devilishly cute", new[] { TileType.Sand }, EnemyImg, EnemyGo, null) },
+            { ItemID.Sniper, new Item(ItemID.Sniper, "Sniper", "To shoot enemies from the safety of your home", new[] { TileType.Special }, SniperImg, null, new GunPower(SniperInfo)) },
+            { ItemID.GunBounce, new Item(ItemID.GunBounce, "Bounce Gun", "It's like a regular gun but more annoying", new[] { TileType.Special }, GunBounceImg, null, new GunPower(GunBounceInfo)) }
         };
     }
 

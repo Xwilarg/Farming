@@ -8,5 +8,7 @@
     GunEnergy,
     GunMechanic,
     Shotgun,
-    DemonicCat
+    DemonicCat,
+    Sniper,
+    GunBounce
 }

@@ -20,5 +20,7 @@ MonoBehaviour:
   nbShoot: 5
   deviationAngle: 10
   crosshair: {fileID: 21300000, guid: 5cd1dd5dc1708bf4e9b7200ea6c7c154, type: 3}
+  zoomMultiplicator: 1.5
   projectileMass: 0.001
   projectileSpeed: 30
+  doesDisappearOnCollision: 1

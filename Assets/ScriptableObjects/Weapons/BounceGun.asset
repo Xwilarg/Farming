@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6288bf98914c89749ab24001cb9a703c, type: 3}
-  m_Name: EnergyGun
+  m_Name: BounceGun
   m_EditorClassIdentifier: 
-  weaponType: 1
-  damage: 12
-  shootType: 1
+  weaponType: 0
+  damage: 3
+  shootType: 0
   intervalBetweenShoot: 1
-  lifetime: 0.2
+  lifetime: 2
   nbShoot: 1
-  deviationAngle: 1
+  deviationAngle: 4
   crosshair: {fileID: 21300000, guid: 6a7f1b095fb8f3d44bf3134e30b981c7, type: 3}
   zoomMultiplicator: 1.5
-  projectileMass: 0
-  projectileSpeed: 0
-  doesDisappearOnCollision: 1
+  projectileMass: 0.001
+  projectileSpeed: 50
+  doesDisappearOnCollision: 0

@@ -34,6 +34,8 @@ public class WeaponController : MonoBehaviour
             {
                 float d = info.deviationAngle / 2f;
                 var go = Instantiate(_bullet, Camera.main.transform.position, Quaternion.identity);
+                var bullet = go.GetComponent<Bullet>();
+                bullet.DOES_DISAPPEAR_ON_COLLISION = info.doesDisappearOnCollision;
                 var rb = go.GetComponent<Rigidbody>();
                 rb.velocity = Camera.main.transform.forward.normalized * info.projectileSpeed + new Vector3(Random.Range(-d, d), Random.Range(-d, d), Random.Range(-d, d));
                 rb.mass = info.projectileMass;
@@ -47,10 +49,10 @@ public class WeaponController : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             var item = UIManager.uiManager.GetActionBar().GetCurrentlySelectedItem();
-            if (item.IsTileCorrect(TileType.Special))
+            if (item != null)
             {
                 if (!isZoomed)
-                    Camera.main.fieldOfView = _baseFov / 1.5f;
+                    Camera.main.fieldOfView = _baseFov / item.GetZoomMultiplicator();
                 else
                     Camera.main.fieldOfView = _baseFov;
                 isZoomed = !isZoomed;

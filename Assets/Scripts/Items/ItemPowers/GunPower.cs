@@ -15,6 +15,8 @@ public class GunPower : IItemPower
 
     public Sprite GetCrosshair()
         => _info.crosshair;
+    public float GetZoomMultiplicator()
+        => _info.zoomMultiplicator;
 
     private WeaponInfo _info;
 }
