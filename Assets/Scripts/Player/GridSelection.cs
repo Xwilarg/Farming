@@ -33,7 +33,7 @@ public class GridSelection : MonoBehaviour
     {
         if (_isMe && !Options.S.IsPaused())
         {
-            if (Input.GetKeyDown(_info.placementKey)) // Press Q (by default) to enable/disable selection mode
+            if (Input.GetKeyDown(Options.S.GetInfo().placementKey)) // Press Q (by default) to enable/disable selection mode
             {
                 if (_isPlacementEnabled)
                 {

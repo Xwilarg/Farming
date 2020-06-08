@@ -12,6 +12,10 @@ public class Options : MonoBehaviour
     [SerializeField]
     private GameObject _gameUI;
 
+    [SerializeField]
+    private OptionsInfo _info;
+    public OptionsInfo GetInfo() => _info;
+
     private void Awake()
     {
         S = this;

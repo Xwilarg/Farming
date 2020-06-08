@@ -1239,6 +1239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameUI: {fileID: 2108879214}
+  _info: {fileID: 11400000, guid: ed1e9d5e3e52ec04983e3c4fb1cf7381, type: 2}
 --- !u!1001 &862198722
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2859,7 +2860,7 @@ GameObject:
   - component: {fileID: 1392240586}
   - component: {fileID: 1392240585}
   m_Layer: 5
-  m_Name: Saves
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2917,7 +2918,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Debug
+  m_Text: Saves
 --- !u!222 &1392240586
 CanvasRenderer:
   m_ObjectHideFlags: 0

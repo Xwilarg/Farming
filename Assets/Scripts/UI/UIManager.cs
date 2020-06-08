@@ -63,7 +63,7 @@ public class UIManager : MonoBehaviour
     {
         if (_info == null)
             return;
-        if (Input.GetKeyDown(_info.inventoryKey)) // TODO: Need to lock camera movements when triggered
+        if (Input.GetKeyDown(Options.S.GetInfo().inventoryKey)) // TODO: Need to lock camera movements when triggered
         {
             if (_inventoryPanel.activeInHierarchy)
             {
