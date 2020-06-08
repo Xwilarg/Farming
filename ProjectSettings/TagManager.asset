@@ -11,6 +11,7 @@ TagManager:
   - WorldView
   - Sun
   - Enemy
+  - Floor
   layers:
   - Default
   - TransparentFX

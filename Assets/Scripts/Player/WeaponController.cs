@@ -5,6 +5,14 @@ public class WeaponController : MonoBehaviour
     [SerializeField]
     private GameObject _laser, _bullet;
 
+    private const float _baseFov = 60f; // The default FoV of the main camera
+    private bool isZoomed;
+
+    private void Start()
+    {
+        isZoomed = false;
+    }
+
     public void Shoot(WeaponInfo info)
     {
         for (int i = 0; i < info.nbShoot; i++)
@@ -32,5 +40,27 @@ public class WeaponController : MonoBehaviour
                 Destroy(go, info.lifetime);
             }
         }
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            var item = UIManager.uiManager.GetActionBar().GetCurrentlySelectedItem();
+            if (item.IsTileCorrect(TileType.Special))
+            {
+                if (!isZoomed)
+                    Camera.main.fieldOfView = _baseFov / 1.5f;
+                else
+                    Camera.main.fieldOfView = _baseFov;
+                isZoomed = !isZoomed;
+            }
+        }
+    }
+
+    public void ResetZoom()
+    {
+        Camera.main.fieldOfView = _baseFov;
+        isZoomed = false;
     }
 }

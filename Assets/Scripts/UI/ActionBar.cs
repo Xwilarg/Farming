@@ -15,15 +15,7 @@ public class ActionBar : MonoBehaviour
         SelectSlot(_actions[0].slot);
     }
 
-    private void Update()
-    {
-        foreach (var action in _actions) // We check if any key of the action bar is pressed
-            if (Input.GetKeyDown(action.key))
-            {
-                SelectSlot(action.slot);
-                PlayerController.LOCAL.UpdateSelectionColor();
-            }
-    }
+    public ActionBarKey[] GetActions() => _actions;
 
     public void UpdateSlots(ReadOnlyCollection<Inventory.Slot> items)
     {
@@ -39,7 +31,7 @@ public class ActionBar : MonoBehaviour
         }
     }
 
-    private void SelectSlot(ActionBarSlot slot)
+    public void SelectSlot(ActionBarSlot slot)
     {
         if (_selected != null)
             _selected.Unselect();

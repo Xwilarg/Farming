@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private Player _player;
     private NetworkManager _net;
     private GridSelection _grid;
-    private WeaponController _weaponControl;
+    public WeaponController WEAPON_CONTROLLER { private set; get; }
 
     public static PlayerController LOCAL; // Static reference to local player
 
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _weaponControl = GetComponent<WeaponController>();
+        WEAPON_CONTROLLER = GetComponent<WeaponController>();
         GameObject.FindGameObjectWithTag("Sun").GetComponent<Light>().intensity = _info.sunIntensity;
         GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>().SetPlayerInfo(_info);
     }
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Shoot(WeaponInfo info)
-        => _weaponControl.Shoot(info);
+        => WEAPON_CONTROLLER.Shoot(info);
 
     public byte[] GetPositionData()
     {

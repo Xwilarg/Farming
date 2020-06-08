@@ -68,6 +68,13 @@ public class UIManager : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
             }
         }
+        foreach (var action in _actionBar.GetActions()) // We check if any key of the action bar is pressed
+            if (Input.GetKeyDown(action.key))
+            {
+                _actionBar.SelectSlot(action.slot);
+                PlayerController.LOCAL.WEAPON_CONTROLLER.ResetZoom();
+                PlayerController.LOCAL.UpdateSelectionColor();
+            }
     }
     
     public bool TradeObjectPosition(Item item, Vector2 pos)
