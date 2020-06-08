@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Options : MonoBehaviour
@@ -20,6 +21,9 @@ public class Options : MonoBehaviour
     {
         _optionPanel = transform.GetChild(0);
         _console = null;
+
+        // Make sure that option panel is closed on game start
+        _optionPanel.gameObject.SetActive(false);
     }
 
     public bool IsPaused()
@@ -30,6 +34,14 @@ public class Options : MonoBehaviour
         if (_console == null)
             _console = GameObject.FindGameObjectWithTag("DebugManager").GetComponent<Console>();
         _console.Open();
+    }
+
+    /// <summary>
+    /// Open the folder where game saves are
+    /// </summary>
+    public void OpenSaveFolder()
+    {
+        Process.Start(Application.persistentDataPath); // Not sure if this is cross-plateform
     }
 
     private void Update()
