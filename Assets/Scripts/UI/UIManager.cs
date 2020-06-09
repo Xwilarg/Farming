@@ -52,7 +52,7 @@ public class UIManager : MonoBehaviour
         var items = _inventory.GetInventory();
         _actionBar.UpdateSlots(items);
         int i;
-        for (i = 0; i < items.Count; i++)
+        for (i = 0; i < items.Length; i++)
         {
             _inventorySlots[i].SetItem(items[i].item, items[i].amount);
         }
@@ -91,22 +91,24 @@ public class UIManager : MonoBehaviour
     
     public bool TradeObjectPosition(Item item, Vector2 pos)
     {
+        int i = 0;
         foreach (var slot in _inventorySlots)
         {
-            var tmp = TradeObjectPosition(slot, item, pos);
-            if (tmp.HasValue)
-                return tmp.Value;
+            if (TradeObjectPosition(slot, item, pos, i))
+                return true;
+            i++;
         }
+        i = 0;
         foreach (var slot in _actionBar.GetActionBarSlots())
         {
-            var tmp = TradeObjectPosition(slot, item, pos);
-            if (tmp.HasValue)
-                return tmp.Value;
+            if (TradeObjectPosition(slot, item, pos, i))
+                return true;
+            i++;
         }
         return false;
     }
 
-    private bool? TradeObjectPosition(ActionBarSlot slot, Item item, Vector2 pos)
+    private bool TradeObjectPosition(ActionBarSlot slot, Item item, Vector2 pos, int slotId)
     {
         var rTransform = (RectTransform)slot.transform;
         var oPos = rTransform.position;
@@ -114,12 +116,9 @@ public class UIManager : MonoBehaviour
         if (pos.x > oPos.x - s && pos.x < oPos.x + s
             && pos.y > oPos.y - s && pos.y < oPos.y + s)
         {
-            var oItem = slot.GetItem();
-            if (oItem == null || item.GetId() == oItem.GetId())
-                return false;
-            _inventory.Swap(item.GetId(), oItem.GetId());
+            _inventory.Swap(item.GetId(), slotId);
             return true;
         }
-        return null;
+        return false;
     }
 }

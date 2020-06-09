@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 
 public class Inventory
 {
     public Inventory()
     {
-        _slots = new List<Slot>();
+        const int nbSlots = 15;
+        _slots = new Slot[nbSlots];
+        for (int i = 0; i < nbSlots; i++)
+            _slots[i] = new Slot(null, 0);
     }
 
     /// <summary>
@@ -15,16 +18,16 @@ public class Inventory
     /// </summary>
     public void InitInventoryContent()
     {
-        _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.GunEnergy], 1));
-        _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.GunMechanic], 1));
-        _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Generator], 1)); // The player begin the game with a generator
-        _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Spade], 1));
-        _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Water], 1));
-        _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.BasicPlant], 5));
-        _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Shotgun], 1));
-        _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.Sniper], 1));
-        _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.GunBounce], 1));
-        _slots.Add(new Slot(ItemsList.Items.AllItems[ItemID.DemonicCat], 2));
+        AddItemInternal(ItemsList.Items.AllItems[ItemID.GunEnergy], 1);
+        AddItemInternal(ItemsList.Items.AllItems[ItemID.GunMechanic], 1);
+        AddItemInternal(ItemsList.Items.AllItems[ItemID.Generator], 1); // The player begin the game with a generator
+        AddItemInternal(ItemsList.Items.AllItems[ItemID.Spade], 1);
+        AddItemInternal(ItemsList.Items.AllItems[ItemID.Water], 1);
+        AddItemInternal(ItemsList.Items.AllItems[ItemID.BasicPlant], 5);
+        AddItemInternal(ItemsList.Items.AllItems[ItemID.Shotgun], 1);
+        AddItemInternal(ItemsList.Items.AllItems[ItemID.Sniper], 1);
+        AddItemInternal(ItemsList.Items.AllItems[ItemID.GunBounce], 1);
+        AddItemInternal(ItemsList.Items.AllItems[ItemID.DemonicCat], 2);
 
         UIManager.uiManager.InitInventory(this);
     }
@@ -37,7 +40,11 @@ public class Inventory
         if (elem.amount > 1)
             elem.amount--;
         else
-            _slots.Remove(elem);
+        {
+            int index = Array.IndexOf(_slots, elem);
+            _slots[index].item = null;
+            _slots[index].amount = 0;
+        }
         UIManager.uiManager.UpdateInventory();
         PlayerController.LOCAL.UpdateSelectionColor();
     }
@@ -48,31 +55,48 @@ public class Inventory
         if (elem.item != null)
             elem.amount++;
         else
-            _slots.Add(new Slot(ItemsList.Items.AllItems[id], 1));
+            AddItemInternal(ItemsList.Items.AllItems[id], 1);
         UIManager.uiManager.UpdateInventory();
         PlayerController.LOCAL.UpdateSelectionColor();
     }
-    public void Swap(ItemID id1, ItemID id2)
+    private bool AddItemInternal(Item item, int amount)
     {
-        var item1 = new Slot(_slots.Where(x => x.item.GetId() == id1).ElementAt(0));
-        var item2 = new Slot(_slots.Where(x => x.item.GetId() == id2).ElementAt(0));
-        for (int i = _slots.Count - 1; i >= 0; i--)
+        foreach (Slot s in _slots)
         {
-            var item = _slots[i];
-            if (item1.item.GetId() == item.item.GetId())
-                _slots[i] = item2;
-            else if (item2.item.GetId() == item.item.GetId())
-                _slots[i] = item1;
+            if (s.item == null)
+            {
+                s.item = item;
+                s.amount = amount;
+                return true;
+            }
         }
+        return false;
+    }
+    public void Swap(ItemID id1, int item2)
+    {
+        int item1 = -1;
+        int i = 0;
+        foreach (var s in _slots)
+        {
+            if (s.item != null && s.item.GetId() == id1)
+            {
+                item1 = i;
+                break;
+            }
+            i++;
+        }
+        var tmp = _slots[item1];
+        _slots[item1] = _slots[item2];
+        _slots[item2] = tmp;
         UIManager.uiManager.UpdateInventory();
         PlayerController.LOCAL.UpdateSelectionColor();
     }
 
-    public ReadOnlyCollection<Slot> GetInventory()
-        => _slots.AsReadOnly();
+    public Slot[] GetInventory()
+        => _slots;
 
     // TODO: Need to check max size
-    private List<Slot> _slots; // Items and how many you have
+    private Slot[] _slots; // Items and how many you have
 
     public class Slot
     {

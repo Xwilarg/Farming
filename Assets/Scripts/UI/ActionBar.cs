@@ -17,9 +17,9 @@ public class ActionBar : MonoBehaviour
 
     public ActionBarKey[] GetActions() => _actions;
 
-    public void UpdateSlots(ReadOnlyCollection<Inventory.Slot> items)
+    public void UpdateSlots(Inventory.Slot[] items)
     {
-        int maxItems = _actions.Length < items.Count ? _actions.Length : items.Count;
+        int maxItems = _actions.Length < items.Length ? _actions.Length : items.Length;
         int i;
         for (i = 0; i < maxItems; i++)
         {
