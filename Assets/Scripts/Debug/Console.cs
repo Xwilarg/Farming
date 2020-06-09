@@ -81,7 +81,13 @@ public class Console : MonoBehaviour
             return;
         _output.text = "> " + string.Join(" ", text) + "\n\n";
         if (_commands.ContainsKey(text[0]))
-            _commands[text[0]].callback(text.Skip(1).ToArray());
+        {
+            var cmd = _commands[text[0]];
+            if (cmd.argumentCount == text.Length - 1)
+                cmd.callback(text.Skip(1).ToArray());
+            else
+                _output.text += "Invalid number of arguments";
+        }
         else
             _output.text += "Command not found";
         _input.Select();

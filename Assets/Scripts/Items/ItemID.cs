@@ -10,5 +10,6 @@
     Shotgun,
     DemonicCat,
     Sniper,
-    GunBounce
+    GunBounce,
+    Chest
 }
