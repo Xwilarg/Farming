@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerInfo
   m_EditorClassIdentifier: 
   speed: 10
-  placementDist: 10
+  placementDist: 5
