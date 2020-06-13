@@ -91,7 +91,8 @@ public class Generation : MonoBehaviour
     {
         var tile = GetTile(pos);
         var item = ItemsList.Items.AllItems[id];
-        tile.AddItem(item, Instantiate(item.GetGameObject(), new Vector3(pos.x, item.GetGameObject().transform.localScale.y / 2f, pos.y), Quaternion.identity));
+        var go = item.GetGameObject();
+        tile.AddItem(item, Instantiate(go, new Vector3(pos.x, 0f, pos.y), go.transform.rotation));
     }
 
     private TileInfo GetTile(Vector2Int pos)
