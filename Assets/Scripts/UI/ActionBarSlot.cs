@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ActionBarSlot : MonoBehaviour, IDragHandler, IPointerUpHandler
+public class ActionBarSlot : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private Image _image;
@@ -13,7 +13,12 @@ public class ActionBarSlot : MonoBehaviour, IDragHandler, IPointerUpHandler
     [SerializeField]
     private Text _itemCount;
 
+    [SerializeField]
+    [Tooltip("(Optional) Panel that will describe the item")]
+    private ItemDescription _describe;
+
     private Item _item = null;
+
 
     public void Select()
     {
@@ -52,5 +57,20 @@ public class ActionBarSlot : MonoBehaviour, IDragHandler, IPointerUpHandler
             return;
         UIManager.uiManager.TradeObjectPosition(_item, eventData.position); // TODO: Option to throw the object away
         _image.transform.position = transform.position;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        _describe?.SetDescription(_item);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _describe?.SetDescription(null);
+    }
+
+    private void OnDisable()
+    {
+        _describe?.SetDescription(null);
     }
 }

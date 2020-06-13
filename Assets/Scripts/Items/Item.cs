@@ -62,8 +62,8 @@ public class Item
     }
 
     private ItemID _id;
-    private string _name;
-    private string _description;
+    private string _name; public string GetName() => _name;
+    private string _description; public string GetDescription() => _description;
     private TileType[] _allowedTiles; // Tiles where the object can be placed
     private Sprite _img;
     private GameObject _go;

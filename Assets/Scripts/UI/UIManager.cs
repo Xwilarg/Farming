@@ -62,6 +62,19 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called when the player press escape, close all opened windows
+    /// </summary>
+    /// <returns>Returns if there was anything to close</returns>
+    public bool CloseUI()
+    {
+        if (!_inventoryPanel.activeInHierarchy)
+            return false;
+        _inventoryPanel.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        return true;
+    }
+
     private void Update()
     {
         if (_info == null)

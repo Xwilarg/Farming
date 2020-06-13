@@ -74,21 +74,24 @@ public class Options : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            if (_optionPanel.gameObject.activeInHierarchy)
+            if (!UIManager.uiManager.CloseUI()) // If there was others windows to close we don't open the options menu
             {
-                _optionPanel.gameObject.SetActive(false);
-                _console?.Close();
-                _gameUI.SetActive(true);
-                if (SceneManager.GetActiveScene().name == "Main") // If we are on the Main scene we lock the mouse because of FPS view
+                if (_optionPanel.gameObject.activeInHierarchy)
                 {
-                    Cursor.lockState = CursorLockMode.Locked;
+                    _optionPanel.gameObject.SetActive(false);
+                    _console?.Close();
+                    _gameUI.SetActive(true);
+                    if (SceneManager.GetActiveScene().name == "Main") // If we are on the Main scene we lock the mouse because of FPS view
+                    {
+                        Cursor.lockState = CursorLockMode.Locked;
+                    }
                 }
-            }
-            else
-            {
-                _optionPanel.gameObject.SetActive(true);
-                _gameUI.SetActive(false); // Hide game UI (crosshair, action bar, etc) on option menu
-                Cursor.lockState = CursorLockMode.None;
+                else
+                {
+                    _optionPanel.gameObject.SetActive(true);
+                    _gameUI.SetActive(false); // Hide game UI (crosshair, action bar, etc) on option menu
+                    Cursor.lockState = CursorLockMode.None;
+                }
             }
         };
     }
