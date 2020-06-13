@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 
 public class Inventory
@@ -10,6 +9,12 @@ public class Inventory
         _slots = new Slot[nbSlots];
         for (int i = 0; i < nbSlots; i++)
             _slots[i] = new Slot(null, 0);
+    }
+
+    public void Update()
+    {
+        foreach (var s in _slots)
+            s.item?.Update();
     }
 
     /// <summary>

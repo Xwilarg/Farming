@@ -13,7 +13,7 @@ public class Item
     /// <param name="img">Sprite to be displayed in the UI</param>
     /// <param name="go">Prefab of the object</param>
     /// <param name="power">Special properties of the item</param>
-    public Item(ItemID id, string name, string description, TileType[] allowedTiles, Sprite img, GameObject go, IItemPower power)
+    public Item(ItemID id, string name, string description, TileType[] allowedTiles, Sprite img, GameObject go, AItemPower power)
     {
         _id = id;
         _name = name;
@@ -33,6 +33,11 @@ public class Item
     public void Place(PlayerController player, Vector2Int pos)
     {
         _power?.OnItemPlaced(player, this, pos);
+    }
+
+    public void Update()
+    {
+        _power?.Update();
     }
 
     public Sprite GetImage() => _img;
@@ -62,5 +67,5 @@ public class Item
     private TileType[] _allowedTiles; // Tiles where the object can be placed
     private Sprite _img;
     private GameObject _go;
-    private IItemPower _power;
+    private AItemPower _power;
 }
