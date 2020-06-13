@@ -11,12 +11,6 @@ public class Inventory
             _slots[i] = new Slot(null, 0);
     }
 
-    public void Update()
-    {
-        foreach (var s in _slots)
-            s.item?.Update();
-    }
-
     /// <summary>
     /// We don't do that in the ctor cause in case of the remote connection the Player is init before the ItemsList is available
     /// Must only be called by local player

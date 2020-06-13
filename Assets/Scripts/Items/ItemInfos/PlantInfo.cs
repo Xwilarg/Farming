@@ -4,7 +4,7 @@
 public class PlantInfo : ScriptableObject
 {
     [Tooltip("All the different progression steps of the plant.")]
-    public Mesh States;
+    public Mesh[] States;
 
     [Tooltip("Time before the plant reach its next state")]
     public float TimeBetweenStates;

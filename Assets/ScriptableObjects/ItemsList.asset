@@ -35,3 +35,4 @@ MonoBehaviour:
   ShotgunInfo: {fileID: 11400000, guid: 080e11273a243fb4a869cac177510107, type: 2}
   SniperInfo: {fileID: 11400000, guid: 80e881cb62a5db5438fb5252f7ac825e, type: 2}
   GunBounceInfo: {fileID: 11400000, guid: 8e2085f0fb4e3864b89f7047fdf03b56, type: 2}
+  BasicPlantInfo: {fileID: 11400000, guid: 5b28e52423e933d46beca6d22feeeb1b, type: 2}

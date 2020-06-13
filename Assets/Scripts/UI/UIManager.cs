@@ -98,7 +98,7 @@ public class UIManager : MonoBehaviour
                 _actionBar.SelectSlot(action.slot);
                 PlayerController.LOCAL.WEAPON_CONTROLLER.ResetZoom();
                 PlayerController.LOCAL.UpdateSelectionColor();
-                _crosshair.sprite = _actionBar.GetCurrentlySelectedItem().GetCrosshair() ?? _emptyCrosshair;
+                _crosshair.sprite = _actionBar.GetCurrentlySelectedItem()?.GetCrosshair() ?? _emptyCrosshair;
             }
     }
     

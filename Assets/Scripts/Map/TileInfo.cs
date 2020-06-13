@@ -29,6 +29,14 @@ public class TileInfo
         _renderer.material = m;
     }
 
+    public TileType GetTileType()
+        => _type;
+
+    public void UpdateItem()
+        => _itemContained?.Update();
+
+    public GameObject GetGameObject() => _itemContainedGo;
+
     private GameObject _gameObject;
     private TileType _type;
     private Item _itemContained;

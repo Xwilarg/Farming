@@ -95,7 +95,14 @@ public class Generation : MonoBehaviour
         tile.AddItem(item, Instantiate(go, new Vector3(pos.x, 0f, pos.y), go.transform.rotation));
     }
 
-    private TileInfo GetTile(Vector2Int pos)
+    private void Update()
+    {
+        foreach (var chunk in _instantiated)
+            foreach (var tile in chunk.Value)
+                tile.Value.UpdateItem();
+    }
+
+    public TileInfo GetTile(Vector2Int pos)
     {
         var chunkPosTmp = ((Vector2)pos).Add(_gen.ChunkSize / 2f) / _gen.ChunkSize;
         var chunkPos = new Vector2Int(GetChunkInt(chunkPosTmp.x), GetChunkInt(chunkPosTmp.y));
