@@ -23,11 +23,13 @@ MonoBehaviour:
   EnemyImg: {fileID: 21300000, guid: a298f76a6c7e37a4f91f6969aebf4cb8, type: 3}
   SniperImg: {fileID: 21300000, guid: 85a79e48e4ff9cf489e452cf0f897066, type: 3}
   GunBounceImg: {fileID: 21300000, guid: 31d33115cab3abf4a8109b61f983c97f, type: 3}
+  ChestImg: {fileID: 21300000, guid: e33e12aee3c5e1e4c9cd342b17dfb4b2, type: 3}
   GeneratorGo: {fileID: 3701887738033010239, guid: e982a2201f4ce904bb157515b11eb5fb,
     type: 3}
   BasicPlantGo: {fileID: 7101236562621066150, guid: 245472cb659e32248afa9adc0689ac56,
     type: 3}
   EnemyGo: {fileID: 4048461252146628350, guid: c8d73256b6d8bca4bb93b1a0ea3f7a8a, type: 3}
+  ChestGo: {fileID: 8234664967204867811, guid: a0dd639811b77a1438095023e7fe88ab, type: 3}
   GunEnergyInfo: {fileID: 11400000, guid: c942a906c6fa94c44936a54439eb4b29, type: 2}
   GunMechanicalInfo: {fileID: 11400000, guid: b68f06cc4bd8ef84f8ba88920a8922d2, type: 2}
   ShotgunInfo: {fileID: 11400000, guid: 080e11273a243fb4a869cac177510107, type: 2}

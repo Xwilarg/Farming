@@ -36,8 +36,8 @@ public class Inventory
 
     public void RemoveItem(ItemID id)
     {
-        var elem = _slots.Where(x => x.item.GetId() == id).First();
-        if (elem.amount > 1)
+        var elem = _slots.Where(x => x.item?.GetId() == id).First();
+        if (elem != null && elem.amount > 1)
             elem.amount--;
         else
         {
@@ -51,8 +51,8 @@ public class Inventory
 
     public void AddItem(ItemID id)
     {
-        var elem = _slots.Where(x => x.item.GetId() == id).FirstOrDefault();
-        if (elem.item != null)
+        var elem = _slots.Where(x => x.item?.GetId() == id).FirstOrDefault();
+        if (elem != null)
             elem.amount++;
         else
             AddItemInternal(ItemsList.Items.AllItems[id], 1);

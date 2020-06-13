@@ -25,7 +25,7 @@ public class Item
     }
 
     public bool IsTileCorrect(TileType tile)
-        => _allowedTiles.Contains(tile);
+        => _allowedTiles.Contains(tile) || _allowedTiles.Contains(TileType.All);
 
     /// <summary>
     /// Must be called when the item is put on the floor in the game

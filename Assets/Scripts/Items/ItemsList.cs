@@ -27,6 +27,8 @@ public class ItemsList : ScriptableObject
     private Sprite SniperImg;
     [SerializeField]
     private Sprite GunBounceImg;
+    [SerializeField]
+    private Sprite ChestImg;
 
     [Header("Prefab GameObject to be put ingame")]
     [SerializeField]
@@ -35,6 +37,8 @@ public class ItemsList : ScriptableObject
     private GameObject BasicPlantGo;
     [SerializeField]
     private GameObject EnemyGo;
+    [SerializeField]
+    private GameObject ChestGo;
 
     [Header("Weapon scriptable objects")]
     [SerializeField]
@@ -72,7 +76,8 @@ public class ItemsList : ScriptableObject
             { ItemID.Shotgun, new Item(ItemID.Shotgun, "Shotgun", "An alternative way to open doors", new[] { TileType.Special }, ShotgunImg, null, new GunPower(ShotgunInfo)) },
             { ItemID.DemonicCat, new Item(ItemID.DemonicCat, "Demonic Cat", "Devilishly cute", new[] { TileType.Sand }, EnemyImg, EnemyGo, null) },
             { ItemID.Sniper, new Item(ItemID.Sniper, "Sniper", "To shoot enemies from the safety of your home", new[] { TileType.Special }, SniperImg, null, new GunPower(SniperInfo)) },
-            { ItemID.GunBounce, new Item(ItemID.GunBounce, "Bounce Gun", "It's like a regular gun but more annoying", new[] { TileType.Special }, GunBounceImg, null, new GunPower(GunBounceInfo)) }
+            { ItemID.GunBounce, new Item(ItemID.GunBounce, "Bounce Gun", "It's like a regular gun but more annoying", new[] { TileType.Special }, GunBounceImg, null, new GunPower(GunBounceInfo)) },
+            { ItemID.Chest, new Item(ItemID.Chest, "Chest", "How can anyone resist this beautiful chest", new[] { TileType.All }, ChestImg, ChestGo, null) }
         };
     }
 
