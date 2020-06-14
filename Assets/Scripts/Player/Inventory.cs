@@ -21,7 +21,7 @@ public class Inventory
         AddItemInternal(ItemsList.Items.AllItems[ItemID.Generator], 1); // The player begin the game with a generator
         AddItemInternal(ItemsList.Items.AllItems[ItemID.Spade], 1);
         AddItemInternal(ItemsList.Items.AllItems[ItemID.Water], 1);
-        AddItemInternal(ItemsList.Items.AllItems[ItemID.BasicPlant], 5);
+        AddItemInternal(ItemsList.Items.AllItems[ItemID.BasicPlantSeed], 5);
         AddItemInternal(ItemsList.Items.AllItems[ItemID.Scythe], 1);
         AddItemInternal(ItemsList.Items.AllItems[ItemID.GunEnergy], 1);
         AddItemInternal(ItemsList.Items.AllItems[ItemID.Shotgun], 1);

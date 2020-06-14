@@ -29,6 +29,8 @@ public class ItemsList : ScriptableObject
     private Sprite GunBounceImg;
     [SerializeField]
     private Sprite ChestImg;
+    [SerializeField]
+    private Sprite BasicPlantSeedImg;
 
     [Header("Prefab GameObject to be put ingame")]
     [SerializeField]
@@ -71,7 +73,7 @@ public class ItemsList : ScriptableObject
         AllItems = new Dictionary<ItemID, Item>
         {
             { ItemID.Generator, new Item(ItemID.Generator, "Generator", "Generate a livable space around you", new[] { TileType.Grass, TileType.Sand }, GeneratorImg, GeneratorGo, typeof(GeneratorPower)) },
-            { ItemID.BasicPlant, new Item(ItemID.BasicPlant, "Basic Plant", "Maybe a cute flower will grow?", new[] { TileType.Dirt, TileType.WetDirt }, BasicPlantImg, BasicPlantGo, typeof(PlantPower), BasicPlantInfo) },
+            { ItemID.BasicPlant, new Item(ItemID.BasicPlant, "Basic Plant", "Just a basic plant, you can probably sell it", new TileType[0], BasicPlantImg, null, typeof(EmptyPower)) },
             { ItemID.Scythe, new Item(ItemID.Scythe, "Scythe", "To cut down plants and annoying salesman", new [] { TileType.Dirt, TileType.WetDirt }, ScytheImg, null, typeof(ScythePower)) },
             { ItemID.Spade, new Item(ItemID.Spade, "Spade", "Plow the earth to make a comfy place for your plants", new[] { TileType.Grass }, SpadeImg, null, typeof(SpadePower)) },
             { ItemID.Water, new Item(ItemID.Water, "Water", "The healthiest of all the drinks", new[] { TileType.Dirt, TileType.WetDirt }, WaterImg, null, typeof(WaterPower)) },
@@ -81,7 +83,8 @@ public class ItemsList : ScriptableObject
             { ItemID.DemonicCat, new Item(ItemID.DemonicCat, "Demonic Cat", "Devilishly cute", new[] { TileType.Sand }, EnemyImg, EnemyGo, typeof(EmptyPower)) },
             { ItemID.Sniper, new Item(ItemID.Sniper, "Sniper", "To shoot enemies from the safety of your home", new[] { TileType.Special }, SniperImg, null, typeof(GunPower), SniperInfo) },
             { ItemID.GunBounce, new Item(ItemID.GunBounce, "Bounce Gun", "It's like a regular gun but more annoying", new[] { TileType.Special }, GunBounceImg, null, typeof(GunPower), GunBounceInfo) },
-            { ItemID.Chest, new Item(ItemID.Chest, "Chest", "How can anyone resist this beautiful chest", new[] { TileType.All }, ChestImg, ChestGo, typeof(EmptyPower)) }
+            { ItemID.Chest, new Item(ItemID.Chest, "Chest", "How can anyone resist this beautiful chest", new[] { TileType.All }, ChestImg, ChestGo, typeof(EmptyPower)) },
+            { ItemID.BasicPlantSeed, new Item(ItemID.BasicPlantSeed, "Basic Plant Seeds", "Maybe a cute flower will grow?", new[] { TileType.Dirt, TileType.WetDirt }, BasicPlantSeedImg, BasicPlantGo, typeof(PlantPower), BasicPlantInfo, ItemID.BasicPlant) }
         };
     }
 

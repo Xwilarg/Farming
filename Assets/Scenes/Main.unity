@@ -2099,18 +2099,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1600800318}
     m_Modifications:
-    - target: {fileID: 609267208, guid: d32823b312fc27d44a606f99e190f52d, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 609267209, guid: d32823b312fc27d44a606f99e190f52d, type: 3}
-      propertyPath: m_Text
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 609267209, guid: d32823b312fc27d44a606f99e190f52d, type: 3}
-      propertyPath: m_FontData.m_Alignment
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3139851108182155003, guid: d32823b312fc27d44a606f99e190f52d,
         type: 3}
       propertyPath: m_Name
@@ -3442,7 +3430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1600800318
 RectTransform:
   m_ObjectHideFlags: 0

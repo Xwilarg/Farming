@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class PlantPower : AItemPower
 {
-    public PlantPower(PlantInfo info)
+    public PlantPower(PlantInfo info, ItemID plantId)
     {
         _info = info;
         _currPhase = 0;
         _timer = info.TimeBetweenStates;
         _tile = null;
+        _plantId = plantId;
     }
 
     public override void OnItemPlaced(PlayerController player, Item item, Vector2Int pos)
@@ -37,9 +38,12 @@ public class PlantPower : AItemPower
     public bool IsLevelMax()
         => _currPhase == _info.States.Length - 1;
 
+    public ItemID GetPlantID() => _plantId;
+
     private PlantInfo _info;
     private TileInfo _tile;
     private MeshFilter _mesh;
     private int _currPhase;
     private float _timer;
+    private ItemID _plantId;
 }

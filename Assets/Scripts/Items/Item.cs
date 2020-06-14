@@ -81,6 +81,7 @@ public class Item
         return gunPower.GetZoomMultiplicator();
     }
 
+    /// FOR PLANTS
     public bool IsPlant()
         => _power is PlantPower;
 
@@ -89,6 +90,14 @@ public class Item
         if (!IsPlant())
             return false;
         return ((PlantPower)_power).IsLevelMax();
+    }
+
+    /// <summary>
+    /// Get the ID of the plant that a seed is growing
+    /// </summary>
+    public ItemID GetPlantID()
+    {
+        return ((PlantPower)_power).GetPlantID();
     }
 
     public bool CanBePlaced(TileInfo tile)

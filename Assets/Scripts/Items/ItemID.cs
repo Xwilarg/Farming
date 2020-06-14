@@ -11,5 +11,6 @@
     DemonicCat,
     Sniper,
     GunBounce,
-    Chest
+    Chest,
+    BasicPlantSeed
 }
