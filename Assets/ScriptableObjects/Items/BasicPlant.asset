@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BasicPlant
   m_EditorClassIdentifier: 
   States:
-  - {fileID: 919132149155446097, guid: ad0329255b4fe124ebe7a1669cd4c3bf, type: 3}
-  - {fileID: 919132149155446097, guid: 31d7386ef18438940ab3493398602320, type: 3}
-  - {fileID: 919132149155446097, guid: 22498572d6a3e894ea17e5989205db15, type: 3}
-  TimeBetweenStates: 2
+  - {fileID: 9055663894153983533, guid: ad0329255b4fe124ebe7a1669cd4c3bf, type: 3}
+  - {fileID: -8571379936583514411, guid: 31d7386ef18438940ab3493398602320, type: 3}
+  - {fileID: -6735446110792511896, guid: 22498572d6a3e894ea17e5989205db15, type: 3}
+  TimeBetweenStates: 5
   doesNeedWater: 1

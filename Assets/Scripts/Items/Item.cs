@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 
 public class Item
@@ -13,7 +14,7 @@ public class Item
     /// <param name="img">Sprite to be displayed in the UI</param>
     /// <param name="go">Prefab of the object</param>
     /// <param name="power">Special properties of the item</param>
-    public Item(ItemID id, string name, string description, TileType[] allowedTiles, Sprite img, GameObject go, AItemPower power)
+    public Item(ItemID id, string name, string description, TileType[] allowedTiles, Sprite img, GameObject go, Type powerType, params object[] powerArgs)
     {
         _id = id;
         _name = name;
@@ -21,7 +22,24 @@ public class Item
         _allowedTiles = allowedTiles;
         _img = img;
         _go = go;
-        _power = power;
+
+        _power = (AItemPower)Activator.CreateInstance(powerType, powerArgs);
+        _powerType = powerType;
+        _powerArgs = powerArgs;
+    }
+
+    public Item(Item item)
+    {
+        _id = item._id;
+        _name = item._name;
+        _description = item._description;
+        _allowedTiles = item._allowedTiles;
+        _img = item._img;
+        _go = item._go;
+
+        _power = (AItemPower)Activator.CreateInstance(item._powerType, item._powerArgs);
+        _powerType = item._powerType;
+        _powerArgs = item._powerArgs;
     }
 
     public bool IsTileCorrect(TileType tile)
@@ -67,5 +85,8 @@ public class Item
     private TileType[] _allowedTiles; // Tiles where the object can be placed
     private Sprite _img;
     private GameObject _go;
+
     private AItemPower _power;
+    private Type _powerType;
+    private object[] _powerArgs;
 }

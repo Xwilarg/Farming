@@ -8,6 +8,7 @@ public class PlantPower : AItemPower
         _info = info;
         _currPhase = 0;
         _timer = info.TimeBetweenStates;
+        _tile = null;
     }
 
     public override void OnItemPlaced(PlayerController player, Item item, Vector2Int pos)
@@ -18,7 +19,7 @@ public class PlantPower : AItemPower
 
     public override void Update()
     {
-        if (_currPhase < _info.States.Length - 1)
+        if (_tile != null && _currPhase < _info.States.Length - 1)
         {
             if (!_info.doesNeedWater || _tile.GetTileType() == TileType.WetDirt)
             {

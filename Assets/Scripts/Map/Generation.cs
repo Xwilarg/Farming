@@ -87,12 +87,16 @@ public class Generation : MonoBehaviour
         return tile.CanAddItem(ItemsList.Items.AllItems[id]);
     }
 
-    public void SpawnObject(ItemID id, Vector2Int pos)
+    /// <summary>
+    /// Spawn an object and return the new item instance
+    /// </summary>
+    public Item SpawnObject(ItemID id, Vector2Int pos)
     {
         var tile = GetTile(pos);
-        var item = ItemsList.Items.AllItems[id];
+        var item = new Item(ItemsList.Items.AllItems[id]);
         var go = item.GetGameObject();
         tile.AddItem(item, Instantiate(go, new Vector3(pos.x, 0f, pos.y), go.transform.rotation));
+        return item;
     }
 
     private void Update()

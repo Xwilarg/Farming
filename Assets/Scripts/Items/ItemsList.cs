@@ -70,18 +70,18 @@ public class ItemsList : ScriptableObject
     {
         AllItems = new Dictionary<ItemID, Item>
         {
-            { ItemID.Generator, new Item(ItemID.Generator, "Generator", "Generate a livable space around you", new[] { TileType.Grass, TileType.Sand }, GeneratorImg, GeneratorGo, new GeneratorPower()) },
-            { ItemID.BasicPlant, new Item(ItemID.BasicPlant, "Basic Plant", "Maybe a cute flower will grow?", new[] { TileType.Dirt, TileType.WetDirt }, BasicPlantImg, BasicPlantGo, new PlantPower(BasicPlantInfo)) },
-            { ItemID.Scythe, new Item(ItemID.Scythe, "Scythe", "To cut down plants and annoying salesman", new TileType[0], ScytheImg, null, null) },
-            { ItemID.Spade, new Item(ItemID.Spade, "Spade", "Plow the earth to make a comfy place for your plants", new[] { TileType.Grass }, SpadeImg, null, new SpadePower()) },
-            { ItemID.Water, new Item(ItemID.Water, "Water", "The healthiest of all the drinks", new[] { TileType.Dirt, TileType.WetDirt }, WaterImg, null, new WaterPower()) },
-            { ItemID.GunEnergy, new Item(ItemID.GunEnergy, "Gun (Energy)", "A basic handgun, especially strong against mechanic shields", new[] { TileType.Special }, GunEnergyImg, null, new GunPower(GunEnergyInfo)) },
-            { ItemID.GunMechanic, new Item(ItemID.GunMechanic, "Gun (Mechanic)", "A basic handgun, especially strong against energy shields", new[] { TileType.Special }, GunMechanicImg, null, new GunPower(GunMechanicalInfo)) },
-            { ItemID.Shotgun, new Item(ItemID.Shotgun, "Shotgun", "An alternative way to open doors", new[] { TileType.Special }, ShotgunImg, null, new GunPower(ShotgunInfo)) },
-            { ItemID.DemonicCat, new Item(ItemID.DemonicCat, "Demonic Cat", "Devilishly cute", new[] { TileType.Sand }, EnemyImg, EnemyGo, null) },
-            { ItemID.Sniper, new Item(ItemID.Sniper, "Sniper", "To shoot enemies from the safety of your home", new[] { TileType.Special }, SniperImg, null, new GunPower(SniperInfo)) },
-            { ItemID.GunBounce, new Item(ItemID.GunBounce, "Bounce Gun", "It's like a regular gun but more annoying", new[] { TileType.Special }, GunBounceImg, null, new GunPower(GunBounceInfo)) },
-            { ItemID.Chest, new Item(ItemID.Chest, "Chest", "How can anyone resist this beautiful chest", new[] { TileType.All }, ChestImg, ChestGo, null) }
+            { ItemID.Generator, new Item(ItemID.Generator, "Generator", "Generate a livable space around you", new[] { TileType.Grass, TileType.Sand }, GeneratorImg, GeneratorGo, typeof(GeneratorPower)) },
+            { ItemID.BasicPlant, new Item(ItemID.BasicPlant, "Basic Plant", "Maybe a cute flower will grow?", new[] { TileType.Dirt, TileType.WetDirt }, BasicPlantImg, BasicPlantGo, typeof(PlantPower), BasicPlantInfo) },
+            { ItemID.Scythe, new Item(ItemID.Scythe, "Scythe", "To cut down plants and annoying salesman", new TileType[0], ScytheImg, null, typeof(EmptyPower)) },
+            { ItemID.Spade, new Item(ItemID.Spade, "Spade", "Plow the earth to make a comfy place for your plants", new[] { TileType.Grass }, SpadeImg, null, typeof(SpadePower)) },
+            { ItemID.Water, new Item(ItemID.Water, "Water", "The healthiest of all the drinks", new[] { TileType.Dirt, TileType.WetDirt }, WaterImg, null, typeof(WaterPower)) },
+            { ItemID.GunEnergy, new Item(ItemID.GunEnergy, "Gun (Energy)", "A basic handgun, especially strong against mechanic shields", new[] { TileType.Special }, GunEnergyImg, null, typeof(GunPower), GunEnergyInfo) },
+            { ItemID.GunMechanic, new Item(ItemID.GunMechanic, "Gun (Mechanic)", "A basic handgun, especially strong against energy shields", new[] { TileType.Special }, GunMechanicImg, null, typeof(GunPower), GunMechanicalInfo) },
+            { ItemID.Shotgun, new Item(ItemID.Shotgun, "Shotgun", "An alternative way to open doors", new[] { TileType.Special }, ShotgunImg, null, typeof(GunPower), ShotgunInfo) },
+            { ItemID.DemonicCat, new Item(ItemID.DemonicCat, "Demonic Cat", "Devilishly cute", new[] { TileType.Sand }, EnemyImg, EnemyGo, typeof(EmptyPower)) },
+            { ItemID.Sniper, new Item(ItemID.Sniper, "Sniper", "To shoot enemies from the safety of your home", new[] { TileType.Special }, SniperImg, null, typeof(GunPower), SniperInfo) },
+            { ItemID.GunBounce, new Item(ItemID.GunBounce, "Bounce Gun", "It's like a regular gun but more annoying", new[] { TileType.Special }, GunBounceImg, null, typeof(GunPower), GunBounceInfo) },
+            { ItemID.Chest, new Item(ItemID.Chest, "Chest", "How can anyone resist this beautiful chest", new[] { TileType.All }, ChestImg, ChestGo, typeof(EmptyPower)) }
         };
     }
 
