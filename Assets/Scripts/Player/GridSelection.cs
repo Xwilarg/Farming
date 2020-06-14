@@ -62,7 +62,7 @@ public class GridSelection : MonoBehaviour
                 else if (_isPlacementEnabled)
                 {
                     var pos = _selectionGo.transform.position.ToVector2Int();
-                    if (Generation.GENERATION.CanSpawnObject(item.GetId(), pos))
+                    if (Generation.GENERATION.CanSpawnObject(item.GetId(), pos) && item.CanBePlaced(Generation.GENERATION.GetTile(pos)))
                     {
                         // If we are in debug mode (then there is no NetworkManager) or if we are the server
                         if (NetworkManager.NETWORK_MANAGER == null || NetworkManager.NETWORK_MANAGER.RequestItemSpawn(item.GetId(), pos))
@@ -87,7 +87,7 @@ public class GridSelection : MonoBehaviour
             return;
         var pos = _selectionGo.transform.position.ToVector2Int();
         var item = UIManager.uiManager.GetActionBar().GetCurrentlySelectedItem();
-        if (item == null || Generation.GENERATION.CanSpawnObject(item.GetId(), pos))
+        if (item == null || (Generation.GENERATION.CanSpawnObject(item.GetId(), pos) && item.CanBePlaced(Generation.GENERATION.GetTile(pos))))
             _selectionRenderer.material = _validPositionMaterial;
         else
             _selectionRenderer.material = _invalidPositionMaterial;

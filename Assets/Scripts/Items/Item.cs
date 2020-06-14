@@ -79,6 +79,14 @@ public class Item
         return gunPower.GetZoomMultiplicator();
     }
 
+    public bool IsPlant()
+        => _power is PlantPower;
+
+    public bool CanBePlaced(TileInfo tile)
+    {
+        return _power?.CanBePlaced(tile) ?? true;
+    }
+
     private ItemID _id;
     private string _name; public string GetName() => _name;
     private string _description; public string GetDescription() => _description;

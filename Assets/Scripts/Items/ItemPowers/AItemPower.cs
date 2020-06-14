@@ -13,4 +13,10 @@ public abstract class AItemPower
     /// </summary>
     public virtual void Update()
     { }
+
+    /// <summary>
+    /// Do additional check to see if the item can be used on the tile
+    /// </summary>
+    public virtual bool CanBePlaced(TileInfo tile)
+        => true;
 }
