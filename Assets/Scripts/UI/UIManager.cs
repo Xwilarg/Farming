@@ -19,6 +19,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Sprite _emptyCrosshair;
 
+    [SerializeField]
+    private Text orText;
+
     private void Awake()
     {
         uiManager = this;
