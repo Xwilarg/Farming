@@ -34,6 +34,9 @@ public class PlantPower : AItemPower
         }
     }
 
+    public bool IsLevelMax()
+        => _currPhase == _info.States.Length - 1;
+
     private PlantInfo _info;
     private TileInfo _tile;
     private MeshFilter _mesh;

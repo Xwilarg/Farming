@@ -63,6 +63,8 @@ public class Item
     public bool HaveGameObject() => _go != null;
 
     public ItemID GetId() => _id;
+    public string GetName() => _name;
+    public string GetDescription() => _description;
     public Sprite GetCrosshair()
     {
         if (_power == null)
@@ -82,14 +84,21 @@ public class Item
     public bool IsPlant()
         => _power is PlantPower;
 
+    public bool IsPlantLvlMax()
+    {
+        if (!IsPlant())
+            return false;
+        return ((PlantPower)_power).IsLevelMax();
+    }
+
     public bool CanBePlaced(TileInfo tile)
     {
         return _power?.CanBePlaced(tile) ?? true;
     }
 
     private ItemID _id;
-    private string _name; public string GetName() => _name;
-    private string _description; public string GetDescription() => _description;
+    private string _name;
+    private string _description;
     private TileType[] _allowedTiles; // Tiles where the object can be placed
     private Sprite _img;
     private GameObject _go;

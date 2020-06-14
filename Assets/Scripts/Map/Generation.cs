@@ -99,6 +99,13 @@ public class Generation : MonoBehaviour
         return item;
     }
 
+    public void DestroyObject(Vector2Int pos)
+    {
+        var tile = GetTile(pos);
+        Destroy(tile.GetGameObject());
+        tile.AddItem(null, null);
+    }
+
     private void Update()
     {
         foreach (var chunk in _instantiated)

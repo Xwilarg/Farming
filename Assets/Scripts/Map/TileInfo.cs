@@ -39,6 +39,8 @@ public class TileInfo
 
     public bool IsPlant() => _itemContained?.IsPlant() ?? false;
 
+    public Item GetItem() => _itemContained;
+
     private GameObject _gameObject;
     private TileType _type;
     private Item _itemContained;

@@ -2099,10 +2099,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1600800318}
     m_Modifications:
-    - target: {fileID: 3139851107525064214, guid: d32823b312fc27d44a606f99e190f52d,
-        type: 3}
+    - target: {fileID: 609267208, guid: d32823b312fc27d44a606f99e190f52d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 609267209, guid: d32823b312fc27d44a606f99e190f52d, type: 3}
       propertyPath: m_Text
-      value: 1
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 609267209, guid: d32823b312fc27d44a606f99e190f52d, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3139851108182155003, guid: d32823b312fc27d44a606f99e190f52d,
         type: 3}
@@ -2213,11 +2220,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8167238643929841931, guid: d32823b312fc27d44a606f99e190f52d,
-        type: 3}
-      propertyPath: _canDragAndDrop
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8167238643929841931, guid: d32823b312fc27d44a606f99e190f52d,
         type: 3}
@@ -3440,7 +3442,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1600800318
 RectTransform:
   m_ObjectHideFlags: 0
