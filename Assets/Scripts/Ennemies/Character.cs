@@ -13,6 +13,6 @@ public class Character : MonoBehaviour
     {
         hp -= damage;
         if (hp < 0)
-            Destroy(gameObject);
+            EnemiesManager.S.DestroyEnemy(gameObject);
     }
 }

@@ -3,7 +3,6 @@
 [CreateAssetMenu(menuName = "ScriptableObject/OptionsInfo", fileName = "OptionsInfo")]
 public class OptionsInfo : ScriptableObject
 {
-
     [Header("Controls")]
     [Tooltip("Mouse default sensibivity on the X axis")]
     public float xSensibivity;
