@@ -118,6 +118,7 @@ public class Options : MonoBehaviour
     public void DeleteSaves()
     {
         if (File.Exists(_controlsSavePath)) File.Delete(_controlsSavePath);
+        Popup.S.Show("Information", "Your saves were deleted.");
     }
 
     private void Update()
