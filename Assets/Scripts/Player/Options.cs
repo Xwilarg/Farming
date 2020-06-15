@@ -18,25 +18,18 @@ public class Options : MonoBehaviour
     private OptionsInfo _info;
     public OptionsInfo GetInfo() => _info;
 
-    private void Awake()
-    {
-        S = this;
-    }
 
     private string _controlsSavePath;
 
     [DllImport("user32.dll")] public static extern IntPtr GetKeyboardLayout(int idThread);
 
-    private void Start()
+    private void Awake()
     {
+        S = this;
+
         _controlsSavePath = Application.persistentDataPath + "/controls.txt";
 
-        _optionPanel = transform.GetChild(0);
-        _console = null;
-
-        // Make sure that option panel is closed on game start
-        _optionPanel.gameObject.SetActive(false);
-
+        // We load controls in Awake cause some others scripts will use them in their Start
         OptionsInfo newInfo = ScriptableObject.CreateInstance<OptionsInfo>();
         foreach (var info in typeof(OptionsInfo).GetFields())
         {
@@ -51,7 +44,7 @@ public class Options : MonoBehaviour
             foreach (var info in typeof(OptionsInfo).GetFields())
             {
                 if (info.FieldType == typeof(float))
-                        info.SetValue(_info, reader.ReadSingle());
+                    info.SetValue(_info, reader.ReadSingle());
                 else if (info.FieldType == typeof(bool))
                     info.SetValue(_info, reader.ReadBoolean());
                 else if (info.FieldType == typeof(KeyCode))
@@ -82,6 +75,15 @@ public class Options : MonoBehaviour
             }
             SaveControls();
         }
+    }
+
+    private void Start()
+    {
+        _optionPanel = transform.GetChild(0);
+        _console = null;
+
+        // Make sure that option panel is closed on game start
+        _optionPanel.gameObject.SetActive(false);
     }
 
     private void SaveControls()
@@ -119,6 +121,22 @@ public class Options : MonoBehaviour
     {
         if (File.Exists(_controlsSavePath)) File.Delete(_controlsSavePath);
         Popup.S.Show("Information", "Your saves were deleted.");
+    }
+
+    /// <summary>
+    /// Rebind a key
+    /// </summary>
+    /// <param name="keyString">Field name in OptionsInfo.cs</param>
+    /// <param name="key">New key</param>
+    public void BindKey(string keyString, KeyCode key)
+    {
+        typeof(OptionsInfo).GetField(keyString).SetValue(_info, key);
+        SaveControls();
+    }
+
+    public string GetStringKey(string keyString)
+    {
+        return typeof(OptionsInfo).GetField(keyString).GetValue(_info).ToString();
     }
 
     private void Update()
