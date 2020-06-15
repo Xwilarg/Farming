@@ -25,6 +25,9 @@ public class EnemiesManager : MonoBehaviour
 
     private void Update()
     {
+        if (!Generation.GENERATION.HaveGenerator())
+            return;
+
         _spawnTimer -= Time.deltaTime;
         if (_spawnTimer <= 0f && _enemies.Count < _spawnInfo.maxEnnemiesAtOnce && PlayerController.LOCAL != null)
         {

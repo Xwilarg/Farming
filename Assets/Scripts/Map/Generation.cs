@@ -24,6 +24,11 @@ public class Generation : MonoBehaviour
 
     private Transform _floorContainer;
 
+    private int _generatorCount;
+
+    public bool HaveGenerator()
+        => _generatorCount > 0;
+
     private void Awake()
     {
         GENERATION = this;
@@ -45,6 +50,8 @@ public class Generation : MonoBehaviour
         for (int x = -2; x <= 2; x++)
             for (int y = -2; y <= 2; y++)
                 InstantiateChunk(new Vector2Int(x * _gen.ChunkSize, y * _gen.ChunkSize));
+
+        _generatorCount = 0;
     }
 
     private void InstantiateChunk(Vector2Int pos)
@@ -92,6 +99,8 @@ public class Generation : MonoBehaviour
     /// </summary>
     public Item SpawnObject(ItemID id, Vector2Int pos)
     {
+        if (id == ItemID.Generator)
+            _generatorCount++;
         var tile = GetTile(pos);
         var item = new Item(ItemsList.Items.AllItems[id]);
         var go = item.GetGameObject();
@@ -102,6 +111,8 @@ public class Generation : MonoBehaviour
     public void DestroyObject(Vector2Int pos)
     {
         var tile = GetTile(pos);
+        if (tile.GetItem()?.GetId() == ItemID.Generator)
+            _generatorCount--;
         Destroy(tile.GetGameObject());
         tile.AddItem(null, null);
     }
