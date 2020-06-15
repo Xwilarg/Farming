@@ -58,6 +58,11 @@ public class Item
         _power?.Update();
     }
 
+    public void InventoryUpdate()
+    {
+        _power?.InventoryUpdate();
+    }
+
     public Sprite GetImage() => _img;
     public GameObject GetGameObject() => _go;
     public bool HaveGameObject() => _go != null;

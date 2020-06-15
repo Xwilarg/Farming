@@ -6,11 +6,21 @@ public class GunPower : AItemPower
     public GunPower(WeaponInfo info)
     {
         _info = info;
+        _timer = 0f;
     }
 
     public override void OnItemPlaced(PlayerController player, Item item, Vector2Int pos)
     {
-        player.Shoot(_info);
+        if (_timer <= 0f)
+        {
+            player.Shoot(_info);
+            _timer = _info.intervalBetweenShoot;
+        }
+    }
+
+    public override void InventoryUpdate()
+    {
+        _timer -= Time.deltaTime;
     }
 
     public Sprite GetCrosshair()
@@ -19,4 +29,6 @@ public class GunPower : AItemPower
         => _info.zoomMultiplicator;
 
     private WeaponInfo _info;
+
+    private float _timer;
 }

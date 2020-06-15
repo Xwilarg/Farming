@@ -80,6 +80,12 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = new Vector3(_axis2D.x * _info.speed, _rb.velocity.y, _axis2D.y * _info.speed);
     }
 
+    private void Update()
+    {
+        if (_isMe && !Options.S.IsPaused())
+            _player.Inventory.Update();
+    }
+
     public void UpdateSelectionColor()
     {
         _grid.UpdateSelectionColor();

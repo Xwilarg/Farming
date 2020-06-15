@@ -95,6 +95,12 @@ public class Inventory
     public Slot[] GetInventory()
         => _slots;
 
+    public void Update()
+    {
+        foreach (var slot in _slots)
+            slot.item?.InventoryUpdate();
+    }
+
     // TODO: Need to check max size
     private Slot[] _slots; // Items and how many you have
 

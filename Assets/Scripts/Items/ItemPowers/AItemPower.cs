@@ -9,9 +9,15 @@ public abstract class AItemPower
     { }
 
     /// <summary>
-    /// Called on every update tick
+    /// Called on every update tick on objects that are placed on the world
     /// </summary>
     public virtual void Update()
+    { }
+
+    /// <summary>
+    /// Called on every update tick on objects that are on the player's inventory
+    /// </summary>
+    public virtual void InventoryUpdate()
     { }
 
     /// <summary>
