@@ -32,6 +32,13 @@ public class Options : MonoBehaviour
         // Make sure that option panel is closed on game start
         _optionPanel.gameObject.SetActive(false);
 
+        OptionsInfo newInfo = ScriptableObject.CreateInstance<OptionsInfo>();
+        foreach (var info in typeof(OptionsInfo).GetFields())
+        {
+            info.SetValue(newInfo, info.GetValue(_info));
+        }
+        _info = newInfo;
+
         // Detect if user have AZERTY keyboard
         var hkl = GetKeyboardLayout(0);
         int id = (int)((uint)hkl.ToInt32() & 0x0000FFFF);
