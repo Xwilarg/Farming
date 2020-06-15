@@ -15,6 +15,11 @@ public static class BinaryExtension
         w.Write(pos.y);
     }
 
+    public static void Write(this BinaryWriter w, KeyCode key)
+    {
+        w.Write((int)key);
+    }
+
     public static Vector2 ReadVector2(this BinaryReader r)
     {
         return new Vector2(r.ReadSingle(), r.ReadSingle());
@@ -23,5 +28,10 @@ public static class BinaryExtension
     public static Vector2Int ReadVector2Int(this BinaryReader r)
     {
         return new Vector2Int(r.ReadInt32(), r.ReadInt32());
+    }
+
+    public static KeyCode ReadKeyCode(this BinaryReader r)
+    {
+        return (KeyCode)r.ReadInt32();
     }
 }
