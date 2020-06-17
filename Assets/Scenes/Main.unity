@@ -5440,6 +5440,7 @@ GameObject:
   - component: {fileID: 1755971525}
   - component: {fileID: 1755971526}
   - component: {fileID: 1755971527}
+  - component: {fileID: 1755971528}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -5535,6 +5536,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnInfo: {fileID: 11400000, guid: cbc83f5feafe06341b617b7f2412fd4a, type: 2}
+--- !u!114 &1755971528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755971521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d81aa70d791be943a426d1f78d56c0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sun: {fileID: 705507994}
+  _dayNightInfo: {fileID: 11400000, guid: b51be792dd8a57946ac1f9b1524fde58, type: 2}
 --- !u!1 &1778620795
 GameObject:
   m_ObjectHideFlags: 0
