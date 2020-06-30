@@ -79,7 +79,7 @@ public class GridSelection : MonoBehaviour
                 }
             }
             UpdateSelectionPosition();
-            if (_oldPlacementPos != _selectionGo.transform.position.ToVector2Int()) // TODO: Check need to be done again if a remote player put an object
+            if (_isPlacementEnabled && _oldPlacementPos != _selectionGo.transform.position.ToVector2Int()) // TODO: Check need to be done again if a remote player put an object
                 UpdateSelectionColor();
         }
     }
@@ -122,6 +122,7 @@ public class GridSelection : MonoBehaviour
         var tile = Generation.GENERATION.GetTile(new Vector2Int(x, z));
         var item = tile.GetItem();
         var canInterract = item?.CanBeInteractedWith() ?? false;
+        if (canInterract && Vector3.Distance(transform.position, pos) > _info.interractDist) canInterract = false;
         UIManager.uiManager.ToggleInterract(canInterract);
         _interract = canInterract ? item : null;
 

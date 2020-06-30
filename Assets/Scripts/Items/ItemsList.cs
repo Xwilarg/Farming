@@ -89,7 +89,7 @@ public class ItemsList : ScriptableObject
             { ItemID.GunBounce, new Item(ItemID.GunBounce, "Bounce Gun", "It's like a regular gun but more annoying", new[] { TileType.Special }, GunBounceImg, null, typeof(GunPower), GunBounceInfo) },
             { ItemID.Chest, new Item(ItemID.Chest, "Chest", "How can anyone resist this cute chest", new[] { TileType.All }, ChestImg, ChestGo, typeof(EmptyPower)) },
             { ItemID.BasicPlantSeed, new Item(ItemID.BasicPlantSeed, "Basic Plant Seeds", "Maybe a cute flower will grow?", new[] { TileType.Dirt, TileType.WetDirt }, BasicPlantSeedImg, BasicPlantGo, typeof(PlantPower), BasicPlantInfo, ItemID.BasicPlant) },
-            { ItemID.Shop, new Item(ItemID.Shop, "Shop", "Once placed you'll be able to buy and sell stuffs from it", new[] { TileType.Grass }, ShopImg, ShopGo, typeof(EmptyPower)) }
+            { ItemID.Shop, new Item(ItemID.Shop, "Shop", "Once placed you'll be able to buy and sell stuffs from it", new[] { TileType.Grass }, ShopImg, ShopGo, typeof(ShopPower)) }
         };
     }
 

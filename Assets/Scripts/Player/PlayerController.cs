@@ -67,6 +67,8 @@ public class PlayerController : MonoBehaviour
             else if (Input.GetKey(Options.S.GetInfo().rightKey)) x = 1;
             _axis2D = (new Vector2(transform.forward.x, transform.forward.z) * y) + (new Vector2(transform.right.x, transform.right.z) * x);
             _axis2D.Normalize();
+            if (x != 0 || y != 0)
+                UIManager.uiManager.ClearUI();
             if (_axis2D != _oldAxis2D && _net != null) // If the player changed his movement we update it on the server
             {
                 _net.SendRequest(NetworkRequest.PlayerPosition, GetPositionData());

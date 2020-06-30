@@ -39,18 +39,26 @@ public class Options : MonoBehaviour
 
         if (File.Exists(_controlsSavePath))
         {
-            var ms = new MemoryStream(File.ReadAllBytes(_controlsSavePath));
-            var reader = new BinaryReader(ms);
-            foreach (var info in typeof(OptionsInfo).GetFields())
+            try
             {
-                if (info.FieldType == typeof(float))
-                    info.SetValue(_info, reader.ReadSingle());
-                else if (info.FieldType == typeof(bool))
-                    info.SetValue(_info, reader.ReadBoolean());
-                else if (info.FieldType == typeof(KeyCode))
-                    info.SetValue(_info, reader.ReadKeyCode());
-                else
-                    throw new ArgumentException("Invalid field type " + info.FieldType.Name + " while parsing OptionsInfo");
+                var ms = new MemoryStream(File.ReadAllBytes(_controlsSavePath));
+                var reader = new BinaryReader(ms);
+                foreach (var info in typeof(OptionsInfo).GetFields())
+                {
+                    if (info.FieldType == typeof(float))
+                        info.SetValue(_info, reader.ReadSingle());
+                    else if (info.FieldType == typeof(bool))
+                        info.SetValue(_info, reader.ReadBoolean());
+                    else if (info.FieldType == typeof(KeyCode))
+                        info.SetValue(_info, reader.ReadKeyCode());
+                    else
+                        throw new ArgumentException("Invalid field type " + info.FieldType.Name + " while parsing OptionsInfo");
+                }
+            } catch (EndOfStreamException) // The configuration file content is probably out of date
+            {
+                File.Delete(_controlsSavePath);
+                Awake();
+                return;
             }
         }
         else

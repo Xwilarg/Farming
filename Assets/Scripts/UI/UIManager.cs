@@ -25,9 +25,17 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject _pressInterract;
 
+    [SerializeField]
+    private GameObject _shopPanel;
+
     public void ToggleInterract(bool value)
     {
         _pressInterract.SetActive(value);
+    }
+
+    public void EnableShop()
+    {
+        _shopPanel.SetActive(true);
     }
 
     private void Awake()
@@ -36,6 +44,11 @@ public class UIManager : MonoBehaviour
 
         // Make sure inventory panel is not active at game start
         _inventoryPanel.SetActive(false);
+    }
+
+    public void ClearUI()
+    {
+        _shopPanel.SetActive(false);
     }
 
     private PlayerInfo _info = null; // Keep track of keys to press to toggle different UI parts
