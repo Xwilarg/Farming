@@ -63,6 +63,16 @@ public class Item
         _power?.InventoryUpdate();
     }
 
+    public bool CanBeInteractedWith()
+    {
+        return _power?.CanBeInteractedWith() ?? false;
+    }
+
+    public void Interact()
+    {
+        _power.Interact();
+    }
+
     public Sprite GetImage() => _img;
     public GameObject GetGameObject() => _go;
     public bool HaveGameObject() => _go != null;

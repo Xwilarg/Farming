@@ -12,5 +12,6 @@
     Sniper,
     GunBounce,
     Chest,
-    BasicPlantSeed
+    BasicPlantSeed,
+    Shop
 }

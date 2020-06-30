@@ -18,6 +18,8 @@ public class GridSelection : MonoBehaviour
 
     private PlayerInfo _info;
 
+    private Item _interract;
+
     public void Init(PlayerInfo info)
     {
         _info = info;
@@ -33,6 +35,10 @@ public class GridSelection : MonoBehaviour
     {
         if (_isMe && !Options.S.IsPaused())
         {
+            if (Input.GetKeyDown(Options.S.GetInfo().interractKey) && _interract != null)
+            {
+                _interract.Interact();
+            }
             if (Input.GetKeyDown(Options.S.GetInfo().placementKey)) // Press Q (by default) to enable/disable selection mode
             {
                 if (_isPlacementEnabled)
@@ -72,12 +78,9 @@ public class GridSelection : MonoBehaviour
                     }
                 }
             }
-            if (_isPlacementEnabled)
-            {
-                UpdateSelectionPosition();
-                if (_oldPlacementPos != _selectionGo.transform.position.ToVector2Int()) // TODO: Check need to be done again if a remote player put an object
-                    UpdateSelectionColor();
-            }
+            UpdateSelectionPosition();
+            if (_oldPlacementPos != _selectionGo.transform.position.ToVector2Int()) // TODO: Check need to be done again if a remote player put an object
+                UpdateSelectionColor();
         }
     }
 
@@ -115,7 +118,17 @@ public class GridSelection : MonoBehaviour
         else if (pos.x > x + .5f) x++;
         if (pos.z < z) z--;
         else if (pos.z > z + 1) z++;
-        _selectionGo.transform.position = new Vector3(x, 0.001f, z);
-        _selectionGo.transform.rotation = Quaternion.identity;
+
+        var tile = Generation.GENERATION.GetTile(new Vector2Int(x, z));
+        var item = tile.GetItem();
+        var canInterract = item?.CanBeInteractedWith() ?? false;
+        UIManager.uiManager.ToggleInterract(canInterract);
+        _interract = canInterract ? item : null;
+
+        if (_isPlacementEnabled)
+        {
+            _selectionGo.transform.position = new Vector3(x, 0.001f, z);
+            _selectionGo.transform.rotation = Quaternion.identity;
+        }
     }
 }

@@ -18,16 +18,12 @@ public class Inventory
     public void InitInventoryContent()
     {
         AddItemInternal(ItemsList.Items.AllItems[ItemID.GunMechanic], 1);
-        AddItemInternal(ItemsList.Items.AllItems[ItemID.Generator], 1); // The player begin the game with a generator
+        AddItemInternal(ItemsList.Items.AllItems[ItemID.Shop], 1);
+        AddItemInternal(ItemsList.Items.AllItems[ItemID.Generator], 1);
         AddItemInternal(ItemsList.Items.AllItems[ItemID.Spade], 1);
         AddItemInternal(ItemsList.Items.AllItems[ItemID.Water], 1);
         AddItemInternal(ItemsList.Items.AllItems[ItemID.BasicPlantSeed], 5);
         AddItemInternal(ItemsList.Items.AllItems[ItemID.Scythe], 1);
-        AddItemInternal(ItemsList.Items.AllItems[ItemID.GunEnergy], 1);
-        AddItemInternal(ItemsList.Items.AllItems[ItemID.Shotgun], 1);
-        AddItemInternal(ItemsList.Items.AllItems[ItemID.Sniper], 1);
-        AddItemInternal(ItemsList.Items.AllItems[ItemID.GunBounce], 1);
-        AddItemInternal(ItemsList.Items.AllItems[ItemID.DemonicCat], 2);
 
         UIManager.uiManager.InitInventory(this);
     }

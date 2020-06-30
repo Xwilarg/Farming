@@ -34,6 +34,9 @@ public class OptionsInfo : ScriptableObject
     [Tooltip("Default key to toggle inventory")]
     public KeyCode inventoryKey;
 
+    [Tooltip("Default key to interact with objects")]
+    public KeyCode interractKey;
+
     [Header("Graphisms")]
     [Tooltip("The intensity of the sunlight")]
     public float sunIntensity;

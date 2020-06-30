@@ -20,7 +20,15 @@ public class UIManager : MonoBehaviour
     private Sprite _emptyCrosshair;
 
     [SerializeField]
-    private Text orText;
+    private Text _orText;
+
+    [SerializeField]
+    private GameObject _pressInterract;
+
+    public void ToggleInterract(bool value)
+    {
+        _pressInterract.SetActive(value);
+    }
 
     private void Awake()
     {

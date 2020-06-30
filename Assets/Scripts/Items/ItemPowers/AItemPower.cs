@@ -25,4 +25,14 @@ public abstract class AItemPower
     /// </summary>
     public virtual bool CanBePlaced(TileInfo tile)
         => true;
+
+    /// <summary>
+    /// Does display a popup saying "Press E"
+    /// </summary>
+    /// <returns></returns>
+    public virtual bool CanBeInteractedWith()
+        => false;
+
+    public virtual void Interact()
+    { }
 }

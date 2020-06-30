@@ -8,4 +8,7 @@ public class PlayerInfo : ScriptableObject
 
     [Tooltip("Max distance where the player can place objects")]
     public int placementDist;
+
+    [Tooltip("Max distance where the player can interract with objects")]
+    public int interractDist;
 }

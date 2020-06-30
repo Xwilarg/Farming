@@ -22,4 +22,5 @@ MonoBehaviour:
   rightKey: 100
   placementKey: 113
   inventoryKey: 105
+  interractKey: 101
   sunIntensity: 0.8
