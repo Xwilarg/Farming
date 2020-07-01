@@ -28,6 +28,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject _shopPanel;
 
+    private Inventory _shopInventory;
+
     public void ToggleInterract(bool value)
     {
         _pressInterract.SetActive(value);
@@ -54,6 +56,9 @@ public class UIManager : MonoBehaviour
     private PlayerInfo _info = null; // Keep track of keys to press to toggle different UI parts
     private Inventory _inventory;
     private List<ActionBarSlot> _inventorySlots;
+    private List<ActionBarSlot> _shopSlots;
+
+    private int _orAmount;
 
     public void SetPlayerInfo(PlayerInfo info)
         => _info = info;
@@ -63,6 +68,9 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         _inventorySlots = _inventoryPanel.GetComponentsInChildren<ActionBarSlot>().ToList();
+        _shopSlots = _shopPanel.GetComponentsInChildren<ActionBarSlot>().ToList();
+        _shopInventory = new Inventory();
+        _shopInventory.AddItem(ItemID.BasicPlantSeed);
     }
 
     public void InitInventory(Inventory inventory)
@@ -83,6 +91,11 @@ public class UIManager : MonoBehaviour
         for (; i < _inventorySlots.Count; i++)
         {
             _inventorySlots[i].SetItem(null, 0);
+        }
+        var shopItems = _shopInventory.GetInventory();
+        for (i = 0; i < items.Length; i++)
+        {
+            _shopSlots[i].SetItem(shopItems[i].item, shopItems[i].amount);
         }
     }
 
@@ -142,10 +155,20 @@ public class UIManager : MonoBehaviour
                 return true;
             i++;
         }
+        i = 0;
+        if (_shopPanel.activeInHierarchy)
+        {
+            foreach (var slot in _shopSlots)
+            {
+                if (TradeObjectPosition(slot, item, pos, i, TradeDestination.SHOP))
+                    return true;
+                i++;
+            }
+        }
         return false;
     }
 
-    private bool TradeObjectPosition(ActionBarSlot slot, Item item, Vector2 pos, int slotId)
+    private bool TradeObjectPosition(ActionBarSlot slot, Item item, Vector2 pos, int slotId, TradeDestination dest = TradeDestination.INVENTORY)
     {
         var rTransform = (RectTransform)slot.transform;
         var oPos = rTransform.position;
@@ -153,9 +176,24 @@ public class UIManager : MonoBehaviour
         if (pos.x > oPos.x - s && pos.x < oPos.x + s
             && pos.y > oPos.y - s && pos.y < oPos.y + s)
         {
-            _inventory.Swap(item.GetId(), slotId);
+            if (dest == TradeDestination.INVENTORY)
+                _inventory.Swap(item.GetId(), slotId);
+            else
+            {
+                _inventory.RemoveItem(item.GetId());
+                _shopInventory.AddItem(item.GetId());
+                _orAmount += 10;
+                _orText.text = _orAmount.ToString();
+                UpdateInventory();
+            }
             return true;
         }
         return false;
+    }
+
+    public enum TradeDestination
+    {
+        INVENTORY,
+        SHOP
     }
 }
