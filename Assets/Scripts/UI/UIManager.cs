@@ -182,7 +182,7 @@ public class UIManager : MonoBehaviour
             {
                 _inventory.RemoveItem(item.GetId());
                 _shopInventory.AddItem(item.GetId());
-                _orAmount += 10;
+                _orAmount += item.GetPrice();
                 _orText.text = _orAmount.ToString();
                 UpdateInventory();
             }

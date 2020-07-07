@@ -39,3 +39,17 @@ MonoBehaviour:
   SniperInfo: {fileID: 11400000, guid: 80e881cb62a5db5438fb5252f7ac825e, type: 2}
   GunBounceInfo: {fileID: 11400000, guid: 8e2085f0fb4e3864b89f7047fdf03b56, type: 2}
   BasicPlantInfo: {fileID: 11400000, guid: 5b28e52423e933d46beca6d22feeeb1b, type: 2}
+  GeneratorPrice: 100
+  BasicPlantPrice: 5
+  ScythePrice: 10
+  SpadePrice: 10
+  WaterPrice: 1
+  GunEnergyPrice: 20
+  GunMechanicPrice: 20
+  ShotgunPrice: 50
+  DemonicCatPrice: 20
+  SniperPrice: 100
+  GunBouncePrice: 500
+  ChestPrice: 20
+  BasicPlantSeedPrice: 2
+  ShopPrice: 999

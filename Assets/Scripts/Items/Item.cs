@@ -14,7 +14,7 @@ public class Item
     /// <param name="img">Sprite to be displayed in the UI</param>
     /// <param name="go">Prefab of the object</param>
     /// <param name="power">Special properties of the item</param>
-    public Item(ItemID id, string name, string description, TileType[] allowedTiles, Sprite img, GameObject go, Type powerType, params object[] powerArgs)
+    public Item(ItemID id, string name, string description, TileType[] allowedTiles, Sprite img, GameObject go, int price, Type powerType, params object[] powerArgs)
     {
         _id = id;
         _name = name;
@@ -22,6 +22,7 @@ public class Item
         _allowedTiles = allowedTiles;
         _img = img;
         _go = go;
+        _price = price;
 
         _power = (AItemPower)Activator.CreateInstance(powerType, powerArgs);
         _powerType = powerType;
@@ -120,12 +121,16 @@ public class Item
         return _power?.CanBePlaced(tile) ?? true;
     }
 
+    public int GetPrice()
+        => _price;
+
     private ItemID _id;
     private string _name;
     private string _description;
     private TileType[] _allowedTiles; // Tiles where the object can be placed
     private Sprite _img;
     private GameObject _go;
+    private int _price;
 
     private AItemPower _power;
     private Type _powerType;
