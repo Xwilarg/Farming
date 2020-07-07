@@ -3,11 +3,11 @@
 [CreateAssetMenu(menuName = "ScriptableObject/EnemySpawnInfo", fileName = "EnemySpawnInfo")]
 public class EnemySpawnInfo : ScriptableObject
 {
-    [Tooltip("Maximum number of enemies that can be on the world at once")]
-    public int maxEnnemiesAtOnce;
+    [Tooltip("Number of ennemies per waves")]
+    public int ennemiesPerWaves;
 
-    [Tooltip("Time between 2 spawns")]
-    public int timeBetweenSpawn;
+    [Tooltip("Time between 2 waves")]
+    public int timeBetweenWaves;
 
     [Tooltip("Prefab of the enemy")]
     public GameObject prefabEnemy;

@@ -5,6 +5,9 @@ public class EnemiesManager : MonoBehaviour
 {
     public static EnemiesManager S;
 
+    [SerializeField]
+    private RectTransform _nextWaveProgress;
+
     private void Awake()
     {
         S = this;
@@ -13,34 +16,40 @@ public class EnemiesManager : MonoBehaviour
     [SerializeField]
     private EnemySpawnInfo _spawnInfo;
 
-    private float _spawnTimer;
-
     private List<GameObject> _enemies;
+
+    private float _maxSize;
+    private float _timer;
 
     private void Start()
     {
-        _spawnTimer = _spawnInfo.timeBetweenSpawn;
         _enemies = new List<GameObject>();
+        _maxSize = _nextWaveProgress.sizeDelta.x;
+        _timer = 0;
     }
 
     private void Update()
     {
         if (!Generation.GENERATION.HaveGenerator())
             return;
-
-        _spawnTimer -= Time.deltaTime;
-        if (_spawnTimer <= 0f && _enemies.Count < _spawnInfo.maxEnnemiesAtOnce && PlayerController.LOCAL != null)
+        _nextWaveProgress.parent.gameObject.SetActive(true);
+        _timer += Time.deltaTime;
+        _nextWaveProgress.sizeDelta = new Vector2(_maxSize - (_timer * _maxSize / _spawnInfo.timeBetweenWaves), _nextWaveProgress.sizeDelta.y);
+        if (_timer > _spawnInfo.timeBetweenWaves)
         {
-            var randomPos = Random.insideUnitCircle.normalized * _spawnInfo.distanceSpawn;
-            var randomPos3 = new Vector3(randomPos.x, 0f, randomPos.y) + new Vector3(PlayerController.LOCAL.transform.position.x, 1f, PlayerController.LOCAL.transform.position.z);
-            InstantiateEnemy(_spawnInfo.prefabEnemy, randomPos3);
-            _spawnTimer = _spawnInfo.timeBetweenSpawn;
+            _timer = 0f;
+            InstantiateEnnemies();
         }
     }
 
-    public void InstantiateEnemy(GameObject go, Vector3 pos)
+    public void InstantiateEnnemies()
     {
-        _enemies.Add(Instantiate(go, pos, Quaternion.identity));
+        for (int i = 0; i < _spawnInfo.ennemiesPerWaves; i++)
+        {
+            var randomPos = Random.insideUnitCircle.normalized * _spawnInfo.distanceSpawn;
+            var randomPos3 = new Vector3(randomPos.x, 0f, randomPos.y) + new Vector3(PlayerController.LOCAL.transform.position.x, 1f, PlayerController.LOCAL.transform.position.z);
+            _enemies.Add(Instantiate(_spawnInfo.prefabEnemy, randomPos3, Quaternion.identity));
+        }
     }
 
     public void DestroyEnemy(GameObject gameObject)
