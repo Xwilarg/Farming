@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69b8d2c2555c2314f88223aa6b259ee8, type: 3}
   m_Name: EnemySpawnInfo
   m_EditorClassIdentifier: 
-  ennemiesPerWaves: 10
-  timeBetweenWaves: 5
+  ennemiesPerWaves: 3
+  timeBetweenWaves: 10
   prefabEnemy: {fileID: 4048461252146628350, guid: c8d73256b6d8bca4bb93b1a0ea3f7a8a,
     type: 3}
   distanceSpawn: 20

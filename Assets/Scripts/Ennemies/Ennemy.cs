@@ -14,6 +14,6 @@ public class Ennemy : MonoBehaviour
     {
         var player = GameObject.FindGameObjectWithTag("Player");
         transform.LookAt(player.transform);
-        _rb.velocity = transform.forward * 10f;
+        _rb.velocity = transform.forward * 1f;
     }
 }

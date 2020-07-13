@@ -17,7 +17,7 @@ MonoBehaviour:
   shootType: 0
   intervalBetweenShoot: 0.1
   lifetime: 2
-  nbShoot: 1
+  nbShoot: 2
   deviationAngle: 2
   crosshair: {fileID: 21300000, guid: 6a7f1b095fb8f3d44bf3134e30b981c7, type: 3}
   zoomMultiplicator: 1.5
