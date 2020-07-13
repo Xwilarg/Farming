@@ -27,6 +27,8 @@ public class GunPower : AItemPower
         => _info.crosshair;
     public float GetZoomMultiplicator()
         => _info.zoomMultiplicator;
+    public bool IsAuto()
+        => _info.haveAutoFire;
 
     private WeaponInfo _info;
 

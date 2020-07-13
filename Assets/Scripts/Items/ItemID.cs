@@ -13,5 +13,6 @@
     GunBounce,
     Chest,
     BasicPlantSeed,
-    Shop
+    Shop,
+    GunAuto
 }

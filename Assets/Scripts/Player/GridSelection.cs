@@ -56,7 +56,7 @@ public class GridSelection : MonoBehaviour
                     UpdateSelectionColor();
                 }
             }
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && UIManager.uiManager.GetActionBar().GetCurrentlySelectedItem().HaveAutoFire()))
             {
                 var item = UIManager.uiManager.GetActionBar().GetCurrentlySelectedItem();
                 if (item == null)

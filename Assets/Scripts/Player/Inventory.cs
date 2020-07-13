@@ -17,6 +17,7 @@ public class Inventory
     /// </summary>
     public void InitInventoryContent()
     {
+        AddItemInternal(ItemsList.Items.AllItems[ItemID.GunAuto], 1);
         AddItemInternal(ItemsList.Items.AllItems[ItemID.GunMechanic], 1);
         AddItemInternal(ItemsList.Items.AllItems[ItemID.Shop], 1);
         AddItemInternal(ItemsList.Items.AllItems[ItemID.Generator], 1);

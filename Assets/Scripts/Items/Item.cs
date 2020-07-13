@@ -96,6 +96,15 @@ public class Item
             return 1;
         return gunPower.GetZoomMultiplicator();
     }
+    public bool HaveAutoFire()
+    {
+        if (_power == null)
+            return false;
+        var gunPower = _power as GunPower;
+        if (gunPower == null)
+            return false;
+        return gunPower.IsAuto();
+    }
 
     /// FOR PLANTS
     public bool IsPlant()

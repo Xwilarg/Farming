@@ -32,6 +32,9 @@ public class WeaponInfo : ScriptableObject
     [Tooltip("Zoom multiplicator when aiming\nNo zoom is 1")]
     public float zoomMultiplicator;
 
+    [Tooltip("Can you keep mouse 1 pressed to fire continiously?")]
+    public bool haveAutoFire;
+
     [Header("Projectile info")]
     [Header("ONLY FOR MECHANICAL WEAPONS")]
     [Tooltip("Mass of the projectile (The heavier, the faster it'll drop to the ground)")]

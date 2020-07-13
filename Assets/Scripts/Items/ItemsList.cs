@@ -33,6 +33,8 @@ public class ItemsList : ScriptableObject
     private Sprite BasicPlantSeedImg;
     [SerializeField]
     private Sprite ShopImg;
+    [SerializeField]
+    private Sprite GunAutoImg;
 
     [Header("Prefab GameObject to be put ingame")]
     [SerializeField]
@@ -57,6 +59,8 @@ public class ItemsList : ScriptableObject
     private WeaponInfo SniperInfo;
     [SerializeField]
     private WeaponInfo GunBounceInfo;
+    [SerializeField]
+    private WeaponInfo GunAutoInfo;
 
     [Header("Plant scriptable objects")]
     [SerializeField]
@@ -91,6 +95,8 @@ public class ItemsList : ScriptableObject
     private int BasicPlantSeedPrice;
     [SerializeField]
     private int ShopPrice;
+    [SerializeField]
+    private int GunAutoPrice;
 
     public static ItemsList Items;
 
@@ -119,7 +125,8 @@ public class ItemsList : ScriptableObject
             { ItemID.GunBounce, new Item(ItemID.GunBounce, "Bounce Gun", "It's like a regular gun but more annoying", new[] { TileType.Special }, GunBounceImg, null, GunBouncePrice, typeof(GunPower), GunBounceInfo) },
             { ItemID.Chest, new Item(ItemID.Chest, "Chest", "How can anyone resist this cute chest", new[] { TileType.All }, ChestImg, ChestGo, ChestPrice, typeof(EmptyPower)) },
             { ItemID.BasicPlantSeed, new Item(ItemID.BasicPlantSeed, "Basic Plant Seeds", "Maybe a cute flower will grow?", new[] { TileType.Dirt, TileType.WetDirt }, BasicPlantSeedImg, BasicPlantGo, BasicPlantPrice, typeof(PlantPower), BasicPlantInfo, ItemID.BasicPlant) },
-            { ItemID.Shop, new Item(ItemID.Shop, "Shop", "Once placed you'll be able to buy and sell stuffs from it", new[] { TileType.Grass }, ShopImg, ShopGo, ShopPrice, typeof(ShopPower)) }
+            { ItemID.Shop, new Item(ItemID.Shop, "Shop", "Once placed you'll be able to buy and sell stuffs from it", new[] { TileType.Grass }, ShopImg, ShopGo, ShopPrice, typeof(ShopPower)) },
+            { ItemID.GunAuto, new Item(ItemID.GunAuto, "SMG", "A gun with high firerate", new[] { TileType.Special }, GunAutoImg, null, GunAutoPrice, typeof(GunPower), GunAutoInfo) }
         };
     }
 
